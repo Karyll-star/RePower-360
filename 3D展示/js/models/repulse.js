@@ -400,10 +400,14 @@
       [hW + 10, rCy + rH * 0.35, rCz], [hW + 20, rCy + rH * 0.28, rCz + 22],
       [hW + 14, rCy - rH * 0.34, rCz + 14], [hW + 4, rCy - rH * 0.42, rCz - 10]
     ], 4.4, M.rubber, 30));
-    /* 仓门（半开，体现可抽出） */
+    /* 仓门：默认关闭（贴合壳体）——"半开"只作为可驱动的开合状态存在，
+       避免在展示/视频中出现一块翘起的侧板；爆炸或检视时再由外部驱动打开 */
     var door = RE.plate(rW * 0.96, rH * 0.96, 8, 4, M.shellMid, 0.8);
     door.rotation.y = Math.PI / 2;
-    reel.add(place(door, hW + 26, rCy, rCz - rH * 0.5));
+    door.name = 'ReelDoor';
+    door.userData.closed = new T.Vector3(hW + 5, rCy, rCz);
+    door.userData.open = new T.Vector3(hW + 5, rCy, rCz - rH * 0.52);
+    reel.add(place(door, hW + 5, rCy, rCz));
     reel.userData.explode = { dir: new T.Vector3(1, 0, 0), dist: 150 };
     g.add(reel);
 

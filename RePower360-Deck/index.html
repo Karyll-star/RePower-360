@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="industrial-cmf" data-themes="industrial-cmf">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>智储重生 RePower-360 · 工商业储能柜后市场方案全景 | 产品系统设计</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/themes/industrial-cmf.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ============ 1 · 封面 ============ -->
+  <section class="slide cover" data-title="封面" data-no-logo>
+    <div class="brandmark"><span class="dot"></span><span>RE-ENERGY 产品系统设计</span></div>
+    <p class="kicker">设计任务书 2-1 · 产品后市场视角</p>
+    <h1 class="h1 anim-fade-up" data-anim="fade-up">智储重生 RePower-360<br>工商业储能柜后市场方案全景</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">行业正从<b>「设备狂飙交付期」</b>步入<b>「存量衰减与出保断崖期」</b>。<br>
+      本方案以 <b>Re-Pulse 移动活化工作站</b> + <b>Re-Bridge 边缘网关</b> 为实体切入，
+      以资产健康中台为诊断中枢，以增量分成为造血引擎，盘活天量「孤儿电站」。</p>
+    <div class="kpis mt-l">
+      <div class="kpi"><div class="n">78.3<small>GW</small></div><div class="l">中国新型储能累计装机<br>184.2GWh · 存量已达峰值</div></div>
+      <div class="kpi bad"><div class="n">14<small>%</small></div><div class="l">电站内单体电芯 SOH 极差<br>木桶效应吞噬放电收益</div></div>
+      <div class="kpi good"><div class="n">40<small>%+</small></div><div class="l">后市场产值在全生命周期<br>价值中的占比（初期不足 10%）</div></div>
+    </div>
+    <div class="deck-footer">
+      <span>产品系统设计 · 课堂作业汇报 · 2026</span>
+      <span class="slide-number" data-current="1" data-total="39"></span>
+    </div>
+    <div class="notes">
+      <p><strong>开场定调</strong>：今天汇报的题目叫「智储重生 RePower-360」。一句话讲清我们在做什么——储能柜卖出去之后的十年，才是真正花钱的地方，我们要做的是这十年的生意。</p>
+      <p>先给三个数字定锚：<strong>78.3GW</strong> 是存量，说明蛋糕已经存在；<strong>14%</strong> 是电芯健康度极差，说明蛋糕上有明确的痛点；<strong>40%+</strong> 是后市场在全生命周期价值里的占比，说明这块蛋糕足够大。</p>
+      <p>过渡：所以问题不是"要不要做后市场"，而是"后市场里哪一块最值钱、我们凭什么切得动"。</p>
+    </div></section>
+
+  <!-- ============ 2 · 任务书要求 ============ -->
+  <section class="slide" data-title="任务书 2-1 · 作业要求">
+    <div class="deck-header"><span>RE-ENERGY · RePower-360</span><span>作业要求</span></div>
+    <div class="s-head">
+      <span class="s-num">00</span>
+      <div>
+        <p class="kicker">BRIEF · 设计任务书 2-1</p>
+        <h2 class="h2">选一款工业产品，从后市场视角做完整方案</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>题目要求的四件事</h4>
+            <ol class="pts">
+              <li>选择一款<b>工业产品</b>，网络调研其<b>后市场潜力</b>：发展阶段、发展预期、可拓展板块、未被挖掘的商业模式</li>
+              <li>确立<b>后市场机会点</b>，形成调研简报</li>
+              <li>交付<b>物理实体产品</b>（3D 文件、效果图）+ <b>移动端 / PC 端界面 Demo</b></li>
+              <li>给出<b>商业模式</b>与<b>盈利周期</b>测算</li>
+            </ol>
+            <div class="divider mt-m mb-m"></div>
+            <p class="note">交付格式：PPT 或 PDF，注明使用的 AI 工具名称与版本；Demo 需 MP4。<br>
+            本 deck 为网页版汇报，可直接全屏演示、一键导出 PDF、录屏交付。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>我们的应答</h4>
+            <ul class="pts">
+              <li><b>选定产品</b>：分布式工商业电化学储能柜<br><span class="dim2">典型规格 100kW/215kWh ~ 125kW/261kWh 磷酸铁锂一体柜</span></li>
+              <li><b>视角定位</b>：后市场运维 · 主动均衡修复 · 资产托管 · 退役梯次利用</li>
+              <li><b>初创项目</b>：RE-ENERGY「智储重生 RePower-360」<br><span class="dim2">第三方主动均衡活化、资产救援与梯次流转服务商</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="tag">DELIVERABLE MAP</span>
+            <p class="money" style="font-size:15px;line-height:1.9">
+              调研简报 → PART 1（P5–16）<br>
+              方案全景 → PART 2（P17–27）<br>
+              产品族介绍 → PART 3（P28–35）<br>
+              商业与盈利 → PART 2/4（P26–27 · P36–39）
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页是<strong>应答页</strong>，先把老师的题目摆出来，再逐条对应，让评审一眼看到我们没有漏项。</p>
+      <p>重点强调第四点"商业模式与盈利周期"——这是工业设计作业里最容易被忽略、但恰恰决定方案能否成立的部分，我们有专门测算（P25–26）。</p>
+    </div>
+      <div class="footnote">名词注释：主动均衡 = 把电量在电芯间转移而非耗散，可达安培级；梯次利用 = 退役电芯按实测残值降级再用</div>
+  </section>
+
+  <!-- ============ 3 · 目录 ============ -->
+  <section class="slide" data-title="目录 · 四幕结构">
+    <div class="deck-header"><span>RE-ENERGY · RePower-360</span><span>CONTENTS</span></div>
+    <div class="s-head">
+      <span class="s-num">AG</span>
+      <div>
+        <p class="kicker">AGENDA · 汇报结构</p>
+        <h2 class="h2">四幕：为什么做 → 做什么 → 做成什么样 → 怎么赚钱</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="toc-grid">
+        <div class="toc-item"><span class="tn">P1</span><div><div class="tt">后市场潜力调研</div>
+          <div class="td">存量拐点 · 孤儿电站 · 技术断层 · 未被挖掘的商业模式</div></div></div>
+        <div class="toc-item"><span class="tn">P2</span><div><div class="tt">RePower-360 方案全景</div>
+          <div class="td">重新上云 / 季度订阅 / 主动维护 / 回收转卖 · 三类交付物</div></div></div>
+        <div class="toc-item"><span class="tn">P3</span><div><div class="tt">Re-Pulse 与 Re-Bridge 产品族</div>
+          <div class="td">概念 · 功能 · 形态尺寸 · CMF · 结构细节 · 效果图与 3D</div></div></div>
+        <div class="toc-item"><span class="tn">P4</span><div><div class="tt">结论 · 交付清单 · AI 声明</div>
+          <div class="td">三句话结论 · 对照任务书 · 工具与版本 · 下一步里程碑</div></div></div>
+      </div>
+      <div class="card ghost mt-l">
+        <p style="font-size:17px">操作提示：<span class="money">← →</span> 翻页 ·
+          <span class="money">O</span> 目录总览 · <span class="money">S</span> 演讲者视图（双屏逐字稿）·
+          <span class="money">F</span> 全屏 · <span class="money">P/Ctrl+P</span> 导出 PDF</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>目录页快速过一遍，让评审建立预期：前面讲<strong>为什么有机会</strong>，中间讲<strong>我们做什么</strong>，然后重点讲<strong>产品长什么样</strong>，最后回到<strong>商业能不能成立</strong>。</p>
+      <p>如果时间紧张，P1 可以只讲 P6/P11/P13 三页，把时间留给 P3 产品设计部分。</p>
+    </div>
+      <div class="footnote">名词注释：孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；CMF = 颜色、材料与表面处理；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 4 · 一页讲清 ============ -->
+  <section class="slide" data-title="一页讲清 · 储能柜是什么">
+    <div class="deck-header"><span>RE-ENERGY · RePower-360</span><span>概念与定位</span></div>
+    <div class="s-head">
+      <span class="s-num">01</span>
+      <div>
+        <p class="kicker">CONTEXT · 一页讲清</p>
+        <h2 class="h2">工商业储能柜是什么？</h2>
+        <p class="sub-h2">它其实是企业装的「超大型工业充电宝」</p>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>它是怎么赚钱的</h4>
+            <ul class="pts">
+              <li><b>低谷存电</b> — 深夜电价低谷、或厂房屋顶光伏过剩时充电</li>
+              <li><b>高峰放电</b> — 白天用电高峰、电价最贵时放出来供生产使用</li>
+              <li><b>赚的是价差</b> — 峰谷价差越大，柜子跑得越勤，回本越快</li>
+              <li><b>顺便保命</b> — 电网停电 / 限电时秒级切换为应急后备电源</li>
+            </ul>
+            <div class="divider mt-m mb-m"></div>
+            <p class="note">典型规格：100kW/215kWh ~ 125kW/261kWh 磷酸铁锂一体柜，厂区户外落地部署，设计运行周期 10~15 年。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>为什么它必然有后市场</h4>
+            <ul class="pts">
+              <li><b>高频工况</b> — 工商业普遍「一日两充两放」，循环强度远高于家用储能</li>
+              <li><b>串并联结构</b> — 整柜可用容量由<b>最差的那一颗电芯</b>决定（木桶效应）</li>
+              <li><b>价值重心后移</b> — 电芯成本持续探底，运维 / 修复 / 回收的产值占比反而上升</li>
+            </ul>
+          </div>
+          <div class="card warn">
+            <h4>一句话痛点</h4>
+            <p>柜子还能用，但因为<b>几百颗电芯不一致</b>，每天少放的电，就是企業每月真金白银的损失。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页是给非专业听众的<strong>翻译页</strong>：储能柜 = 工业充电宝，靠峰谷价差赚钱。</p>
+      <p>关键铺垫是"一日两充两放"和"木桶效应"——后面所有技术痛点都从这两点推导出来，先埋好。</p>
+      <p>过渡：既然柜子靠"每天放多少电"赚钱，那我们看看到底是什么在偷走它的放电量。</p>
+    </div>
+      <div class="footnote">名词注释：木桶效应 = 整柜可用容量被最差那颗电芯限制；两充两放 = 一天两次充满、两次放完的工商业典型工况</div>
+  </section>
+
+  <!-- ============ 5 · PART 1 章节页 ============ -->
+  <section class="slide sec-cover" data-title="PART 1 · 后市场潜力调研">
+    <div class="brandmark"><span class="dot"></span><span>PART ONE</span></div>
+    <div class="sec-num">01</div>
+    <h1 class="h1">后市场潜力调研</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">发展阶段 · 发展预期 · 可拓展板块 · 未被挖掘的商业模式</p>
+    <div class="sec-list">
+      <span>存量爆发与出保窗口</span><span>设备健康趋势</span><span>孤儿电站</span>
+      <span>产值占比倒挂</span><span>退役潮</span><span>技术断层</span><span>模式创新</span>
+    </div>
+    <div class="notes">
+      <p>进入第一部分。这一部分的任务是<strong>用数据证明机会是真的</strong>，而不是我们自己觉得有机会。</p>
+      <p>结构上按任务书的四个问题走：现在什么阶段 → 未来多大 → 还有哪些板块 → 哪些模式没人做。</p>
+    </div></section>
+
+  <!-- ============ 6 · 现状 1 装机存量 ============ -->
+  <section class="slide" data-title="现状 01 · 装机存量达历史峰值">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>发展阶段 01</span></div>
+    <div class="s-head">
+      <span class="s-num">02</span>
+      <div>
+        <p class="kicker">SCALE · 存量基本盘</p>
+        <h2 class="h2">存量已达历史峰值：78.3GW / 184.2GWh</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="kpis g4 mb-l">
+        <div class="kpi"><div class="n">78.3<small>GW</small></div><div class="l">中国新型储能累计装机<br>（截至 2024 年底）</div></div>
+        <div class="kpi"><div class="n">184.2<small>GWh</small></div><div class="l">对应累计装机能量<br>规模</div></div>
+        <div class="kpi blue"><div class="n">43.7<small>GW</small></div><div class="l">2024 单年新增投运<br>109.8GWh</div></div>
+        <div class="kpi good"><div class="n">100<small>%+</small></div><div class="l">2024 年新增同比增速<br>（翻倍以上）</div></div>
+      </div>
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>区域高密度聚集</h4>
+            <p>工商业分布式储能备案与落地项目<b>数万台</b>，主要集中在峰谷价差显著的工业大省：
+              浙江、广东、江苏、山东。</p>
+            <p class="note">价差越大 → 套利收益越高 → 业主对"少放的电"越敏感 → 后市场付费意愿越强。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>这对后市场意味着什么</h4>
+            <ul class="pts sm">
+              <li>存量已经不是一个"未来时"，而是<b>此刻就摆在厂区里</b>的数万台设备</li>
+              <li>2022—2023 年爆发期安装的柜子，正在同时进入<b>性能衰减期</b>与<b>原厂出保期</b></li>
+              <li>后市场不需要等新增，<b>直接对着存量切</b>即可</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">名词注释：GW = 功率单位吉瓦；GWh 为容量单位吉瓦时　|　数据来源：中关村储能产业技术联盟（CNESA）《储能产业研究白皮书》及 DataLink 全球储能数据库。</div>
+    <div class="notes">
+      <p>四个数字一起念：78.3GW 是存量、184.2GWh 是能量规模、43.7GW 是单年新增、100%+ 是增速。</p>
+      <p>强调一句：<strong>工商业柜不是分散在全国，而是密集堆在四个省</strong>——这对我们后续做网格化地推、控制上门成本非常关键（P26 会用到）。</p>
+    </div>
+  </section>
+
+  <!-- ============ 7 · 现状 2 浴盆曲线 ============ -->
+  <section class="slide" data-title="现状 02 · 设备健康趋势">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>发展阶段 02</span></div>
+    <div class="s-head">
+      <span class="s-num">03</span>
+      <div>
+        <p class="kicker">TIMING · 时间拐点</p>
+        <h2 class="h2">设备健康趋势：投运第 3~5 年进入衰减拐点</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-grid stretch">
+        <div class="view-box">
+          <div class="vt">设备健康趋势 · 投运年限 vs 健康度 / 维护需求</div>
+          <div class="echart h-lg" data-ec="health"></div>
+          <p class="chart-note">绿色窗口为第 3~5 年「损耗故障期 + 原厂出保」叠加段：SOH 加速下滑，维护告警强度陡升</p>
+        </div>
+        <div class="col-stack">
+          <div class="card fill warn">
+            <h4>窗口期叠加</h4>
+            <ul class="pts sm">
+              <li><b>性能衰减</b>：容量跳水、电芯离散度拉大、内阻上升</li>
+              <li><b>原厂出保</b>：质保普遍 3~5 年，与损耗期<b>几乎重合</b></li>
+              <li><b>结果</b>：业主在最需要维保的时刻，恰好失去厂家兜底</li>
+            </ul>
+          </div>
+          <div class="card fill ok">
+            <h4>我们的机会窗口</h4>
+            <p>2022—2023 年爆发期安装的柜机，<b>正密集迎来这个拐点</b>。后市场具千亿级刚需空间，且需求<b>被动产生、不可回避</b>。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>用<strong>设备健康趋势曲线</strong>替代抽象浴盆曲线：前两年偶然失效后，第 3~5 年 SOH 加速下滑、维护告警强度陡升——这就是"拐点"。</p>
+      <p>最有力的是<strong>两条曲线的叠加</strong>：性能开始衰减的时间，和原厂质保到期的时间几乎是同一年。业主最需要时，恰好被厂家"放手"。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；内阻 = 电芯内部电阻，随老化升高</div>
+  </section>
+
+  <!-- ============ 9 · 预期：产值倒挂（已前移至 04） ============ -->
+  <section class="slide" data-title="预期 · 后市场产值占比倒挂">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>发展预期</span></div>
+    <div class="s-head">
+      <span class="s-num">04</span>
+      <div>
+        <p class="kicker">FORECAST · 发展预期</p>
+        <h2 class="h2">千亿级「电化学资产全生命周期运维」空间</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r mb-m">
+        <div class="view-box">
+          <div class="vt">VALUE SHIFT · 后市场产值占比倒挂</div>
+          <div class="echart h-xl" data-ec="value-mix"></div>
+          <p class="chart-note">电芯成本探底 → 前端硬件越来越便宜；而巡检运维、健康度修复、消防更换、残值回收
+            在 10~15 年运行周期里<b>反复发生</b>。占比由初期不足 10% 跃升至 <b>40%+</b>（中间年份为等趋势插值示意）。</p>
+        </div>
+        <div class="view-box">
+          <div class="vt">CAPACITY · 中国新型储能累计装机</div>
+          <div class="echart h-xl" data-ec="capacity"></div>
+          <p class="chart-note">2024 年 <b>78.3GW</b> 为 CNESA 实际值；2025—2030 按 CAGR 插值推算
+            （理想场景 24.5% → 291.2GW，保守场景 → 200GW+）。</p>
+        </div>
+      </div>
+      <div class="card">
+        <h4>退役潮：同一批资产的第二次变现</h4>
+        <p>容量衰减至 <b>75%~80%</b> 时必须退出高压峰谷套利场景，<b>2026 年起</b>每年退役的工商业电芯容量呈指数级攀升，
+          催生<b>梯次利用</b>与低压再制造产业——叉车电池、观光车电池、离网微网。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>左图是<strong>本页真正的论点</strong>：价值重心在生命周期里后移，后市场从不足 10% 涨到 40%+，这就是"倒挂"。</p>
+      <p>右图回答"盘子有多大"：2024 年 78.3GW 是实测地基，2030 年理想 291.2GW、保守 200GW+，CAGR 24.5%。</p>
+      <p>倒挂的因果要讲清：硬件一次性买卖越来越便宜，而运维是十年里反复发生的支出，所以钱必然往后市场走。</p>
+    </div>
+      <div class="footnote">名词注释：峰谷套利 = 低谷电价充电、高峰电价放电赚差价；梯次利用 = 退役电芯按实测残值降级再用；CAGR = 复合年均增长率；残值 = 退役电池可回收的剩余价值；GW = 功率单位吉瓦；GWh 为容量单位吉瓦时</div>
+  </section>
+
+  <!-- ============ 8 · 现状 3 孤儿电站（已后移至 05） ============ -->
+  <section class="slide" data-title="现状 03 · 价格战与孤儿电站">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>发展阶段 03</span></div>
+    <div class="s-head">
+      <span class="s-num">05</span>
+      <div>
+        <p class="kicker">FALLOUT · 行业洗牌</p>
+        <h2 class="h2">恶性价格战留下天量「孤儿电站」</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="kpis mb-l">
+        <div class="kpi bad"><div class="n">0.35<small>元/Wh</small></div><div class="l">储能电芯价格两年内腰斩<br>0.9~1.0 → 0.35~0.4，系统中标均价同步腰斩</div></div>
+        <div class="kpi bad"><div class="n">30<small>%</small></div><div class="l">近三成中小系统集成商<br>停产 / 破产 / 注销</div></div>
+        <div class="kpi bad"><div class="n">数千<small>台</small></div><div class="l">无原厂技术支持<br>无维保响应的孤儿电站</div></div>
+      </div>
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill warn">
+            <h4>典型的孤儿电站</h4>
+            <ul class="pts sm">
+              <li><b>云端欠费下线</b> — 原厂服务器停摆，数据不再上传</li>
+              <li><b>4G 物联网卡停机</b> — 设备退化为局域网离线盲跑</li>
+              <li><b>协议闭源</b> — 不同品牌 CAN / RS485 私有协议互不兼容，第三方接不进去</li>
+              <li><b>业主不会修也不敢停</b> — 柜子还在产线旁，停一天就是损失</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>为什么这是我们的切入点</h4>
+            <ul class="pts sm">
+              <li>孤儿电站<b>无人服务</b>——不是竞争红海，是供给真空</li>
+              <li>业主<b>已经付过一次钱</b>，对"再花点钱把它救活"接受度高</li>
+              <li>谁先把它<b>重新连上网</b>，谁就掌握了这批资产的长期服务入口</li>
+            </ul>
+            <div class="divider mt-m mb-m"></div>
+            <p class="note">这正是方案第一环「重新上云」的直接来源（P19）。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">名词注释：孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；RS485 = 工业现场常用串行通信标准；CAN = 工业现场常用通信总线；物联网卡 = 设备内置流量卡，用于上传运行数据　|　数据来源：高工产业研究院（GGII）行业年度白皮书及公开招投标数据。</div>
+    <div class="notes">
+      <p>价格战数据：电芯从约 0.9~1.0 元/Wh 掉到 0.35~0.4 元/Wh 以下，系统中标均价腰斩。</p>
+      <p>这一页要讲出<strong>画面感</strong>：一个工厂的储能柜，屏幕还在亮，但云服务器早停了、4G 卡也欠费了，业主甚至不知道它现在健康度多少。这就是"孤儿电站"。</p>
+    </div>
+  </section>
+
+  <!-- ============ 11 · 技术 1 SOH 极差 ============ -->
+  <section class="slide" data-title="技术 01 · SOH 极差与木桶效应">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>技术断层 01</span></div>
+    <div class="s-head">
+      <span class="s-num">06</span>
+      <div>
+        <p class="kicker">TECH · 实测数据</p>
+        <h2 class="h2">电芯不一致性拉大，SOH 极差最高达 14%</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>实测结论</h4>
+            <p>国家重点研发计划支持下、CNESA 与西清能源联合发布的《储能电站用锂离子电池健康评估实践分析》：
+              在检出的安全隐患中，<b>电芯一致性劣化与 BMS 故障占比最高</b>；电站内部单体电芯健康度（SOH）
+              极差最高可达 <b class="money">14%</b>。</p>
+            <div class="divider mt-m mb-m"></div>
+            <p class="note">统计基于国内实际投运储能电站运行数据，投运未满 3 年的站点已出现 13.81% 极差。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill warn">
+            <h4>木桶效应如何吞噬收益</h4>
+            <ul class="pts">
+              <li>磷酸铁锂（LFP）电池组为<b>串并联结构</b>，整柜可用容量由「最差的一颗电芯」决定</li>
+              <li>10%~14% 的容量差异 → <b>整柜实际放电量腰斩</b></li>
+              <li>工商业业主每月因放电不足，损失<b>数千元</b>峰谷套利收益</li>
+            </ul>
+            <div class="divider mt-m mb-m"></div>
+            <p class="money" style="font-size:17px;color:var(--accent)">装了 215kWh，实际只能放 180kWh —— 这 35kWh 每天都在流失。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；BMS = 电池管理系统，负责监控与电芯均衡；木桶效应 = 整柜可用容量被最差那颗电芯限制；峰谷套利 = 低谷电价充电、高峰电价放电赚差价　|　数据来源：西清能源《储能电站用锂离子电池健康评估实践分析》（国家重点研发计划支持）。</div>
+    <div class="notes">
+      <p>这一页是<strong>整个方案的技术地基</strong>，务必讲透：不是电池坏了，是几百颗电芯"不齐了"，而整柜容量由最差那颗决定。</p>
+      <p>那个"装了 215kWh 只能放 180kWh"的例子可以现场口算：每天两充两放，按 0.8 元价差，一个月就是几千块。</p>
+    </div>
+  </section>
+
+  <!-- ============ 12 · 技术 2 被动均衡 ============ -->
+  <section class="slide" data-title="技术 02 · 被动均衡的物理瓶颈">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>技术断层 02</span></div>
+    <div class="s-head">
+      <span class="s-num">07</span>
+      <div>
+        <p class="kicker">TECH · 现有手段失效</p>
+        <h2 class="h2">出厂监控「只看不治」：毫安级均衡治不了大电芯</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="seg4 c3">
+        <div class="seg" style="--sc:var(--bad)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="耗散">
+              <path d="M48 24q-4-4 0-8q4-4 0-8"/>
+              <path d="M60 24q-4-4 0-8q4-4 0-8"/>
+              <path d="M72 24q-4-4 0-8q4-4 0-8"/>
+              <path d="M26 42h12l6 9l7-18l7 18l7-18l6 9h19"/>
+              <rect x="32" y="60" width="56" height="52" rx="4"/>
+              <path d="M60 60v-8"/>
+              <rect x="38" y="74" width="44" height="32" rx="2" fill="currentColor" stroke="none" opacity=".45"/>
+            </svg>
+          </div>
+          <div class="nm">耗散</div>
+          <div class="tg">出厂 BMS <b>被动均衡</b>：多余电量经电阻烧成热量白白扔掉，电流仅 50~100mA</div>
+        </div>
+
+        <div class="seg" style="--sc:var(--accent)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="追不平">
+              <rect x="12" y="38" width="38" height="72" rx="4"/>
+              <path d="M31 38v-8"/>
+              <rect x="18" y="52" width="26" height="52" rx="2" fill="currentColor" stroke="none" opacity=".45"/>
+              <circle cx="80" cy="62" r="26"/>
+              <path d="M80 62V44"/>
+              <path d="M80 62l13 9"/>
+            </svg>
+          </div>
+          <div class="nm">追不平</div>
+          <div class="tg">280Ah / 314Ah 大电芯，15Ah 漂移需连跑 <b>150~300 小时</b>，「两充两放」下永远追不平</div>
+        </div>
+
+        <div class="seg" style="--sc:var(--accent-2)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="看不见">
+              <path d="M40 52a12 12 0 0 1 1-23a15 15 0 0 1 28-6a17 17 0 0 1 11 29z"/>
+              <path d="M60 54v6" stroke-dasharray="3 4"/>
+              <path d="M54 62l12 12"/>
+              <path d="M66 62l-12 12"/>
+              <path d="M60 76v6" stroke-dasharray="3 4"/>
+              <rect x="42" y="86" width="36" height="28" rx="3"/>
+              <path d="M42 95h36"/>
+            </svg>
+          </div>
+          <div class="nm">看不见</div>
+          <div class="tg">高频内阻数据不上云，一旦断网即退化为<b>离线盲盒</b></div>
+        </div>
+      </div>
+
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:19px">「耗散」+「追不平」+「看不见」= 出厂监控<b>只看不治</b></p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页<strong>只讲现状，不提方案</strong>：三张图分别回答"为什么治不了"（耗散）、"为什么来不及"（追不平）、"为什么连问题都发现不了"（看不见）。</p>
+      <p>两个数量级要讲清：均衡电流只有 50~100mA，而电芯是 280Ah / 314Ah；15Ah 漂移要 150~300 小时，实际却是"两充两放"天天在跑——永远追不平。</p>
+      <p>过渡：出厂手段全部失效，这块市场就只能靠外部力量补上——这是我们方案存在的理由（方案在 PART 2 才登场）。</p>
+    </div>
+      <div class="footnote">名词注释：BMS = 电池管理系统，负责监控与电芯均衡；被动均衡 = 靠电阻把多余电量发热耗掉，仅毫安级；两充两放 = 一天两次充满、两次放完的工商业典型工况；内阻 = 电芯内部电阻，随老化升高</div>
+  </section>
+
+  <!-- ============ 15 · 机会点确立 ============ -->
+  <section class="slide" data-title="结论 · 机会点确立与三支柱">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>机会点确立</span></div>
+    <div class="s-head">
+      <span class="s-num">08</span>
+      <div>
+        <p class="kicker">OPPORTUNITY · 结论</p>
+        <h2 class="h2">确立机会点：硬件工具 + 算法中台 + 增量分成</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="pillar-fig mb-m">
+        <svg viewBox="112 66 876 500" fill="none" role="img"
+             aria-label="三支柱互锁闭环：硬件工具、算法中台、增量分成">
+
+          <!-- ============ 闭环连线（虚线 + 箭头构成顺时针闭环） ============ -->
+          <path class="pf-arrow" d="M380 200H700"/>
+          <path class="pf-head"  d="M720 200 L700 191 L700 209 Z"/>
+          <path class="pf-arrow" d="M746.8 279.1 Q744.6 326.4 653.2 350.9"/>
+          <path class="pf-head"  d="M653.2 350.9 L676.8 354.9 L672.1 335.5 Z"/>
+          <path class="pf-arrow" d="M446.8 350.9 Q355.4 326.4 353.2 279.1"/>
+          <path class="pf-head"  d="M353.2 279.1 L363.2 300.6 L345.2 301.5 Z"/>
+
+          <text class="pf-el" x="550" y="186">数据上云</text>
+          <text class="pf-el" x="772" y="342">量化收益</text>
+          <text class="pf-el" x="328" y="342">反哺迭代</text>
+
+          <!-- 中心：互锁扣环 -->
+          <g class="lock">
+            <circle cx="524" cy="268" r="24"/>
+            <circle cx="576" cy="268" r="24"/>
+          </g>
+
+          <!-- ============ 支柱 01 · 硬件工具 ============ -->
+          <g class="pf-n1">
+            <circle class="ring-in" cx="250" cy="200" r="130"/>
+            <circle class="ring"    cx="250" cy="200" r="130"/>
+            <text class="pf-tag" x="250" y="100">物理实体产品</text>
+            <svg class="pf-ic" x="190" y="110" width="120" height="120" viewBox="0 0 120 120"
+                 stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M50 44V30q10-10 20 0v14"/>
+              <rect x="12" y="44" width="96" height="62" rx="7"/>
+              <rect x="24" y="56" width="46" height="26" rx="3"/>
+              <path d="M31 70h7l4-7 4 12 4-9h7"/>
+              <circle cx="86" cy="62" r="5"/>
+              <circle cx="86" cy="83" r="5"/>
+              <path d="M28 106v7M92 106v7"/>
+            </svg>
+            <text class="pf-nm"  x="250" y="278">硬件工具</text>
+            <text class="pf-cap" x="250" y="308">便携主动均衡活化站</text>
+          </g>
+
+          <!-- ============ 支柱 02 · 算法中台 ============ -->
+          <g class="pf-n2">
+            <circle class="ring-in" cx="850" cy="200" r="130"/>
+            <circle class="ring"    cx="850" cy="200" r="130"/>
+            <text class="pf-tag" x="850" y="100">软件界面 DEMO</text>
+            <svg class="pf-ic" x="790" y="110" width="120" height="120" viewBox="0 0 120 120"
+                 stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="26" width="100" height="64" rx="6"/>
+              <path d="M50 90v12h20v-12"/>
+              <path d="M34 114h52"/>
+              <path d="M20 42h80" stroke-width="2.8" opacity=".45"/>
+              <path d="M22 74l17-11 15 9 17-19 17 15" stroke-width="3.6"/>
+              <circle cx="87" cy="55" r="4.6" fill="currentColor" stroke="none"/>
+            </svg>
+            <text class="pf-nm"  x="850" y="278">算法中台</text>
+            <text class="pf-cap" x="850" y="308">健康诊断与救援中枢</text>
+          </g>
+
+          <!-- ============ 支柱 03 · 增量分成 ============ -->
+          <g class="pf-n3">
+            <circle class="ring-in" cx="550" cy="430" r="130"/>
+            <circle class="ring"    cx="550" cy="430" r="130"/>
+            <text class="pf-tag" x="550" y="330">创新商业模式</text>
+            <svg class="pf-ic" x="490" y="340" width="120" height="120" viewBox="0 0 120 120"
+                 stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="46" cy="68" r="26" stroke-width="17" opacity=".26" pathLength="100"/>
+              <circle cx="46" cy="68" r="26" stroke-width="17" stroke-dasharray="50 50"
+                      pathLength="100" transform="rotate(-90 46 68)"/>
+              <path d="M98 96V50"/>
+              <path d="M85 63l13-13 13 13"/>
+            </svg>
+            <text class="pf-nm"  x="550" y="508">增量分成</text>
+            <text class="pf-cap" x="550" y="538">挽回收益 · 残值认证</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="ev3">
+        <div class="ev" style="--evc:var(--accent)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="确定性爆发">
+              <path d="M14 22h92" stroke-width="5" stroke-dasharray="10 9" opacity=".3"/>
+              <path d="M18 36C52 40 62 60 74 92"/>
+              <circle cx="18" cy="36" r="7.5" fill="currentColor" stroke="none"/>
+              <path d="M64 96l10 10 10-10"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">确定性爆发</div>
+            <div class="ed">存量集中迈入健康拐点，需求被动产生</div>
+          </div>
+        </div>
+        <div class="ev" style="--evc:var(--accent-3)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="供给端断层">
+              <rect x="14" y="47" width="34" height="26" rx="13"/>
+              <rect x="72" y="47" width="34" height="26" rx="13"/>
+              <path d="M53 60h14" stroke-width="5" stroke-dasharray="5 5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">供给端断层</div>
+            <div class="ed">SOH 测不准、均衡治不动、孤儿电站激增</div>
+          </div>
+        </div>
+        <div class="ev" style="--evc:var(--good)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="落脚点清晰">
+              <circle cx="60" cy="60" r="42" opacity=".35"/>
+              <circle cx="60" cy="60" r="24"/>
+              <circle cx="60" cy="60" r="8" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">落脚点清晰</div>
+            <div class="ed">三者互锁闭环，缺一不可</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:19px">从<b>被动维修</b>，转向<b>资产运营</b> —— 这是我们确立的机会点</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>第一部分收尾。指着中间这张闭环图讲：<strong>三句话 —— 需求确定、原厂缺席、我们能切</strong>。</p>
+      <p>三支柱对应关系：左上「硬件工具」= 物理实体产品（便携均衡活化站）；右上「算法中台」= 软件界面 Demo（PC + App）；底部「增量分成」= 创新商业模式。</p>
+      <p>重点讲<strong>为什么要画成闭环而不是三张并列的卡</strong>：硬件下场采集数据 → 中台算出挽回多少电量和收益 → 商业模式把收益按比例分成并沉淀残值认证 → 产生的现金流再反哺下一轮硬件迭代与服务呼叫。三者互相喂养，中间那个<strong>互锁扣环</strong>就是这个意思。</p>
+      <p>底下三条只念标题+一行：确定性爆发（存量集中迈入健康拐点）、供给端断层（SOH 测不准 / 毫安级均衡治不动 / 孤儿电站激增）、落脚点清晰（三者互锁）。</p>
+      <p>过渡：那么具体怎么做？进入第二部分，RePower-360 的四步闭环。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；BMS = 电池管理系统，负责监控与电芯均衡；主动均衡 = 把电量在电芯间转移而非耗散，可达安培级；孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；残值 = 退役电池可回收的剩余价值；增量分成 = 从为客户挽回的放电收益中按比例抽成</div>
+  </section>
+
+  <!-- ============ 10 · 四大板块 ============ -->
+  <section class="slide" data-title="板块 · 维护 / 上云 / 安全 / 回收">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>可拓展板块</span></div>
+    <div class="s-head">
+      <span class="s-num">09</span>
+      <div>
+        <p class="kicker">SEGMENTS · 细分板块</p>
+        <h2 class="h2">从「坏了换整包」走向四个高附加值板块</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="seg4">
+        <div class="seg" style="--sc:var(--accent)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="维护">
+              <path d="M40 20h8l5-10 6 20 6-10h9"/>
+              <rect x="16" y="40" width="26" height="62" rx="4"/>
+              <rect x="20" y="76" width="18" height="23" rx="2" fill="currentColor" stroke="none" opacity=".5"/>
+              <path d="M29 40v-8"/>
+              <rect x="78" y="40" width="26" height="62" rx="4"/>
+              <rect x="82" y="48" width="18" height="51" rx="2" fill="currentColor" stroke="none" opacity=".5"/>
+              <path d="M91 40v-8"/>
+              <path d="M72 68H48"/>
+              <path d="M56 60l-8 8 8 8"/>
+            </svg>
+          </div>
+          <div class="nm">维护</div>
+          <div class="tg">大电流活化 · 拉平压差</div>
+        </div>
+
+        <div class="seg" style="--sc:var(--accent-2)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="上云">
+              <path d="M40 52a12 12 0 0 1 1-23a15 15 0 0 1 28-6a17 17 0 0 1 11 29z"/>
+              <path d="M40 62a30 30 0 0 1 40 0"/>
+              <path d="M48 70a18 18 0 0 1 24 0"/>
+              <rect x="42" y="78" width="36" height="32" rx="3"/>
+              <path d="M42 88h36"/>
+              <circle cx="71" cy="84" r="2.4" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="nm">上云</div>
+          <div class="tg">协议破壁 · 孤儿电站重连</div>
+        </div>
+
+        <div class="seg" style="--sc:var(--accent-3)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="安全">
+              <path d="M60 18l34 12v26c0 22-14 34-34 42-20-8-34-20-34-42V30z"/>
+              <path d="M60 44c8 10 12 15 12 20a12 12 0 0 1-24 0c0-5 4-10 12-20z"
+                    fill="currentColor" stroke="none" opacity=".55"/>
+            </svg>
+          </div>
+          <div class="nm">安全</div>
+          <div class="tg">流体消防耗材 · 周期订阅</div>
+        </div>
+
+        <div class="seg" style="--sc:var(--good)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="回收">
+              <rect x="46" y="16" width="28" height="26" rx="3"/>
+              <path d="M60 16v-7"/>
+              <path d="M60 48v16"/>
+              <path d="M53 58l7 7 7-7"/>
+              <rect x="14" y="76" width="24" height="24" rx="3"/>
+              <rect x="18" y="81" width="16" height="15" rx="2" fill="currentColor" stroke="none" opacity=".5"/>
+              <rect x="48" y="76" width="24" height="24" rx="3"/>
+              <rect x="52" y="85" width="16" height="11" rx="2" fill="currentColor" stroke="none" opacity=".5"/>
+              <rect x="82" y="76" width="24" height="24" rx="3"/>
+              <rect x="86" y="90" width="16" height="6" rx="2" fill="currentColor" stroke="none" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="nm">回收</div>
+          <div class="tg">梯次分选 · 残值翻数倍</div>
+        </div>
+      </div>
+
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:19px">从「坏了换整包」的一次性买卖，串成 <b>10~15 年反复发生</b>的全生命周期收入链</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页<strong>不念文字</strong>：四张图各自一句话——维护是"把电搬平"，上云是"让断网的柜子重新说话"，安全是"液冷/消防耗材周期性更换"，回收是"退役电芯分选后再卖一次"。</p>
+      <p>四个板块对应原调研的四大高附加值方向：电芯级主动活化 / 孤儿电站上云 / 特种流体与安全耗材 / 梯次降级改装。</p>
+      <p>关系：上云是入口（先连上），维护是核心（最值钱），安全是稳定耗材收入，回收是末端变现。</p>
+    </div>
+      <div class="footnote">名词注释：孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；压差 = 单体间电压差，越大一致性越差；残值 = 退役电池可回收的剩余价值</div>
+  </section>
+
+  <!-- ============ 14 · 现金流形态 ============ -->
+  <section class="slide" data-title="商业模式 · 现金流形态对比">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>模式对比</span></div>
+    <div class="s-head">
+      <span class="s-num">10</span>
+      <div>
+        <p class="kicker">CASH FLOW · 为什么传统维保做不下去</p>
+        <h2 class="h2">单次叫修  VS  订阅与分成</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-grid stretch">
+        <div class="view-box">
+          <div class="vt">三层现金流 · 单柜年化贡献（元 / 柜 / 年）</div>
+          <div class="echart h-lg" data-ec="cashflow"></div>
+          <p class="chart-note">耗材（冷却液 / 灭火介质）按周期更换，计入持续性补充现金流</p>
+        </div>
+        <div class="col-stack">
+          <div class="card" style="border-left:3px solid var(--bad)">
+            <h4 style="color:var(--bad)">单次叫修（Break-Fix）</h4>
+            <ul class="pts sm">
+              <li>单次上门成本 <b>500~1000 元</b>，报价再高业主嫌贵</li>
+              <li>收入<b>不可预测</b>，无法排班、无法备货</li>
+              <li>与业主<b>利益对立</b>：修得越好，下次越没生意</li>
+              <li>结果：<b>成本与收益倒挂</b>，没人愿意做</li>
+            </ul>
+          </div>
+          <div class="card ok">
+            <h4>订阅制 + 增量分成</h4>
+            <ul class="pts sm">
+              <li>按季度 / 年收取<b>确定性服务费</b>，现金流可预测</li>
+              <li>EMC 分成：从<b>挽回的电费</b>里抽 20%~30%，业主零风险</li>
+              <li>利益<b>完全一致</b>：柜子越健康，双方赚得越多</li>
+              <li>叠加耗材订阅、退役撮合佣金 → <b>三层现金流</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页回答"为什么过去没人做成"——不是看不到需求，而是<strong>单次叫修的商业模式本身不成立</strong>。</p>
+      <p>左边柱状图给出三层现金流的量级：<strong>订阅服务费是绝对主力（≈1 万元 / 柜 / 年）</strong>，硬件一次性、佣金长尾为辅；这是后面 P25 收入结构模型的预告。</p>
+    </div>
+      <div class="footnote">名词注释：EMC = 合同能源管理，从客户增量收益中分成；灭火介质 = 储能消防系统使用的灭火材料；增量分成 = 从为客户挽回的放电收益中按比例抽成</div>
+  </section>
+
+  <!-- ============ 13 · 商业模式对比 ============ -->
+  <section class="slide" data-title="商业模式 · 传统 vs 创新">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>未被挖掘的模式</span></div>
+    <div class="s-head">
+      <span class="s-num">11</span>
+      <div>
+        <p class="kicker">MODEL · 模式创新</p>
+        <h2 class="h2">多维度比较</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-grid stretch">
+        <div class="view-box">
+          <div class="vt">模式适配度对比 · 五维评分（10 分制 · 示意）</div>
+          <div class="echart h-lg" data-ec="model-radar"></div>
+        </div>
+        <div class="col-stack">
+          <div class="card fill" style="border-left:3px solid var(--bad)">
+            <h4 style="color:var(--bad)">行业传统模式 · 四个断点</h4>
+            <ul class="pts sm">
+              <li><b>维保</b>：整包返厂等待数周，现场束手无策</li>
+              <li><b>数字化</b>：封闭大屏只看参数，算不准 SOH</li>
+              <li><b>商业</b>：单次叫修，成本与收益倒挂</li>
+              <li><b>末端</b>：衰减至 70% 打粉报废，残值仅原料价</li>
+            </ul>
+          </div>
+          <div class="card fill ok">
+            <h4>RePower-360 模式 · 四个破局</h4>
+            <ul class="pts sm">
+              <li><b>现场移动手术刀</b>：5A~10A 大电流主动均衡活化</li>
+              <li><b>资产救援平台</b>：破解私有协议，量化「电量损失金额」</li>
+              <li><b>EMC 增量对赌</b>：从挽回电费中抽 20%~30% 分润</li>
+              <li><b>降级梯次流转</b>：凭健康档案二次资产变现</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>先读左边雷达图：传统模式在<strong>现金流可预测、利益一致、残值变现</strong>三项几乎贴底——这才是它做不下去的根因，而不是"没人看到需求"。</p>
+      <p>再讲右边四行跃迁，重点仍是第三行的 EMC：把"业主先掏钱"变成"先见效再分钱"，直接消除付费心理门槛。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；主动均衡 = 把电量在电芯间转移而非耗散，可达安培级；EMC = 合同能源管理，从客户增量收益中分成；残值 = 退役电池可回收的剩余价值</div>
+  </section>
+
+  <!-- ============ 16 · 数据来源 ============ -->
+  <section class="slide" data-title="附录 · 数据来源与引证">
+    <div class="deck-header"><span>PART 1 · 后市场潜力调研</span><span>数据引证</span></div>
+    <div class="s-head">
+      <span class="s-num">12</span>
+      <div>
+        <p class="kicker">SOURCES · 数据来源</p>
+        <h2 class="h2">全部关键数据均可溯源</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="grid-2">
+        <div class="card fill"><h4>行业规模与增速</h4>
+          <ul class="pts sm">
+            <li><b>CNESA</b>《储能产业研究白皮书》及 DataLink 全球储能数据库 — 78.3GW / 184.2GWh、200GW 预测</li>
+            <li><b>彭博新能源财经（BNEF）</b> — 2030 年累计装机与 CAGR 24.5%</li>
+            <li><b>中国国家能源局（NEA）</b>公开通报 — 装机与安全监管口径</li>
+          </ul>
+        </div>
+        <div class="card fill"><h4>技术实测与价格</h4>
+          <ul class="pts sm">
+            <li><b>西清能源</b>《储能电站用锂离子电池健康评估实践分析》（国家重点研发计划支持）— SOH 极差 13.81%~14%</li>
+            <li><b>GGII 高工产研储能研究所</b>《中国工商业储能行业深度调研分析》— 价格战与集成商洗牌</li>
+            <li><b>普华永道</b>《储能行业趋势洞察报告》— 后市场产值结构</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card ghost mt-l">
+        <p class="note">说明：本 deck 中的装机规模、SOH 极差、均衡电流、价差测算等数值均引自上述公开来源；
+          商业模式与盈利周期为本项目基于上述参数所做的推演，非第三方统计数据。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页一般快速带过，但如果评委追问数据出处，可以直接翻到这里。</p>
+      <p>注意把<strong>引用数据</strong>和<strong>我们自己的推演</strong>区分开，学术上更严谨。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；CAGR = 复合年均增长率；GW = 功率单位吉瓦；GWh 为容量单位吉瓦时</div>
+  </section>
+
+  <!-- ============ 17 · PART 2 章节页 ============ -->
+  <section class="slide sec-cover" data-title="PART 2 · RePower-360 方案全景">
+    <div class="brandmark"><span class="dot"></span><span>PART TWO</span></div>
+    <div class="sec-num">02</div>
+    <h1 class="h1">RePower-360 方案全景</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">重新上云 → 季度订阅 → 主动维护 → 回收转卖，形成储能全生命周期闭环</p>
+    <div class="sec-list">
+      <span>Re-Clouding</span><span>Quarterly Subscription</span><span>Proactive Maintenance</span>
+      <span>Resell &amp; Cascading</span><span>三类交付物</span><span>ROI 与盈亏平衡</span>
+    </div>
+    <div class="notes">
+      <p>第二部分讲<strong>我们具体怎么做</strong>。核心是一个四步闭环，每一步都对应前面调研出来的一个痛点。</p>
+      <p>顺序很重要：先连上网（拿到数据），才能卖服务；有了服务才有上门机会做活化；服务积累的数据最后变成退役残值的凭证。</p>
+    </div></section>
+
+  <!-- ============ 18 · 四支柱闭环 ============ -->
+  <section class="slide" data-title="方案 · 四支柱闭环">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>方案总览</span></div>
+    <div class="s-head">
+      <span class="s-num">13</span>
+      <div>
+        <p class="kicker">FRAMEWORK · 全生命周期闭环</p>
+        <h2 class="h2">四步闭环：把一台孤儿电站从头救到尾</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="grid-4">
+        <div class="pillar">
+          <div class="pn">STEP 01 · RE-CLOUDING</div>
+          <div class="pt">重新上云</div>
+          <div class="ps">从「盲盒」到可看 · 可算 · 可派单 · 可变现</div>
+          <div class="pb">物理网关（Re-Bridge）+ <b>电芯数字孪生体</b>：断网柜重新建档，240 颗电芯逐颗可见、AI 提前 15 天预警。</div>
+        </div>
+        <div class="pillar p2">
+          <div class="pn">STEP 02 · SUBSCRIPTION</div>
+          <div class="pt">季度订阅</div>
+          <div class="ps">三档订阅 · 按季度对齐衰减节奏</div>
+          <div class="pb">基础版 999 / 增效版 2,499 元·柜·季，另有 <b>EMC 增量分成</b>；把重资产买断变成<b>确定性服务</b>。</div>
+        </div>
+        <div class="pillar p3">
+          <div class="pn">STEP 03 · MAINTENANCE</div>
+          <div class="pt">主动维护</div>
+          <div class="ps">发现 → 派单 → 上门执行</div>
+          <div class="pb">云端发现、中台派单，工程师携大电流活化箱 <b>2 小时</b>现场完成，不拆包不返厂。</div>
+        </div>
+        <div class="pillar p4">
+          <div class="pn">STEP 04 · RESELL</div>
+          <div class="pt">回收转卖</div>
+          <div class="ps">SOH 认证与梯次残值变现</div>
+          <div class="pb">电池身份证（Battery Passport）+ 残值交易撮合。</div>
+        </div>
+      </div>
+      <div class="card ghost mt-l">
+        <p style="font-size:17px"><b>闭环的关键</b>：四步不是四个独立生意，而是<b>同一批资产的四种变现方式</b>。
+          数据从第一步开始积累，到第四步变成可以卖钱的信用凭证 —— 越往后走，客户迁移成本越高。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页是<strong>整个汇报最重要的一页</strong>，务必讲慢一点。</p>
+      <p>强调"同一批资产的四种变现"——这不是拼凑的四条业务线，而是有强因果关系的闭环，也是我们的护城河。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；SLA = 服务等级协议，约定响应与赔付标准；残值 = 退役电池可回收的剩余价值；DIN = 工业控制柜通用标准安装导轨；增量分成 = 从为客户挽回的放电收益中按比例抽成；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 19 · 重新上云 ============ -->
+  <section class="slide" data-title="方案 01 · 重新上云 Re-Clouding">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>01 重新上云</span></div>
+    <div class="s-head">
+      <span class="s-num">14</span>
+      <div>
+        <p class="kicker">STEP 01 · RE-CLOUDING</p>
+        <h2 class="h2">破解「孤儿电站」，唤醒沉睡资产</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill warn">
+            <h4>企业现状痛点</h4>
+            <ul class="pts">
+              <li>二线品牌储能柜因<b>原厂破产</b>，云服务器断开、4G 卡欠费</li>
+              <li>柜子沦为<b>局域网盲盒</b>：业主看不到任何运行数据</li>
+              <li>不同品牌协议闭源，<b>互不兼容</b>，第三方无法接入</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>落地方案</h4>
+            <ul class="pts">
+              <li><b>硬件端</b>：柜内快速加装外挂式<b>「万能协议破壁网关」Re-Bridge</b>，磁吸或导轨秒级接入内部 RS485 / CAN 总线</li>
+              <li><b>软件端</b>：内置 <b>200+</b> 主流集成商与 BMS 私有协议解析库，自动破解并标准化解析电芯电压、温度、充放电状态</li>
+              <li><b>结果</b>：重新接入第三方企业级 Web 中台，建立<b>单体电芯数字孪生体</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <h4 class="mt-l mb-m" style="font-size:20px;color:var(--text-1)">上云之后，这台柜子从「盲盒」变成可看、可算、可派单、可变现的资产</h4>
+      <div class="seg4 mini">
+        <div class="seg" style="--sc:var(--accent-2)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="看见">
+              <path d="M10 60q22-30 50-30t50 30q-22 30-50 30T10 60Z"/>
+              <circle cx="60" cy="60" r="16"/>
+            </svg>
+          </div>
+          <div class="nm">看见</div>
+          <div class="tg">240 颗电芯全建档<br>整柜 SOH 第一次可见</div>
+        </div>
+        <div class="seg" style="--sc:var(--accent)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="预见">
+              <path d="M30 78V56Q30 26 60 26Q90 26 90 56V78"/>
+              <path d="M18 78h84"/>
+              <path d="M48 100q12 16 24 0"/>
+            </svg>
+          </div>
+          <div class="nm">预见</div>
+          <div class="tg">AI 提前 15 天预警<br>内阻 / 极差 / ΔV 恶化</div>
+        </div>
+        <div class="seg" style="--sc:var(--accent-3)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="派单">
+              <rect x="16" y="20" width="72" height="86" rx="7"/>
+              <path d="M42 20v-8h20v8"/>
+              <path d="M28 46h48M28 62h48"/>
+              <path d="M32 86l12 12 24-26"/>
+            </svg>
+          </div>
+          <div class="nm">派单</div>
+          <div class="tg">一键生成活化工单<br>推荐工程师 + 预计到达</div>
+        </div>
+        <div class="seg" style="--sc:var(--good)">
+          <div class="ic">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="变现">
+              <circle cx="60" cy="46" r="30"/>
+              <path d="M46 34l14 15 14-15"/>
+              <path d="M60 49v19M50 52h20M50 62h20"/>
+              <path d="M48 72l-6 34 12-10"/>
+              <path d="M72 72l6 34-12-10"/>
+            </svg>
+          </div>
+          <div class="nm">变现</div>
+          <div class="tg">27 个月数据链沉淀<br>出具电池护照换残值</div>
+        </div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:19px">网关本身不是利润中心，却是<b>诊断 · 派单 · 残值认证</b>三项收入的唯一入口</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>先讲痛点与方案，再重点讲<strong>上云的意义</strong>——底下四个词是这一页的骨架：看见 → 预见 → 派单 → 变现。</p>
+      <p><strong>看见</strong>：不上云，业主连自己柜子健康度多少都不知道；上云后 240 颗电芯逐颗建档，整柜 SOH 第一次可见。</p>
+      <p><strong>预见</strong>：只有连续数据才能训练预警——AI 提前 15 天报出内阻抬升、SOH 极差、ΔV 恶化。没有数据就没有"提前"。</p>
+      <p><strong>派单</strong>：预警要变成动作，靠中台一键下发活化工单并推荐工程师、给出预计到达时间；这一步把"看到问题"接上了"有人去修"。</p>
+      <p><strong>变现</strong>：退役时残值凭什么卖高价？凭 27 个月的连续数据溯源——电池护照是数据换钱的凭证，而数据只能来自上云。</p>
+      <p>商业意义：<strong>网关是入口不是利润中心</strong>，硬件甚至可以不赚钱，但它锁定了后续所有服务。</p>
+      <p>"秒级接入"是设计亮点——不用停机、不用改线，磁吸或 DIN 导轨直接上，这在现场非常关键。</p>
+    </div>
+      <div class="footnote">名词注释：BMS = 电池管理系统，负责监控与电芯均衡；孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；RS485 = 工业现场常用串行通信标准；CAN = 工业现场常用通信总线；残值 = 退役电池可回收的剩余价值；DIN = 工业控制柜通用标准安装导轨；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 20 · 季度订阅 ============ -->
+  <section class="slide" data-title="方案 02 · 季度订阅与 SLA 分级">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>02 季度订阅</span></div>
+    <div class="s-head">
+      <span class="s-num">15</span>
+      <div>
+        <p class="kicker">STEP 02 · SUBSCRIPTION</p>
+        <h2 class="h2">把重资产买断，转化为确定性服务</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <p class="note mb-m">痛点：企业老板不懂电化学，单次叫修昂贵（500~1000 元/次），不愿背负大额固定维护开销。
+        → 用<b>低门槛季度订阅</b>替代一次性大额支出。</p>
+      <div class="cmp c3">
+        <div class="col-card">
+          <h4>基础版 · 保安全</h4>
+          <p class="money" style="font-size:32px;color:var(--text-1);font-weight:700">999 <span style="font-size:15px;color:var(--text-3)">元/柜/季</span></p>
+          <ul class="pts sm">
+            <li>断网重连与联网保障</li>
+            <li>云端 <b>7×24h 热失控 AI 预警</b></li>
+            <li>季度云端 <b>SOH 健康诊断报告</b></li>
+          </ul>
+        </div>
+        <div class="vs">/</div>
+        <div class="col-card good">
+          <span class="tag">主推</span>
+          <h4>增效版 · 保收益</h4>
+          <p class="money" style="font-size:32px;color:var(--good);font-weight:700">2,499 <span style="font-size:15px;color:var(--text-3)">元/柜/季</span></p>
+          <ul class="pts sm">
+            <li>包含基础版全部内容</li>
+            <li>每季度工程师<b>携设备上门</b>：主动均衡活化 + 液冷介质酸化检测</li>
+            <li><b>承诺整柜放电可用容量恢复 8% 以上</b></li>
+          </ul>
+        </div>
+        <div class="vs">/</div>
+        <div class="col-card">
+          <h4>EMC · 增量分成</h4>
+          <p class="money" style="font-size:32px;color:var(--accent-2);font-weight:700">20~30<span style="font-size:15px;color:var(--text-3)">% 增量收益</span></p>
+          <ul class="pts sm">
+            <li><b>零固定费用</b>入场，只从挽回的电费收益中按比例分成</li>
+            <li>适合预算审批难、但对收益敏感的业主</li>
+            <li>把「承诺恢复 8%」变成<b>可验证的对赌条款</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ev3">
+        <div class="ev" style="--evc:var(--accent)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="与衰减节奏对齐">
+              <rect x="14" y="26" width="92" height="82" rx="8"/>
+              <path d="M14 52h92"/>
+              <path d="M42 26V12M78 26V12"/>
+              <rect x="32" y="66" width="24" height="24" rx="3" fill="currentColor" stroke="none"/>
+              <rect x="64" y="66" width="24" height="24" rx="3" fill="currentColor" stroke="none" opacity=".32"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">按季度 = 对齐衰减节奏</div>
+            <div class="ed">电芯离散度逐季累积，季度巡检正好卡在恶化前</div>
+          </div>
+        </div>
+        <div class="ev" style="--evc:var(--accent-2)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="业主现金流友好">
+              <circle cx="60" cy="60" r="42"/>
+              <path d="M46 42l14 16 14-16"/>
+              <path d="M60 58v28M48 68h24M48 80h24"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">按季度 = 业主好批预算</div>
+            <div class="ed">999 元/季起，替代大额一次性买断</div>
+          </div>
+        </div>
+        <div class="ev" style="--evc:var(--good)">
+          <div class="ei">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                 stroke-linecap="round" stroke-linejoin="round" aria-label="SLA 可承诺">
+              <circle cx="60" cy="60" r="42"/>
+              <path d="M60 34v28l20 14"/>
+            </svg>
+          </div>
+          <div>
+            <div class="en">按季度 = 我们敢承诺 SLA</div>
+            <div class="ed">收入可预测，才能排班备货、承诺 2 小时上门</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-m">
+        <h4>定价为什么站得住 · 给客户算一年账</h4>
+        <p>单柜因木桶效应年损失电费 ≈ <b>10,560 元</b>（每天少放 20kWh × 两充两放 × 峰谷价差 0.8 元 × 330 天）；
+          增效版订阅 ≈ <b>9,996 元/年</b>（2,499 × 4 季）。
+          客户综合 ROI =（挽回电费 10,560 + 梯次残值溢价 3,200 + 延寿免换包 2,400）÷ 9,996 ≈ <b>162%</b>，
+          静态回收期 ≈ <b>7.4 个月</b> —— 客户花的每一分钱，都能从电费单上找回来。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>三档的递进逻辑：<strong>基础版降门槛</strong>（先当客户的"安全兜底"）→ <strong>主推增效版</strong>（真正赚钱，且带 8% 对赌承诺）→ <strong>EMC 分成</strong>兜住审批难的客户。</p>
+      <p><strong>为什么按季度收</strong>，底下三个理由要背下来：① 电芯离散度是逐季累积的，季度巡检正好卡在恶化之前，这是技术上的必然节奏；② 999 元/季的单价远低于企业一次性大额支出的审批门槛，业主好批；③ 只有收入可预测，我们才敢排班备货并承诺「增效版 ≤2h 上门」的 SLA。</p>
+      <p>「承诺恢复 8%」是<b>对赌条款</b>，也是敢用 EMC 分成替代固定费用的底气 —— 达不到就不收钱。</p>
+      <p>最后用一年账收口：客户年损失 10,560 元，增效版年费 9,996 元，综合 ROI 162%，静态回收约 7.4 个月（与第 25 页「客户综合 ROI &gt; 150%」同一口径）。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；主动均衡 = 把电量在电芯间转移而非耗散，可达安培级；EMC = 合同能源管理，从客户增量收益中分成；液冷 = 乙二醇冷却液循环散热；SLA = 服务等级协议，约定告警响应与上门时限；ROI = 投资回报率；木桶效应 = 整柜可用容量被最差那颗电芯限制</div>
+  </section>
+
+  <!-- ============ 21 · 主动维护 ============ -->
+  <section class="slide" data-title="方案 03 · 主动维护 Proactive">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>03 主动维护</span></div>
+    <div class="s-head">
+      <span class="s-num">16</span>
+      <div>
+        <p class="kicker">STEP 03 · PROACTIVE MAINTENANCE</p>
+        <h2 class="h2">大电流靶向干预，打破「木桶效应」</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <p class="note mb-m">痛点：出厂 BMS 仅有 <b>50mA 弱被动均衡</b>，追不平 280Ah / 314Ah 大电芯压差，单颗电芯衰退拖垮整柜收益（SOH 极差可达 14%）。
+        解法：云端先发现、中台再派单、工程师携 <b>5~10A 大电流活化箱</b>上门执行 —— 下面就是这条完整链路。</p>
+
+      <div class="pipe3">
+        <div class="st" style="--sc:var(--accent)">
+          <div class="sh">
+            <div class="si">
+              <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                   stroke-linecap="round" stroke-linejoin="round" aria-label="发现">
+                <circle cx="50" cy="50" r="32"/>
+                <path d="M74 74l28 28"/>
+                <path d="M34 58l12-10 10 8 14-16"/>
+              </svg>
+            </div>
+            <div>
+              <div class="sn">① 发现 · 云端 AI</div>
+              <div class="sw">PC 中台 · 数字孪生</div>
+            </div>
+          </div>
+          <ol class="steps">
+            <li><b>240 颗电芯逐颗建档</b>，SOH 热力矩阵一眼看出落后簇</li>
+            <li>锁定落后簇 <b>PACK-03</b>，簇间压差 ΔV 已达 41mV</li>
+            <li><b>提前 15 天预警</b>：内阻抬升 / SOH 极差 13.8% / 液冷电导率上升</li>
+            <li>定位到颗：最弱单体 <b>P03-014 · SOH 66.2%</b></li>
+            <li>算出月损失电费，判断这一趟<b>值不值得上门</b></li>
+          </ol>
+        </div>
+
+        <div class="st" style="--sc:var(--accent-2)">
+          <div class="sh">
+            <div class="si">
+              <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                   stroke-linecap="round" stroke-linejoin="round" aria-label="下发任务">
+                <path d="M12 62L108 16 78 108 58 72Z"/>
+                <path d="M58 72L108 16"/>
+              </svg>
+            </div>
+            <div>
+              <div class="sn">② 下发 · 一键派单</div>
+              <div class="sw">PC 中台 · 工单与 SLA</div>
+            </div>
+          </div>
+          <ol class="steps">
+            <li>中台一键「<b>下发 5~10A 靶向活化作业</b>」</li>
+            <li>自动生成工单：站点 / 作业类型 / 目标单体 / 预计工时 <b>118 min</b></li>
+            <li>点「立即派单」→ 系统<b>推荐工程师 + 预计到达时间</b></li>
+            <li>SLA 承诺：云端告警 <b>≤60 秒</b>、增效版上门 <b>≤2h</b>、基础版 <b>≤4h</b></li>
+            <li>工单实时推到工程师手机 App，现场按单作业</li>
+          </ol>
+        </div>
+
+        <div class="st" style="--sc:var(--good)">
+          <div class="sh">
+            <div class="si">
+              <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+                   stroke-linecap="round" stroke-linejoin="round" aria-label="现场执行">
+                <rect x="14" y="34" width="82" height="52" rx="8"/>
+                <path d="M96 52h8v16h-8"/>
+                <path d="M62 42L44 68h13l-5 18 20-28H59z" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div>
+              <div class="sn">③ 执行 · 现场作业</div>
+              <div class="sw">移动端 App + Re-Pulse</div>
+            </div>
+          </div>
+          <ol class="steps">
+            <li><b>扫码连接</b>：破解私有 CAN 协议，<b>240/240</b> 单体建档</li>
+            <li><b>开仓接线</b>：快插探针免拆线、免返厂</li>
+            <li><b>定位落后单体</b>：App 逐个导航 #007 / #014 / #021 / #028 / #035 / #042 / #048</li>
+            <li><b>注入 5~10A</b>：实时电流 8.4A，ΔV 由 41 → <b>12mV</b> 实时回落</li>
+            <li><b>安全兜底</b>：单体 &gt;45℃ 自动降流，并弹出五步处置指引</li>
+            <li><b>完成回填</b>：挽回容量 11.4%、耗时 116 min、月增 ¥2,614 → 工单自动回填中台</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card ghost mt-m">
+        <p style="font-size:17px">全链路关键词是<b>「不拆解」</b>：整包返厂要数周、运费高昂，我们 <b>2 小时</b>在厂区原位完成 ——
+          这正是工业设计要解决的问题：把实验室能力装进一个能拉杆带走的箱子里。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页就讲<strong>一条完整的链路</strong>，按左→中→右依次过：<strong>发现 → 下发 → 执行</strong>，三段分别发生在云端 / PC 中台 / 现场手机 App。</p>
+      <p><strong>① 发现（云端 AI）</strong>：240 颗电芯数字孪生逐颗建档，热力矩阵直接暴露落后簇 PACK-03，簇间 ΔV 41mV；AI 提前 15 天报出内阻抬升、SOH 极差、液冷电导率三条恶化趋势，并定位到最弱单体 P03-014（SOH 66.2%）。最后算出月损失电费——先回答"这一趟值不值得跑"。</p>
+      <p><strong>② 下发（PC 中台）</strong>：把"看到的问题"变成"有人去修"。中台一键下发活化作业 → 自动生成工单（含目标单体与预计工时 118 min）→ 立即派单，系统推荐工程师并给出预计到达时间；SLA 分级是云端告警 ≤60 秒、增效版上门 ≤2h、基础版 ≤4h。工单实时推送到工程师 App。</p>
+      <p><strong>③ 执行（现场 App + Re-Pulse）</strong>：扫码即破解私有 CAN 协议、240/240 单体建档 → 快插探针免拆线开仓接线 → App 逐个导航落后单体（#007/#014/#021/#028/#035/#042/#048）→ 注入 5~10A，实时 8.4A，ΔV 从 41 回落到 12mV → 单体超 45℃ 自动降流并弹五步处置指引 → 完成卡显示挽回 11.4%、116 min、月增 ¥2,614，工单自动回填中台，形成闭环。</p>
+      <p>这部分也是<strong>实体产品存在的理由</strong>：算法只能告诉你哪颗电芯掉队，真正把它拉回来必须靠硬件。从这里自然过渡到 PART 3 的产品族介绍。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；BMS = 电池管理系统，负责监控与电芯均衡；木桶效应 = 整柜可用容量被最差那颗电芯限制；被动均衡 = 靠电阻把多余电量发热耗掉，仅毫安级；PACK = 电池包：电芯串并联组成的模块单元；压差 ΔV = 单体间电压差，越大一致性越差；数字孪生 = 用实时数据在云端复刻一台设备的虚拟镜像；工单 = 一次具体作业的任务单；SLA = 服务等级协议，约定告警响应与上门时限；除硫 = 高频脉冲打散极板结晶、恢复活性</div>
+  </section>
+
+  <!-- ============ 22 · 回收转卖 ============ -->
+  <section class="slide" data-title="方案 04 · 回收转卖与电池护照">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>04 回收转卖</span></div>
+    <div class="s-head">
+      <span class="s-num">17</span>
+      <div>
+        <p class="kicker">STEP 04 · RESELL &amp; CASCADING</p>
+        <h2 class="h2">残值透明化，打通退出流通链</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r mb-m">
+        <div class="col">
+          <div class="card fill warn">
+            <h4>痛点</h4>
+            <p>储能柜使用 5~8 年后，容量衰减到 75% 无法满足峰谷套利，工厂只能以
+              <b>「废铁 / 黑粉价」</b>贱卖，<b>残值不足原价 15%</b>。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>解法：电池身份证</h4>
+            <p>平台积累了全周期充放电健康数据，出具第三方权威认可的
+              <b>SOH 残值评级证书</b>（Grade A / B / C），让残值<b>可证明、可交易</b>。</p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card"><span class="tag">GRADE A</span>
+          <h4>容量 80%~75%</h4>
+          <p>翻新降压，溢价转卖做<b>厂区电动叉车电池、低速观光车电池</b>。</p></div>
+        <div class="card"><span class="tag">GRADE B</span>
+          <h4>容量 70%~75%</h4>
+          <p>组装为<b>离网光伏微网蓄电池</b>或农业灌溉储能。</p></div>
+        <div class="card"><span class="tag">GRADE C</span>
+          <h4>容量 70% 以下</h4>
+          <p>进入合规拆解回收流程，材料再生。</p></div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="money" style="font-size:17px">替业主多挽回 <b style="color:var(--accent)">30%~50%</b> 退役残值，
+          平台抽取 <b style="color:var(--accent)">8%</b> 撮合佣金。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一步的价值在于：<strong>把"废铁"变成"有证书的商品"</strong>。没有健康数据，残值只能按重量卖；有了 SOH 评级，就能按容量卖。</p>
+      <p>而且这份数据只有我们有——从第一步上云就开始积累，别人补不上。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；峰谷套利 = 低谷电价充电、高峰电价放电赚差价；残值 = 退役电池可回收的剩余价值；DIN = 工业控制柜通用标准安装导轨</div>
+  </section>
+
+  <!-- ============ 23 · 交付物 1 实体硬件 ============ -->
+  <section class="slide" data-title="交付物 1 · 实体硬件套件">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>交付物 01</span></div>
+    <div class="s-head">
+      <span class="s-num">18</span>
+      <div>
+        <p class="kicker">DELIVERABLE 01 · 3D 建模与效果图</p>
+        <h2 class="h2">软硬协同的后市场硬件套件</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <span class="tag">核心设备 ★★★★★</span>
+            <h4>Re-Pulse 移动式储能电芯主动活化巡检工作站</h4>
+            <ul class="pts sm">
+              <li><b>形态</b>：手提 / 拉杆箱形态，单人可移动</li>
+              <li><b>外观</b>：三防加固工业级设计（IP65）、高亮显示屏</li>
+              <li><b>内部</b>：集成双向大电流 DC/DC 模组、微型高压绝缘风道</li>
+              <li><b>细节亮点</b>：快插式特种高分子探针线排（适配不同品牌 PACK 采样端子）、
+                把手集成红外测温模组、紧急防爆断电拍钮</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <span class="tag">配件 ★★★★★</span>
+            <h4>Re-Bridge 磁吸式多协议边缘网关</h4>
+            <ul class="pts sm">
+              <li><b>体积</b>：小巧如工业充电宝，145 × 85 × 32 mm</li>
+              <li><b>通信</b>：内置 4G Cat-1 模组与磁吸底座</li>
+              <li><b>防护</b>：强电磁屏蔽合金外壳，吸附于柜内完成「重新上云」</li>
+            </ul>
+            <div class="divider mt-m mb-m"></div>
+            <p class="note">配套：探针 / Adapter Kit ★★★★ · 线缆收纳组件 ★★★ ·
+              磁吸 &amp; DIN 安装底座 ★★★★</p>
+          </div>
+        </div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="note">两个产品的概念与功能、关键尺寸见 PART 3（P28 起）；3D 交互展示见 P35。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>两个硬件，一个"动手"（Re-Pulse），一个"联网"（Re-Bridge）——这是软硬协同的最小完整组合。</p>
+      <p>过渡：接下来是界面 Demo，然后进入 PART 3 详细讲这两个东西怎么设计。</p>
+    </div>
+      <div class="footnote">名词注释：PACK = 电池包：电芯串并联组成的模块单元；DC/DC = 直流电压变换模块；IP65 = 完全防尘 + 防低压喷水的防护等级；边缘网关 = 现场采集与协议转换、负责上云的设备；CMF = 颜色、材料与表面处理；DIN = 工业控制柜通用标准安装导轨；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 24 · 交付物 2 界面 Demo ============ -->
+  <section class="slide" data-title="交付物 2 · 界面 Demo（PC + App）">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>交付物 02</span></div>
+    <div class="s-head">
+      <span class="s-num">19</span>
+      <div>
+        <p class="kicker">DELIVERABLE 02 · UI DEMO（MP4）</p>
+        <h2 class="h2">PC 中台管资产，移动 App 管现场</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <span class="tag">PC 端 · 企业能源总监 / 财务看板</span>
+            <h4>资产救援中台</h4>
+            <ol class="pts sm">
+              <li><b>资产救援大盘</b> — 各储能柜断网 / 在线状态，一键激活「重新上云」</li>
+              <li><b>电芯数字孪生矩阵</b> — 全柜 240 颗电芯实时电压 / SOH 散点热力图</li>
+              <li><b>经济收益晴雨表</b> — 主动维护挽回的电费套利金额（¥）与季度订阅 ROI</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <span class="tag">移动端 · 运维工程师 / 厂长小程序</span>
+            <h4>现场作业 App</h4>
+            <ol class="pts sm">
+              <li><b>扫码连接</b> — 连接 Re-Bridge 网关与 Re-Pulse 活化箱</li>
+              <li><b>一键活化作业流</b> — 落后电芯自动定位引导、大电流注入进度条、安全温度报警</li>
+              <li><b>电池护照与转卖发布</b> — 自动生成 SOH 评估报告，一键申请退役评估 / 转卖挂牌</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="note">Demo 交付形式：MP4 录屏（PC 中台操作流 + App 现场作业流），与 Re-Pulse 屏幕 UI 演示一并录制。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>界面设计的重点不是好看，而是<strong>把"损失了多少元"直接摆在决策者面前</strong>——这是促成订阅的关键画面。</p>
+      <p>移动端则是给工程师用的作业流，强调"傻瓜式引导 + 安全报警"。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；电池护照 = 电池全生命周期健康与维修履历档案；ROI = 投资回报率；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 25 · Re-Pulse HMI ============ -->
+  <section class="slide" data-title="Re-Pulse HMI · 屏幕与实体控制件">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>交付物 02 · HMI</span></div>
+    <div class="s-head">
+      <span class="s-num">20</span>
+      <div>
+        <p class="kicker">DELIVERABLE 02 · 界面 Demo 的最终落点</p>
+        <h2 class="h2">屏幕里的「数字化」：10.1″ 触控 + 实体控制件</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r" style="grid-template-columns:.72fr 1.28fr">
+        <div class="col">
+          <div class="card fill" style="flex:1">
+            <h4>屏幕与实体控制件</h4>
+            <ul class="pts sm">
+              <li><b>10.1 英寸工业触控屏</b>，16:10，位于正面上半部，四周保留 15–25 mm 实体边框（抗碰撞）</li>
+              <li>屏幕<b>不做成整面玻璃</b>，明显表现「黑色玻璃 + 实体框」</li>
+              <li><b>左侧旋钮</b> — 菜单 / 参数调整</li>
+              <li><b>下方三个实体按钮</b> — START / PAUSE / CONFIRM（或 START / STOP / HOME）</li>
+              <li><b>红色蘑菇头 + 黄色底座急停</b>，直径 35–45 mm</li>
+            </ul>
+          </div>
+          <div class="card fill" style="flex:1">
+            <h4>落图说明 · Demo 即贴图</h4>
+            <p>右侧为已完成的<b>可交互网页 Demo（RePower-UI-Demo）</b>实机渲染截图，非示意图；
+              配色与硬件 CMF 同源：<b>石墨灰机身 + 琥珀状态灯 + 急停红</b>。</p>
+            <p>建模出图时，将对应界面截图直接作为 <b>10.1″ 屏幕贴图</b>：
+              巡检工况选「电芯数字孪生」页，资产总览选「救援大盘」页，
+              现场作业语境配移动端「活化作业流」页。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>已落地的效果图 UI（网页实机截图）</h4>
+            <div class="ui-shots">
+              <figure class="shot">
+                <span class="badge">PC · 电芯数字孪生</span>
+                <img src="assets/img/ui-pc-twin.png" alt="PC 中台 · 电芯数字孪生矩阵">
+              </figure>
+              <figure class="shot">
+                <span class="badge">PC · 资产救援大盘</span>
+                <img src="assets/img/ui-pc-dash.png" alt="PC 中台 · 资产救援大盘">
+              </figure>
+              <figure class="shot app">
+                <span class="badge">APP · 活化作业流</span>
+                <img src="assets/img/ui-app-job.png" alt="移动端 App · 一键活化作业流">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页紧跟界面 Demo：说明这些界面<strong>不是悬浮在网页里，而是直接跑在 Re-Pulse 的 10.1″ 屏幕上</strong>，与左侧旋钮、实体按钮、急停一起构成现场操作台。</p>
+      <p>强调<strong>屏幕内容必须建模</strong>：工业设备的专业感一半来自屏幕上的数据，空屏渲染会显得像道具。</p>
+      <p>右侧三张截图来自 RePower-UI-Demo 可交互网页（含 240 颗电芯 SOH 热力矩阵、AI 预警塔、活化进度条等真实交互），现场演示可直接打开网页录屏补充 MP4 交付物。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；CMF = 颜色、材料与表面处理；Re-Pulse = 本方案的移动式电芯主动活化工作站</div>
+  </section>
+
+  <!-- ============ 26 · 收入结构与客户 ROI ============ -->
+  <section class="slide" data-title="商业模式 · 收入结构与客户 ROI">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>商业测算</span></div>
+    <div class="s-head">
+      <span class="s-num">21</span>
+      <div>
+        <p class="kicker">ECONOMICS · 客户为什么买单</p>
+        <h2 class="h2">客户综合 ROI &gt; 150%，我们自己三层现金流</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>收入结构 · 单柜年化（元）</h4>
+            <div class="echart" data-ec="revenue"></div>
+            <p class="note mt-s">网关硬件 1,500 元/台（毛利 50%）为<b>一次性</b>；
+              季度订阅 2,499 元/柜/季 → <b>约 1 万元/柜/年</b>，是核心现金流；
+              退役柜残值 3~5 万元/柜，抽取 <b>8%</b> 平台服务费（2,400~4,000 元）。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill ok">
+            <h4>客户投资回报 · 元 / 年</h4>
+            <div class="echart" data-ec="roi"></div>
+            <p class="note mt-s">一台 100kW/215kWh 柜每天少放 20kWh，两充两放、峰谷价差 0.8 元/度：
+              <b>20 × 2 × 0.8 × 330 ≈ 10,560 元/年</b>损失；
+              买 8,000~10,000 元订阅即可<b>全额挽回</b>，另附断网监控、安全防爆巡检与退役残值溢价保障 →
+              <b>客户综合 ROI &gt; 150%</b>。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>先看右图讲客户侧：年损失 10,560 元，花 8千~1 万买服务，<strong>净挽回仍有 1,500 元以上</strong>，另外附赠安全和残值保障。</p>
+      <p>再看左图讲我方：订阅占约 <strong>68%，是绝对主力现金流</strong>；硬件一次性、佣金长尾为辅。</p>
+    </div>
+      <div class="footnote">名词注释：两充两放 = 一天两次充满、两次放完的工商业典型工况；残值 = 退役电池可回收的剩余价值；ROI = 投资回报率</div>
+  </section>
+
+  <!-- ============ 26 · 盈利周期 ============ -->
+  <section class="slide" data-title="商业模式 · 盈利周期与盈亏平衡">
+    <div class="deck-header"><span>PART 2 · RePower-360 方案全景</span><span>盈利周期</span></div>
+    <div class="s-head">
+      <span class="s-num">22</span>
+      <div>
+        <p class="kicker">BREAK-EVEN · 初创团队测算</p>
+        <h2 class="h2">第 14~18 个月实现收支平衡</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-box">
+        <div class="vt">累计净现金流推演（万元）· 第 1~6 月投入期 → 第 7~15 月签约爬坡期 → 稳态回收期</div>
+        <div class="echart h-lg" data-ec="bep"></div>
+        <div class="assume">
+          <span>前期投入 <b>100 万元</b>（文档区间 80~120 万中值）</span>
+          <span>第 7~15 月爬坡签约至 <b>150 台</b></span>
+          <span>订阅年费 <b>1 万元 / 柜</b> → 稳态 12.5 万元 / 月</span>
+          <span>网关硬件 1,500 元/台 · 毛利 <b>50%</b></span>
+        </div>
+      </div>
+      <div class="grid-3 mt-m">
+        <div class="card"><h4>为什么选苏浙粤</h4>
+          <p>峰谷价差大 → 业主损失感知强；柜机密度高 → <b>单趟上门可服务多台</b>，摊薄差旅成本。</p></div>
+        <div class="card"><h4>网格化是关键</h4>
+          <p>单次上门成本 500~1000 元是行业死穴；<b>密度决定毛利</b>，所以先做深一个园区，再复制。</p></div>
+        <div class="card ok"><h4>长尾红利</h4>
+          <p>第 18 个月后，首批托管柜陆续进入退役期，<b>梯次二手转卖</b>带来第二增长曲线。</p></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页只讲一张图：<strong>曲线穿过 0 轴的那一刻就是盈亏平衡点</strong>。按四个假设推演，曲线在<strong>第 17 个月</strong>前后归零，落在文档的 14~18 月区间内。</p>
+      <p>图下的四条假设就是全部前提，被追问时逐条摊开；若问"150 台怎么来"：苏浙粤工业园区数以万计存量柜，且孤儿电站无人服务，转化率假设保守。</p>
+    </div>
+  </section>
+
+  <!-- ============ 27 · PART 3 章节页 ============ -->
+  <section class="slide sec-cover" data-title="PART 3 · Re-Pulse 与 Re-Bridge 产品族">
+    <div class="brandmark"><span class="dot"></span><span>PART THREE</span></div>
+    <div class="sec-num">03</div>
+    <h1 class="h1">Re-Pulse 与 Re-Bridge 产品族</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">两个硬件，一套设计语言：概念与功能 · 关键尺寸 → 形态渲染 → CMF → 结构细节 → 效果图与 3D</p>
+    <div class="sec-list">
+      <span>Re-Pulse 移动活化工作站</span><span>Re-Bridge 边缘网关</span><span>520×360×210 / 145×85×32</span>
+      <span>工业 CMF</span><span>结构细节</span><span>效果图与 3D</span>
+    </div>
+    <div class="notes">
+      <p>第三部分回到<strong>产品本身</strong>：前面证明了机会、定义了服务，这一部分回答"我们拿什么产品去交付"——先讲两个产品各自是什么、能干什么，再看它们长什么样、由哪些细节支撑。</p>
+      <p>结构：产品族总览 → Re-Pulse / Re-Bridge 各一页详解（含关键尺寸）→ 形态渲染 → CMF · 结构细节 → 效果图与 3D。</p>
+    </div></section>
+
+  <!-- ============ 28 · 产品族总览 ============ -->
+  <section class="slide" data-title="产品族 · 两个硬件，一套语言">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>产品族总览</span></div>
+    <div class="s-head">
+      <span class="s-num">23</span>
+      <div>
+        <p class="kicker">PRODUCT FAMILY · 硬件切入</p>
+        <h2 class="h2">一个动手修电芯，一个联网管资产</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r mb-m">
+        <div class="col">
+          <div class="card fill">
+            <h4>RE-PULSE · 移动式电芯主动活化工作站</h4>
+            <p>把实验室级的大电流均衡能力装进一只单人可移动的加固箱——
+              储能柜<b>不拆包、不返厂</b>，在原位 2 小时内完成电芯级诊断与活化。</p>
+            <div class="divider mt-s mb-s"></div>
+            <ul class="pts sm">
+              <li><b>诊断</b> — 快插探针接通 PACK，240 颗单体逐颗建档，SOH / ΔV / 内阻一目了然</li>
+              <li><b>活化</b> — 5~10A 双向主动均衡，把电量从强电芯搬到弱电芯，ΔV 41 → 12mV</li>
+              <li><b>守护</b> — 单体 &gt;45℃ 自动降流、蘑菇头急停、IP65 户外作业</li>
+              <li><b>留证</b> — 作业结果自动回填工单，生成 SOH 报告进入电池护照数据链</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>RE-BRIDGE · 磁吸式多协议边缘网关</h4>
+            <p>一只 145 × 85 × 32 mm 的小盒子，磁吸进柜即可破解私有协议、
+              把「孤儿电站」重新接上云端——它是后续所有服务的<b>数据入口</b>。</p>
+            <div class="divider mt-s mb-s"></div>
+            <ul class="pts sm">
+              <li><b>破壁</b> — 内置 200+ 主流厂商私有协议解析库，直接接入柜内 CAN / RS485 总线</li>
+              <li><b>上云</b> — 4G Cat-1 + 以太网双通道，断网柜的数据重新持续上传企业中台</li>
+              <li><b>预警</b> — 边缘侧预计算 SOH / 极差 / 内阻趋势，配合云端 AI 提前 15 天告警</li>
+              <li><b>免停机安装</b> — 磁吸底座 / DIN 导轨秒级接入，不改线、不停机</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card"><h4>各司其职</h4>
+          <p>网关<b>每天在岗</b>盯数据、发预警；工作站<b>按需上门</b>动手，把告警变成恢复的容量。</p></div>
+        <div class="card"><h4>云端闭环</h4>
+          <p>网关发现 → 中台派单 → 工程师携 Re-Pulse 执行 → 结果回填云档案，数据越滚越厚。</p></div>
+        <div class="card"><h4>产品族</h4>
+          <p>探针 / Adapter / 磁吸与 DIN 底座与两台主机共用同一套设计语言：
+            <b>保护框 · 状态灯 · 模块化接口</b>，构成完整 RE-ENERGY 硬件体系。</p></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页先回答<strong>"我们交的是什么产品"</strong>：两个硬件，一个动手、一个联网，各自用一句概念 + 四条核心功能讲清。</p>
+      <p>Re-Pulse 的关键词是<strong>"不拆包、不返厂、原位 2 小时"</strong>——把实验室能力装进拉杆箱；Re-Bridge 的关键词是<strong>"数据入口"</strong>——硬件可以不赚钱，但它锁定后续所有服务。</p>
+      <p>底下三张卡讲两者的关系：分工、闭环、产品族。讲完这页，接下来两页分别展开两个产品的概念与功能。</p>
+    </div>
+      <div class="footnote">名词注释：PACK = 电池包：电芯串并联组成的模块单元；SOH = 电池健康度（可用容量 ÷ 额定容量）；主动均衡 = 把电量在电芯间转移而非耗散，可达安培级；DIN = 工业控制柜通用标准安装导轨；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 29 · Re-Pulse 概念与功能 ============ -->
+  <section class="slide" data-title="Re-Pulse · 概念与功能">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>产品 01 · Re-Pulse</span></div>
+    <div class="s-head">
+      <span class="s-num">24</span>
+      <div>
+        <p class="kicker">RE-PULSE · 移动式储能电芯主动活化工作站</p>
+        <h2 class="h2">把「现场手术刀」交给一位工程师拉走</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="view-box" style="height:100%;display:flex;flex-direction:column">
+            <div class="vt">RE-PULSE · 3/4 等轴视角（three.js 实时渲染截图）</div>
+            <img src="assets/img/render-3d-crop.png" alt="Re-Pulse 移动式活化工作站渲染图"
+                 style="width:100%;max-height:360px;object-fit:contain;display:block">
+            <p class="chart-note">保护框 + 防撞角 · 10.1″ 屏幕 · 急停 · 侧面探针仓与卷线仓 · 双杆拉杆</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>它是什么</h4>
+            <p>一台单人可移动的<b>电芯级「体检 + 治疗」一体机</b>：开到柜边服役，不拆包、不返厂。</p>
+            <ul class="pts sm">
+              <li><b>① 接入诊断</b> — 扫码破解私有 CAN 协议，240/240 单体逐颗建档</li>
+              <li><b>② 靶向活化</b> — 注入 5~10A 双向主动均衡，ΔV 由 41mV 回落至 12mV</li>
+              <li><b>③ 安全守护</b> — 单体 &gt;45℃ 自动降流，急停按钮随时中止作业</li>
+              <li><b>④ 完成留证</b> — 挽回容量 / 耗时 / 增收回填工单，生成 SOH 报告</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>关键尺寸 · 可直接建模</h4>
+            <ul class="spec-list">
+              <li><span class="k">主体尺寸（宽 × 深 × 高）</span><span class="v">520 × 360 × 210 mm</span></li>
+              <li><span class="k">拉杆展开最大高度</span><span class="v">950–1050 mm</span></li>
+              <li><span class="k">重量 / 显示屏</span><span class="v">15–25 kg · 10.1&quot;</span></li>
+              <li><span class="k">急停 / 轮径 / 探针</span><span class="v">35–45 · 70–90 mm · 1+3</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:18px">一句话：<b>Re-Pulse 把实验室的大电流均衡能力，装进了一个能拉杆带走的箱子里</b> ——
+          这是「主动维护」服务得以成立的实体支点。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页只讲 Re-Pulse：<strong>它是什么、干什么、长什么样</strong>。左边渲染图可直接指着讲特征：屏幕、急停、探针仓、防撞角、拉杆。</p>
+      <p>右侧四步作业链路与 P21「主动维护」的现场执行环节一一对应，可以回指："云端发现、中台派单之后，真正动手的就是它"。</p>
+      <p>右下「关键尺寸」卡就是可直接建模的尺寸表：主体 520 × 360 × 210 mm、拉杆展开 950–1050 mm、10.1″ 屏、急停 35–45 mm、轮径 70–90 mm、探针 1 主探头 + 3 Adapter；念两行即可，被问到再展开。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；ΔV = 单体间电压差，越大一致性越差；CAN = 工业现场常用通信总线；IP65 = 完全防尘 + 防低压喷水的防护等级；Re-Pulse = 本方案的移动式电芯主动活化工作站</div>
+  </section>
+
+  <!-- ============ 30 · Re-Bridge 概念与功能 ============ -->
+  <section class="slide" data-title="Re-Bridge · 概念与功能">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>产品 02 · Re-Bridge</span></div>
+    <div class="s-head">
+      <span class="s-num">25</span>
+      <div>
+        <p class="kicker">RE-BRIDGE · 磁吸式多协议边缘网关</p>
+        <h2 class="h2">一只小盒子，接通一条数据命脉</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="two-r">
+        <div class="col">
+          <div class="view-box" style="height:100%;display:flex;flex-direction:column">
+            <div class="vt">RE-BRIDGE · 3/4 等轴视角（3D 页实时渲染截图）</div>
+            <img src="assets/img/render-bridge.png" alt="Re-Bridge 磁吸式多协议边缘网关渲染图"
+                 style="width:100%;max-height:380px;padding-top:20px;object-fit:contain;display:block">
+            <p class="chart-note">三段式金属端板 · 细光带状态灯 · 磁吸 / DIN 可换底座 · 两侧出线</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>它是什么</h4>
+            <p>一只 145 × 85 × 32 mm 的<b>边缘数字化网关</b>：吸附进柜内，把私有协议翻译成标准数据。</p>
+            <ul class="pts sm">
+              <li><b>破壁</b> — 200+ 私有协议解析库，直连柜内 CAN / RS485</li>
+              <li><b>上云</b> — 4G Cat-1 + 以太网双通道，数据持续上传中台</li>
+              <li><b>预警</b> — 边缘预计算 + 云端 AI，提前 15 天报出内阻恶化</li>
+              <li><b>建档</b> — 240 颗单体逐颗数字孪生，累计成电池护照</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>关键构成 · 一眼可读</h4>
+            <ul class="spec-list">
+              <li><span class="k">机身尺寸（厚 30–35）</span><span class="v">145 × 85 × 32 mm</span></li>
+              <li><span class="k">接口</span><span class="v">CAN · RS485 / ETH · USB</span></li>
+              <li><span class="k">通信上行</span><span class="v">4G Cat-1 + 以太网</span></li>
+              <li><span class="k">状态灯 / 安装</span><span class="v">1–2 mm 光带 · 磁吸 / DIN</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card ghost mt-m">
+        <p class="tc" style="font-size:18px"><b>快速巡检</b> → 磁吸一推一扣；<b>长期部署</b> → DIN 导轨固定。
+          网关本身不是利润中心，却是<b>诊断 · 派单 · 残值认证</b>三项收入的唯一入口。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页只讲 Re-Bridge：它解决的是 P14「重新上云」的落地问题——<strong>协议闭源、断网盲跑的孤儿柜，靠它重新接入云端</strong>。</p>
+      <p>左边是 3D 页实时渲染截图，指着讲三处：金属端板、细光带状态灯、可换底座；右边规格表念两行就够——机身尺寸和双通道上行。</p>
+      <p>收尾落到商业逻辑：<strong>入口设备，不是利润中心</strong>；两种安装场景对应磁吸与 DIN 两款配件，可拆可换本身就是「后市场」理念在工业设计上的体现。</p>
+    </div>
+      <div class="footnote">名词注释：边缘网关 = 现场采集与协议转换、负责上云的设备；RS485 = 工业现场常用串行通信标准；CAN = 工业现场常用通信总线；DIN = 工业控制柜通用标准安装导轨；电池护照 = 电池全生命周期健康与维修履历档案；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 29 · 渲染示意图 ============ -->
+  <section class="slide" data-title="产品形态 · 等比渲染与设计特征">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>形态渲染</span></div>
+    <div class="s-head">
+      <span class="s-num">26</span>
+      <div>
+        <p class="kicker">RENDER · 形态与等比</p>
+        <h2 class="h2">主体 520 × 360 × 210 mm 的等比渲染</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-grid">
+        <div class="view-box">
+          <div class="vt">3D SHOWREEL · Re-Pulse（拉杆展开）/ Re-Bridge 实时渲染</div>
+          <img src="assets/img/render-3d.png" alt="Re-Pulse 与 Re-Bridge 3D 渲染示意图"
+               style="width:100%;height:auto;display:block;border-radius:8px">
+        </div>
+        <div class="col" style="display:flex;flex-direction:column;gap:18px">
+          <div class="card fill">
+            <h4>截图来源</h4>
+            <ul class="pts sm">
+              <li>取自 <b>3D 交互展示页</b>（three.js 实时渲染，非离线出图）</li>
+              <li>视角：<b>3/4 等轴视角</b>，关闭自动旋转后截图，等比关系可直接核对</li>
+              <li>尺寸：<b>520 × 360 × 210 mm</b>，拉杆展开最大高度 950–1050 mm</li>
+            </ul>
+          </div>
+          <div class="card fill ok">
+            <h4>渲染中可见的设计特征</h4>
+            <ul class="pts sm">
+              <li><b>保护框 + 四角 TPU 防撞角</b> —— 全族统一 DNA ①</li>
+              <li><b>10.1" 屏幕 UI</b> —— SOH 82% / PACK 03 / ΔV 18mV，非空屏</li>
+              <li><b>红色蘑菇头急停</b> + 三个实体按钮 + 左侧旋钮</li>
+              <li><b>Re-Probe Dock 探针仓</b> 与侧面卷线仓（线缆不裸露）</li>
+              <li><b>Re-Bridge 边缘网关</b> —— 三段式金属端板结构</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页用<strong>渲染示意图</strong>替代原来的三视图，直接把"设计完的实物长什么样"摊在评委面前：520 宽 × 360 深 × 210 高，拉杆展开后最大高度 950~1050 mm。</p>
+      <p>强调它是<strong>实时渲染截图</strong>，不是概念插画——模型已经在 3D 页面里跑起来了，比例、分模、CMF 都已落地，可以直接进入 CAD 出图。</p>
+      <p>指着屏幕说三处细节：SOH 82% 的屏幕 UI、侧面的探针仓与卷线仓、四角外凸的防撞角——这三处最能说明"这是设备，不是箱子"。</p>
+      <p>过渡：比例锁定之后，接下来讲机身色彩材质与结构细节，都是可以直接落地的建模依据。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；PACK = 电池包：电芯串并联组成的模块单元；边缘网关 = 现场采集与协议转换、负责上云的设备；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 30 · CMF ============ -->
+  <section class="slide" data-title="CMF 色彩材质定义">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>CMF</span></div>
+    <div class="s-head">
+      <span class="s-num">27</span>
+      <div>
+        <p class="kicker">CMF · 一套定死的配色</p>
+        <h2 class="h2">石墨灰机身，只让急停成为视觉焦点</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="cmf-grid mb-l">
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#3a4048,#22262c)"></div>
+          <div class="sl"><div class="sk">主体</div><div class="sv">深灰 / 石墨灰 · PC+ABS</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#22262c,#12151a)"></div>
+          <div class="sl"><div class="sk">防撞角</div><div class="sv">深色橡胶 / TPU</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#9aa3ad,#6b737d)"></div>
+          <div class="sl"><div class="sk">金属结构件</div><div class="sv">阳极氧化铝</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#14171b,#05070a)"></div>
+          <div class="sl"><div class="sk">屏幕</div><div class="sv">黑色玻璃面</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#2b3138,#1a1e24)"></div>
+          <div class="sl"><div class="sk">接口 / 工程塑料</div><div class="sv">深灰</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#e8453a,#b8332a)"></div>
+          <div class="sl"><div class="sk">Emergency Stop</div><div class="sv">红 + 黄底座</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#c9ced6,#8d949c)"></div>
+          <div class="sl"><div class="sk">Logo</div><div class="sv">低调银灰</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(90deg,#ffffff,#5aa9ff 55%,#f2a93b)"></div>
+          <div class="sl"><div class="sk">状态灯</div><div class="sv">少量白 / 蓝 / 琥珀</div></div></div>
+      </div>
+      <div class="card ghost">
+        <p style="font-size:17px"><b>原则</b>：不要大量使用蓝紫渐变。「数字化」应该通过<b>屏幕</b>体现，
+          而不是通过机身颜色体现。红色<b>只允许出现在急停按钮</b>，不扩散到全机。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>色卡页可以指着说：机身只有灰阶，唯一的彩色是急停的红+黄——这是<strong>安全语义</strong>，不是装饰。</p>
+      <p>状态灯只在启动/联网/异常时点亮，颜色有明确定义（白启动、蓝联网、绿正常、黄异常、红故障）。</p>
+    </div>
+      <div class="footnote">名词注释：CMF = 颜色、材料与表面处理；阳极氧化 = 铝合金耐磨耐腐蚀表面处理</div>
+  </section>
+
+  <!-- ============ 32 · 结构与细节 ============ -->
+  <section class="slide" data-title="结构细节与移动系统">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>结构细节</span></div>
+    <div class="s-head">
+      <span class="s-num">28</span>
+      <div>
+        <p class="kicker">DETAIL · 关键结构细节</p>
+        <h2 class="h2">防撞角、下沉工作台、散热百叶、拉杆双杆</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="grid-3 mb-m">
+        <div class="card">
+          <span class="tag">01</span><h4>四角独立防撞结构</h4>
+          <p>四角设置<b>独立 TPU / 橡胶防撞角</b>，略微突出主体，不是简单做四个黑色圆角。
+            直接表达"设备经常被搬运、放置、碰撞"。</p>
+        </div>
+        <div class="card">
+          <span class="tag">02</span><h4>顶部「维护工作台」</h4>
+          <p>中间主体略微下沉、两侧形成保护边框，形成可放置工具的工作区；
+            <b>红色急停</b>放在右上最易触及处，直径 35–45 mm。</p>
+        </div>
+        <div class="card">
+          <span class="tag">03</span><h4>横向百叶散热</h4>
+          <p>后部集中解决散热 / 电源 / 通信 / 线缆；散热孔做成<b>横向百叶窗</b>，
+            而不是电脑式圆孔。</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card"><span class="tag">04</span><h4>移动系统：双杆伸缩 + 两大轮</h4>
+          <p>类似专业摄影箱 / 仪器箱的<b>双杆伸缩结构</b>，TPE 防滑握把；
+            采用<b>两个大轮 + 前部两个支撑脚</b>，更像专业设备箱而非行李箱。</p></div>
+        <div class="card"><span class="tag">05</span><h4>底部：防滑脚 / 排水 / 维修盖</h4>
+          <p>底部必须有防滑脚、排水结构、维修盖与螺丝固定点；
+            IP65 通过<b>密封圈 + 搭扣 + 防水结构</b>在视觉上体现。</p></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>五个细节里最值得展开的是<strong>防撞角</strong>和<strong>两大轮+支撑脚</strong>——这两处决定了它看起来像"仪器"还是"行李箱"。</p>
+      <p>急停按钮讲清楚：它是<b>安全停止控制</b>，不是"防爆断电"，语义要准确，建模时做得大一点以强化识别性。</p>
+    </div>
+      <div class="footnote">名词注释：IP65 = 完全防尘 + 防低压喷水的防护等级</div>
+  </section>
+
+  <!-- ============ 33 · 效果图与 3D ============ -->
+  <section class="slide" data-title="效果图 · 造型参考与 3D 展示">
+    <div class="deck-header"><span>PART 3 · Re-Pulse 与 Re-Bridge 产品族</span><span>效果图</span></div>
+    <div class="s-head">
+      <span class="s-num">29</span>
+      <div>
+        <p class="kicker">RENDER · 产品效果图</p>
+        <h2 class="h2">从「一个箱子」到「专业储能检测设备」</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="view-grid">
+        <div class="hero-shot">
+          <img src="assets/img/render-main.png" alt="Re-Pulse 产品效果图">
+        </div>
+        <div class="col" style="display:flex;flex-direction:column;gap:16px">
+          <div class="img-grid" style="grid-template-columns:repeat(2,1fr)">
+            <figure><img src="assets/img/p1.png" alt="造型参考：工业检测仪器"><figcaption>造型参考 · 工业检测仪器</figcaption></figure>
+            <figure><img src="assets/img/p2.png" alt="造型参考：便携检测设备"><figcaption>造型参考 · 便携检测设备</figcaption></figure>
+            <figure><img src="assets/img/p3.png" alt="造型参考：工业边缘网关"><figcaption>造型参考 · 工业边缘网关</figcaption></figure>
+            <figure><img src="assets/img/p5.png" alt="造型参考：工业级通信设备"><figcaption>造型参考 · 工业级通信设备</figcaption></figure>
+          </div>
+          <div class="card">
+            <h4>3D 交互展示（单独页面）</h4>
+            <p class="note">可切换 Re-Pulse / Re-Bridge 的三维滚动叙事，支持标注查看。</p>
+            <a class="link-btn" href="../3D展示/index.html" target="_blank" rel="noopener">打开 3D 展示 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>现场演示时可以在这里<strong>切出去播放 3D 页面</strong>（或提前录成 MP4 插入）。</p>
+      <p>展示重点：屏幕 UI、探针仓、防撞角、拉杆与轮子、Re-Bridge 的三段式结构。</p>
+    </div>
+      <div class="footnote">名词注释：边缘网关 = 现场采集与协议转换、负责上云的设备；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 37 · PART 4 章节页 ============ -->
+  <section class="slide sec-cover" data-title="PART 4 · 结论与交付">
+    <div class="brandmark"><span class="dot"></span><span>PART FOUR</span></div>
+    <div class="sec-num">04</div>
+    <h1 class="h1">结论 · 交付清单 · AI 声明</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">三句话结论 · 对照任务书逐条交付 · 使用的 AI 工具与版本 · 下一步里程碑</p>
+    <div class="sec-list">
+      <span>确定性爆发</span><span>供给端断层</span><span>落脚点清晰</span>
+      <span>四类交付物</span><span>AI 工具与版本</span>
+    </div>
+    <div class="notes">
+      <p>最后一部分做<strong>收口</strong>：把 39 页压成三句话，再逐条对照任务书，最后按题目要求声明 AI 工具与版本。</p>
+    </div>
+  </section>
+
+  <!-- ============ 38 · 三句话结论 ============ -->
+  <section class="slide" data-title="结论 · 总结">
+    <div class="deck-header"><span>PART 4 · 结论与交付</span><span>核心结论</span></div>
+    <div class="s-head">
+      <span class="s-num">30</span>
+      <div>
+        <p class="kicker">CONCLUSION · 三句话结论</p>
+        <h2 class="h2">总结</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="grid-3">
+        <div class="card fill ok">
+          <span class="tag">01 · 需求</span>
+          <h4>确定性爆发</h4>
+          <p>工商业储能柜正从「增量建设期」转向<b>存量维保期</b>；2022—2024 年的存量重资产
+            正集中迈入<b>第 3~5 年的性能衰减拐点</b>，后市场具备千亿级刚需空间。</p>
+        </div>
+        <div class="card fill warn">
+          <span class="tag">02 · 供给</span>
+          <h4>供给端断层</h4>
+          <p>原厂 BMS 存在三大致命弱点：<b>LFP 平坦电压导致 SOH 测不准</b>、
+            <b>毫安级被动均衡治不了大容量电芯</b>、<b>倒闭潮导致孤儿电站激增</b>。</p>
+        </div>
+        <div class="card fill">
+          <span class="tag">03 · 我们</span>
+          <h4>落脚点清晰</h4>
+          <p><b>实体硬件</b>做现场移动手术刀，<b>软件 Demo</b>做诊断中枢，
+            <b>商业模式</b>用增量分成 + 耗材订阅 + 梯次认证流转闭环造血。</p>
+        </div>
+      </div>
+      <div class="card ghost mt-l">
+        <p style="font-size:19px">一句话：<b class="money">让每一度电持续创造价值</b> ——
+          不让任何一台还能用的储能柜，因为几百颗电芯不齐而被提前报废。</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>收尾部分语速放慢，三句话逐句停顿。</p>
+      <p>最后那句 slogan 可以留 2 秒空白再翻页。</p>
+    </div>
+      <div class="footnote">名词注释：SOH = 电池健康度（可用容量 ÷ 额定容量）；BMS = 电池管理系统，负责监控与电芯均衡；被动均衡 = 靠电阻把多余电量发热耗掉，仅毫安级；孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；增量分成 = 从为客户挽回的放电收益中按比例抽成</div>
+  </section>
+
+  <!-- ============ 39 · 交付物对照 ============ -->
+  <section class="slide" data-title="交付清单 · 对照任务书逐条应答">
+    <div class="deck-header"><span>PART 4 · 结论与交付</span><span>交付清单</span></div>
+    <div class="s-head">
+      <span class="s-num">31</span>
+      <div>
+        <p class="kicker">DELIVERABLES · 对照设计任务书 2-1</p>
+        <h2 class="h2">四类交付物逐条应答</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <table class="tbl mb-m">
+        <thead><tr><th>题目要求的交付物</th><th>本方案的交付内容</th><th>所在位置</th></tr></thead>
+        <tbody>
+          <tr><td>后市场潜力调研简报</td>
+            <td>发展阶段（存量 / 设备健康趋势 / 孤儿电站）、发展预期、四大细分板块、未被挖掘的商业模式</td>
+            <td class="money">PART 1 · P5–16</td></tr>
+          <tr><td>物理实体产品<br>（3D 文件、效果图）</td>
+            <td>Re-Pulse 活化工作站 + Re-Bridge 网关：概念与功能、尺寸、CMF、结构细节、效果图</td>
+            <td class="money">PART 3 · P28–35</td></tr>
+          <tr><td>移动端 / PC 端界面 Demo</td>
+            <td>PC 资产救援中台（救援大盘 / 电芯孪生矩阵 / 收益晴雨表）+ 移动 App 作业流 + Re-Pulse 屏幕 HMI；3D 交互展示页</td>
+            <td class="money">P24–25 · P35（MP4）</td></tr>
+          <tr><td>商业模式与盈利周期</td>
+            <td>四支柱闭环、收入结构、客户 ROI &gt; 150%、投入 80–120 万、BEP 第 14–18 个月</td>
+            <td class="money">P25–26</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-3">
+        <div class="card"><h4>交付格式</h4>
+          <p>网页版 PPT（本文件）→ 可全屏演示、<b>一键导出 PDF</b>、录屏交付。</p></div>
+        <div class="card"><h4>Demo</h4>
+          <p>MP4 录屏：PC 中台操作流 + App 现场作业流 + 3D 滚动展示。</p></div>
+        <div class="card"><h4>作业提交</h4>
+          <p>PDF（或本 HTML 打包）+ MP4，发送至作业邮箱。</p></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>这一页给评委做<strong>对照检查</strong>，说明四项交付物一项不落。</p>
+      <p>如果需要提交单文件，可以把本 HTML 与 assets 一起打包；导出 PDF 时请在浏览器打印设置里选择
+        <strong>横向、无边距、背景图形</strong>。</p>
+    </div>
+      <div class="footnote">名词注释：孤儿电站 = 原厂倒闭或断网、无人维保的存量柜；ROI = 投资回报率；CMF = 颜色、材料与表面处理；Re-Pulse = 本方案的移动式电芯主动活化工作站；Re-Bridge = 本方案的储能柜边缘数字化网关</div>
+  </section>
+
+  <!-- ============ 40 · AI 工具与版本声明 ============ -->
+  <section class="slide" data-title="AI 工具声明 · 与下一步里程碑">
+    <div class="deck-header"><span>PART 4 · 结论与交付</span><span>AI 声明</span></div>
+    <div class="s-head">
+      <span class="s-num">32</span>
+      <div>
+        <p class="kicker">DISCLOSURE · 使用的 AI 工具与版本</p>
+        <h2 class="h2">AI 参与环节与版本</h2>
+      </div>
+    </div>
+    <div class="s-body">
+      <table class="tbl mb-m">
+        <thead><tr><th>环节</th><th>使用的 AI 工具</th><th>版本 / 说明</th></tr></thead>
+        <tbody>
+          <tr><td>行业调研资料检索与整理</td><td>Gemini（Google）</td>
+            <td class="money">Gemini 3.8 Flash</td></tr>
+          <tr><td>方案框架与商业测算推演</td><td>ChatGPT（OpenAI）</td>
+            <td class="money">GPT-6</td></tr>
+          <tr><td>产品效果图 / 造型参考生成</td><td>GPT-image</td>
+            <td class="money">无</td></tr>
+          <tr><td>网页 PPT 排版与制作</td><td>Hy4 preview High</td>
+            <td class="money">IDE 内置 AI 编程助手 · html-ppt 模板（1920×1080 画布）</td></tr>
+          <tr><td>3D 交互展示页</td><td>Hy4 preview High</td><td class="money">辅助编写 three.js r158 页面代码</td></tr>
+        </tbody>
+      </table>
+      <div class="two-r">
+        <div class="col">
+          <div class="card fill">
+            <h4>AI 参与边界说明</h4>
+            <ul class="pts sm">
+              <li>AI 用于<b>资料检索、文案组织、版式生成与代码编写</b></li>
+              <li>关键行业数据均标注第三方公开来源，可溯源</li>
+              <li>建模尺寸、CMF 与结构决策为本人基于设计判断确定</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card fill">
+            <h4>下一步里程碑</h4>
+            <ul class="pts sm">
+              <li><b>第 1 周</b> — 锁定 Re-Pulse 外形八要素，出 CAD 建模尺寸表</li>
+              <li><b>第 2–3 周</b> — Rhino / SolidWorks 建模、分模与 CMF 渲染</li>
+              <li><b>第 4 周</b> — PC 中台 + App 界面 Demo 录制 MP4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">名词注释：CMF = 颜色、材料与表面处理；Re-Pulse = 本方案的移动式电芯主动活化工作站　|　提交前请确认：表中工具名称与版本已与实际使用一致，并核对作业邮箱与截止日期。</div>
+    </div>
+    <div class="notes">
+      <p><strong>提醒</strong>：任务书明确要求"注明使用的 AI 工具名称和版本"，表中五行的工具与版本均已逐一填写，请再与实际使用情况核对一遍。</p>
+      <p>最后给评委一个时间计划，说明这份方案不是终点，而是已经进入执行阶段的起点。</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="assets/js/echarts.min.js"></script>
+<script src="assets/js/deck-charts.js"></script>
+<script src="assets/runtime.js"></script>
+</body>
+</html>

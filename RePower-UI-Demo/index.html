@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RePower-360 · 工商业储能资产救援中台 + 移动作业 App | UI Demo</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ===================== 演示外壳 ===================== -->
+<header class="stage-bar">
+  <div class="sb-brand">
+    <span class="sb-dot"></span>
+    <b>RePower-360</b>
+    <span class="sb-sub">智储重生 · 工商业储能柜后市场 / 界面 Demo</span>
+  </div>
+  <div class="sb-switch" id="viewSwitch">
+    <button class="sb-btn is-on" data-view="pc">PC 中台</button>
+    <button class="sb-btn" data-view="app">移动端 App</button>
+  </div>
+  <div class="sb-actions">
+    <button class="sb-ghost" id="btnAbout">交付说明</button>
+    <button class="sb-ghost" id="btnReset">重置演示</button>
+  </div>
+</header>
+
+<main class="stage">
+
+  <!-- ============ PC 中台 ============ -->
+  <section class="view view-pc is-active" data-view="pc">
+    <aside class="pc-nav">
+      <div class="pc-nav-hd">
+        <div class="pc-logo"><span class="sb-dot"></span>RePower-360</div>
+        <div class="pc-org">某制造集团 · 能源总监视角</div>
+      </div>
+      <nav class="pc-menu" id="pcMenu"></nav>
+      <div class="pc-nav-ft">
+        <div class="pc-user">
+          <div class="ava">陈</div>
+          <div>
+            <div class="pc-user-n">陈明</div>
+            <div class="pc-user-r">能源总监 · 10 座园区</div>
+          </div>
+        </div>
+        <div class="pc-sync"><i></i>数据同步 · 12 秒前</div>
+      </div>
+    </aside>
+    <section class="pc-main">
+      <header class="pc-top" id="pcTop"></header>
+      <div class="pc-body" id="pcBody"></div>
+    </section>
+  </section>
+
+  <!-- ============ 移动端 App ============ -->
+  <section class="view view-app" data-view="app">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="statusbar" id="appStatus"></div>
+          <div class="appbar" id="appBar"></div>
+          <div class="app-body" id="appBody"></div>
+          <nav class="tabbar" id="appTab"></nav>
+        </div>
+      </div>
+      <div class="phone-hint">点击底部导航 / 按钮体验作业流</div>
+    </div>
+    <aside class="app-notes" id="appNotes"></aside>
+  </section>
+
+</main>
+
+<!-- ===================== 弹层 ===================== -->
+<div class="mask" id="mask"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <header class="modal-hd"><b id="modalTitle">提示</b><button class="modal-x" id="modalClose">×</button></header>
+    <div class="modal-ct" id="modalBody"></div>
+    <footer class="modal-ft" id="modalFoot"></footer>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="assets/vendor/echarts.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/pc.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

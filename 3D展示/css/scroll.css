@@ -1,0 +1,212 @@
+/* ============================================================================
+   RE-PULSE 沉浸式滚动叙事 — 工业暗黑风（试水版）
+   纯黑底 / 白字 / 等宽技术标注 / 细线 / 单一青色强调
+   ========================================================================== */
+:root {
+  --bg: #050608;
+  --ink: #e8edf1;
+  --dim: #8b98a3;
+  --faint: rgba(232, 237, 241, .10);
+  --accent: #64d2ff;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --sans: "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Inter, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 滚动轨道：撑出滚动长度，本身不可见
+   总长 1000vh ≈ 9 屏可滚动距离；各章节的实际占比由 js/scroll.js 的 SHOTS.w 权重决定 */
+#track { height: 1000vh; }
+
+/* ============================ 3D 舞台 ============================ */
+#stage { position: fixed; inset: 0; z-index: 0; }
+#gl { width: 100%; height: 100%; display: block; }
+
+/* 噪点 */
+#grain {
+  position: absolute; inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  animation: grain 1.2s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 3%); }
+  50% { transform: translate(3%, -2%); }
+  75% { transform: translate(-3%, -3%); }
+  100% { transform: translate(2%, 2%); }
+}
+
+/* 暗角 */
+#vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, .55) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, .35), transparent 18% 82%, rgba(0, 0, 0, .45));
+}
+
+/* 工程角标 */
+.corner {
+  position: absolute; width: 22px; height: 22px; pointer-events: none;
+  border: 1px solid var(--faint);
+}
+.corner.tl { top: 18px; left: 18px; border-right: 0; border-bottom: 0; }
+.corner.tr { top: 18px; right: 18px; border-left: 0; border-bottom: 0; }
+.corner.bl { bottom: 18px; left: 18px; border-right: 0; border-top: 0; }
+.corner.br { bottom: 18px; right: 18px; border-left: 0; border-top: 0; }
+
+/* ============================ 顶部 HUD ============================ */
+#hud-top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 26px 40px;
+  mix-blend-mode: normal;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand .mark {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid rgba(232, 237, 241, .35);
+  font: 700 16px var(--mono); color: var(--accent);
+}
+.brand .txt { display: flex; flex-direction: column; gap: 3px; }
+.brand .txt b { font: 700 13px/1 var(--sans); letter-spacing: .18em; }
+.brand .txt i {
+  font: 400 9px/1 var(--mono); font-style: normal;
+  color: var(--dim); letter-spacing: .22em;
+}
+.mode {
+  font: 400 10px var(--mono); color: var(--dim);
+  letter-spacing: .18em; display: flex; align-items: center; gap: 10px;
+}
+.mode .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 50% { opacity: .35; } }
+
+/* ============================ 右侧进度轨道 ============================ */
+#rail {
+  position: fixed; right: 34px; top: 50%; transform: translateY(-50%);
+  z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+#rail-track {
+  width: 1px; height: 34vh; background: var(--faint); position: relative;
+}
+#rail-fill {
+  position: absolute; top: 0; left: 0; width: 100%; height: 0%;
+  background: var(--accent); box-shadow: 0 0 8px var(--accent);
+}
+#chap-idx {
+  font: 700 13px var(--mono); color: var(--ink); letter-spacing: .1em;
+}
+#chap-idx span { color: var(--dim); font-weight: 400; font-size: 10px; }
+
+/* ============================ 左下机位读数 ============================ */
+#hud-cam {
+  position: fixed; left: 40px; bottom: 30px; z-index: 20;
+  display: flex; gap: 26px;
+  font: 400 10px var(--mono); color: var(--dim); letter-spacing: .16em;
+}
+#hud-cam b { color: var(--ink); font-weight: 500; }
+
+/* ============================ 章节文案 ============================ */
+#chapters { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
+
+.chap {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  max-width: 560px;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.chap-hero { left: 8vw; }
+.chap-left { left: 8vw; }
+.chap-right { right: 8vw; text-align: right; }
+.chap-right .desc { margin-left: auto; }
+.chap-right .specs { justify-content: flex-end; }
+
+.eyebrow {
+  font: 500 11px var(--mono); color: var(--accent);
+  letter-spacing: .4em; margin-bottom: 22px;
+}
+.chap h1, .chap h2 {
+  font-size: clamp(44px, 6.4vw, 92px);
+  line-height: 1.04; font-weight: 700; letter-spacing: -0.015em;
+}
+.chap h1 em, .chap h2 em {
+  font-style: normal; color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 237, 241, .85);
+}
+.desc {
+  margin-top: 26px;
+  font: 400 14px/2 var(--sans); color: var(--dim);
+  letter-spacing: .06em;
+}
+
+/* 规格小卡（第 01 章） */
+.specs {
+  margin-top: 34px; display: flex; gap: 34px; list-style: none;
+}
+.specs li { display: flex; flex-direction: column; gap: 6px; }
+.specs b {
+  font: 700 26px var(--mono); color: var(--ink);
+}
+.specs i {
+  font: 400 10px var(--mono); font-style: normal;
+  color: var(--dim); letter-spacing: .2em;
+}
+
+/* ============================ 滚动提示 ============================ */
+#scroll-hint {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  transition: opacity .4s;
+}
+#scroll-hint span {
+  font: 500 10px var(--mono); color: var(--dim); letter-spacing: .5em;
+  text-indent: .5em;
+}
+#scroll-hint i {
+  width: 1px; height: 44px; background: var(--faint); position: relative; overflow: hidden;
+}
+#scroll-hint i::after {
+  content: ""; position: absolute; left: 0; top: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+  animation: drip 1.8s cubic-bezier(.6, 0, .4, 1) infinite;
+}
+@keyframes drip { to { top: 100%; } }
+
+/* ============================ 载入层 ============================ */
+#loading {
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--bg); display: grid; place-items: center;
+  font: 400 12px var(--mono); color: var(--dim); letter-spacing: .3em;
+  transition: opacity .6s;
+}
+#loading.done { opacity: 0; pointer-events: none; }
+#loading span {
+  width: 8px; height: 8px; margin-right: 12px; display: inline-block;
+  background: var(--accent); animation: pulse 1s infinite;
+}
+
+/* ============================ 响应式 ============================ */
+@media (max-width: 720px) {
+  #hud-top { padding: 18px 20px; }
+  .mode { display: none; }
+  #rail { right: 16px; }
+  #hud-cam { left: 20px; }
+  .chap-hero, .chap-left { left: 7vw; }
+  .chap-right { right: 7vw; }
+  .specs { gap: 20px; }
+}

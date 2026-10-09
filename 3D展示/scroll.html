@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RE-PULSE · 沉浸式滚动叙事（试水版）</title>
+<link rel="stylesheet" href="css/scroll.css">
+</head>
+<body>
+
+<!-- ============================ 3D 舞台（固定全屏） ============================ -->
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <div id="grain"></div>
+  <div id="vignette"></div>
+  <!-- 工程角标 -->
+  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+</div>
+
+<!-- ============================ 顶部 HUD ============================ -->
+<header id="hud-top">
+  <div class="brand">
+    <span class="mark">R</span>
+    <span class="txt"><b>RE-ENERGY</b><i>SCROLL SHOWREEL / TRIAL v0.1</i></span>
+  </div>
+  <div class="mode">
+    <span class="dot"></span>RE-PULSE · 移动式储能电芯主动活化巡检工作站
+  </div>
+</header>
+
+<!-- ============================ 右侧：进度轨道 ============================ -->
+<aside id="rail">
+  <div id="rail-track"><div id="rail-fill"></div></div>
+  <div id="chap-idx">01<span>/ 04</span></div>
+</aside>
+
+<!-- ============================ 左下：机位读数 ============================ -->
+<div id="hud-cam">
+  <span>AZ <b id="cam-az">000</b>°</span>
+  <span>EL <b id="cam-el">00</b>°</span>
+  <span>DIST <b id="cam-d">0.00</b>m</span>
+</div>
+
+<!-- ============================ 章节文案（固定层，JS 控制透明度） ============================ -->
+<div id="chapters">
+
+  <section class="chap chap-hero" data-ch="0">
+    <p class="eyebrow">RE-ENERGY · 00 / 04</p>
+    <h1>让每一度电<br><em>持续创造价值</em></h1>
+    <p class="desc">Keep every kWh creating value. 一台为后市场而生的<br>移动式储能巡检工作站 —— 向下滚动，开始检视。</p>
+  </section>
+
+  <section class="chap chap-right" data-ch="1">
+    <p class="eyebrow">01 / 04 — ORBIT</p>
+    <h2>360°<br>全方位环视</h2>
+    <p class="desc">双杆拉杆、两轮两脚、保护框与细状态灯。<br>机位环绕一周，比例与姿态一目了然。</p>
+    <ul class="specs">
+      <li><b>520</b><i>主体宽 mm</i></li>
+      <li><b>990</b><i>总高 mm</i></li>
+      <li><b>Ø84</b><i>轮径 mm</i></li>
+    </ul>
+  </section>
+
+  <section class="chap chap-left" data-ch="2">
+    <p class="eyebrow">02 / 04 — LOW ANGLE</p>
+    <h2>地面视角<br><em>工业力量感</em></h2>
+    <p class="desc">镜头压至轮轴高度 —— 大轮、支撑脚与<br>贴地重心，宣示"随时可以出发"的移动性。</p>
+    <ul class="specs">
+      <li><b>Ø84</b><i>大轮 mm</i></li>
+      <li><b>2+2</b><i>两轮两脚</i></li>
+      <li><b>0°</b><i>贴地机位</i></li>
+    </ul>
+  </section>
+
+  <section class="chap chap-right" data-ch="3">
+    <p class="eyebrow">03 / 04 — EXPLODE</p>
+    <h2>俯视拆解<br><em>模块化层级</em></h2>
+    <p class="desc">上盖 / HMI / 探针仓 / 卷线仓 / 轮系 ——<br>随着镜头升上头顶，整机沿装配轴展开。</p>
+  </section>
+
+</div>
+
+<!-- ============================ 滚动提示 / 滚动轨道 ============================ -->
+<div id="scroll-hint"><span>SCROLL</span><i></i></div>
+<div id="track"></div>
+
+<div id="loading"><span></span>正在构建 3D 模型…</div>
+
+<script>
+/* 出错时直接把信息显示到载入层，便于排查（也方便离线双击调试） */
+window.__err = [];
+window.addEventListener('error', function (e) {
+  window.__err.push((e.message || 'error') + '  @' + String(e.filename || '').split('/').pop() + ':' + (e.lineno || 0));
+  var el = document.getElementById('loading');
+  if (el) {
+    el.style.display = 'grid';
+    el.innerHTML = '<pre style="max-width:80vw;white-space:pre-wrap;font:12px/1.7 Consolas,monospace;color:#ff9b8a;text-align:left">'
+      + window.__err.join('\n') + '</pre>';
+  }
+});
+</script>
+
+<script src="js/three.min.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/models/repulse.js"></script>
+<script src="js/core/studio.js"></script>
+<script src="js/scroll.js"></script>
+</body>
+</html>

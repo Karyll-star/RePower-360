@@ -35,7 +35,8 @@
     /* 地面反弹光 */
     panel(24, 24, 0x2b343c, [0, -3.0, 0], [-Math.PI / 2, 0, 0]);
 
-    var tex = pmrem.fromScene(es, 0.045).texture;
+    /* sigma 过大会请求 >20 次采样而被 three 截断并告警，这里收敛到安全范围 */
+    var tex = pmrem.fromScene(es, 0.02).texture;
     scene.environment = tex;
     pmrem.dispose();
     return tex;

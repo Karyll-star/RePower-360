@@ -52,6 +52,13 @@
     }
   }
 
+  /* 右侧卷线仓门：随爆炸程度滑开，便于检视卷线轮（平时保持关闭） */
+  var reelDoor = null;
+  function applyReelDoor(t) {
+    if (!reelDoor) return;
+    reelDoor.position.lerpVectors(reelDoor.userData.closed, reelDoor.userData.open, RE.clamp(t * 1.6, 0, 1));
+  }
+
   /* ------------------------------------------------------------------ 场景 */
   function initScene() {
     var canvas = document.getElementById('gl');
@@ -114,6 +121,7 @@
 
     pulseList = collectExplode(pulse.group);
     bridgeList = collectExplode(bridge.group);
+    pulse.group.traverse(function (o) { if (o.name === 'ReelDoor') reelDoor = o; });
 
     allMats = [];
     world.traverse(function (o) {
@@ -130,6 +138,7 @@
     layout();
     applyExplode(pulseList, state.explode);
     applyExplode(bridgeList, state.explode);
+    applyReelDoor(state.explode);
     refreshLabels();
   }
 
@@ -272,6 +281,7 @@
       ex.style.setProperty('--p', ex.value + '%');
       applyExplode(pulseList, state.explode);
       applyExplode(bridgeList, state.explode);
+      applyReelDoor(state.explode);
       document.getElementById('explode-val').textContent =
         (state.explode > 0.02 ? Math.round(state.explode * 100) + '%' : '装配态');
       setView(state.view, false);

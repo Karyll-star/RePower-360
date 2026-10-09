@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>RE-ENERGY · 产品使用演示渲染器</title>
+<style>
+  html,body{margin:0;height:100%;background:#05080b;color:#9fb0bd;
+    font:13px/1.7 "Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden}
+  #wrap{position:fixed;inset:0;display:grid;place-items:center}
+  #out{width:min(96vw,1280px);height:auto;aspect-ratio:16/9;background:#000;
+    box-shadow:0 0 0 1px #1b242c,0 30px 80px rgba(0,0,0,.7)}
+  #gl{position:fixed;left:-4000px;top:0}
+  #hud{position:fixed;left:14px;bottom:10px;font:12px Consolas,monospace;color:#5c6b78}
+</style>
+</head>
+<body>
+  <div id="wrap"><canvas id="out"></canvas></div>
+  <div id="hud">renderer ready</div>
+
+<script src="js/three.min.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/models/repulse.js"></script>
+<script src="js/models/rebridge.js"></script>
+<script src="js/core/studio.js"></script>
+<script src="js/demo.js"></script>
+</body>
+</html>

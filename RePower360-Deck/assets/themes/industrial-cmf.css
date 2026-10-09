@@ -1,0 +1,44 @@
+/* theme: industrial-cmf
+ * 工业 CMF 深色 —— 石墨灰机身 + 琥珀状态色 + 红色急停点缀
+ * 取色对应《物理实体工具产品设计规范》第 19 节 CMF 表：
+ *   主体石墨灰 / 防撞角深色橡胶 / 阳极氧化铝 / 黑玻璃屏 / 红+黄急停
+ */
+:root{
+  --bg:#14171b;
+  --bg-soft:#0f1215;
+  --surface:#1c2026;
+  --surface-2:#23282f;
+  --border:rgba(255,255,255,.10);
+  --border-strong:rgba(255,255,255,.22);
+  --text-1:#e9ecf1;
+  --text-2:#a9b2be;
+  --text-3:#727c8a;
+  --accent:#f2a93b;                 /* 琥珀 · 状态灯 */
+  --accent-ink:#14171b;             /* 文字压在 --accent 上 — 8.6:1 */
+  --accent-2:#5aa9ff;               /* 联网蓝 */
+  --accent-3:#e8453a;               /* 急停红 */
+  --good:#5fc98a;
+  --warn:#f2a93b;
+  --bad:#e8453a;
+  --grad:linear-gradient(135deg,#f2a93b,#e8453a);
+  --grad-soft:linear-gradient(135deg,#1c2026,#2b3138);
+  --radius:10px;
+  --radius-sm:6px;
+  --radius-lg:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --shadow-lg:0 24px 62px rgba(0,0,0,.62);
+  --font-sans:'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-display:'Space Grotesk','Inter','Noto Sans SC',sans-serif;
+  --font-mono:'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+}
+
+/* 工业质感底纹：细网格 + 顶部一道仪器感高光 */
+.slide::before{
+  content:"";
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px;
+}
+.slide > *{position:relative;z-index:1}

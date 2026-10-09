@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RE-ENERGY 3D 工程模式 | Re-Pulse · Re-Bridge</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================ 3D 舞台 ============================ -->
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <div id="labels"></div>
+  <div id="dims"></div>
+  <div id="vignette"></div>
+</div>
+
+<!-- ============================ 右上：品牌与主题 ============================ -->
+<header id="topbar">
+  <div class="brand">
+    <span class="mark">R</span>
+    <span class="txt"><b>RE-ENERGY</b><i>Re-energize a Sustainable Future</i></span>
+  </div>
+  <div class="headline">
+    <h1>让每一度电　持续创造价值</h1>
+    <p>Keep Every kWh Creating Value</p>
+    <div class="tags">
+      <span>后市场 · 储能设备全生命周期服务</span>
+    </div>
+  </div>
+  <div class="prodnames">
+    <div><b>RE-PULSE</b><i>移动式储能电芯主动活化巡检工作站</i></div>
+    <div><b>RE-BRIDGE</b><i>磁吸式多协议边缘网关</i></div>
+  </div>
+</header>
+
+<!-- ============================ 左侧：控制面板 ============================ -->
+<aside id="panel">
+  <div class="grp">
+    <h4>产品</h4>
+    <div class="seg" data-key="focus">
+      <button data-v="all" class="on">产品族</button>
+      <button data-v="pulse">Re-Pulse</button>
+      <button data-v="bridge">Re-Bridge</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <h4>视角</h4>
+    <div class="seg" data-key="view">
+      <button data-v="iso" class="on">3/4</button>
+      <button data-v="front">正视</button>
+      <button data-v="side">侧视</button>
+      <button data-v="top">俯视</button>
+      <button data-v="back">后视</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <h4>爆炸图 <span id="explode-val" class="val">装配态</span></h4>
+    <input type="range" id="explode" min="0" max="100" value="0">
+    <p class="note">拖动查看拆件层级：上盖 / 下壳 / HMI / 探针仓 / 线缆 / 轮系</p>
+  </div>
+
+  <div class="grp">
+    <h4>显示</h4>
+    <label class="sw"><input type="checkbox" id="sw-labels" checked><span>部件标注</span></label>
+    <label class="sw"><input type="checkbox" id="sw-dims"><span>尺寸标注</span></label>
+    <label class="sw"><input type="checkbox" id="sw-wire"><span>线框模式</span></label>
+    <label class="sw"><input type="checkbox" id="sw-auto" checked><span>自动旋转</span></label>
+  </div>
+
+  <div class="grp">
+    <h4>Re-Bridge 安装方式</h4>
+    <div class="seg" data-key="mount">
+      <button data-v="magnet" class="on">磁吸 Re-Base</button>
+      <button data-v="din">DIN 导轨</button>
+    </div>
+    <p class="note">场景 A 快速巡检 / 场景 B 长期部署 —— 模块化工业设计</p>
+  </div>
+
+  <div class="grp">
+    <h4>尺寸方案</h4>
+    <select id="preset"></select>
+    <p class="note" id="preset-note"></p>
+  </div>
+
+  <div class="grp tight">
+    <button id="shot" class="primary">导出效果图 PNG</button>
+  </div>
+
+  <footer class="keys">空格 自动旋转 · E 爆炸图 · 1–4 视角</footer>
+</aside>
+
+<!-- ============================ 左下：规格卡 ============================ -->
+<section id="specs">
+  <h3>建模依据</h3>
+  <ul>
+    <li><b>造型语言</b><span>专业工业设备 + 移动工具 + 数字化终端</span></li>
+    <li><b>Re-Pulse</b><span>10.1" 触控屏 · E-STOP · Re-Probe Dock · 卷线仓 · 双杆拉杆 · 两轮两脚</span></li>
+    <li><b>Re-Bridge</b><span>金属端板 + 工程塑料主体 · 细光带状态灯 · CAN/RS485 · ETH/USB · 4G</span></li>
+    <li><b>统一 DNA</b><span>① 保护框　② 细状态灯　③ 模块化接口</span></li>
+  </ul>
+</section>
+
+<footer id="hint">拖拽旋转 · 滚轮缩放 · 右键 / Shift 拖拽平移 · <a href="index.html" style="color:#64d2ff;text-decoration:none">← 返回滚动叙事</a></footer>
+
+<div id="loading"><span></span>正在构建 3D 模型…</div>
+
+<script>
+/* 出错时直接把信息显示到载入层，便于排查（也方便离线双击调试） */
+window.__err = [];
+window.addEventListener('error', function (e) {
+  window.__err.push((e.message || 'error') + '  @' + String(e.filename || '').split('/').pop() + ':' + (e.lineno || 0));
+  var el = document.getElementById('loading');
+  if (el) {
+    el.classList.remove('done');
+    el.style.display = 'grid';
+    el.innerHTML = '<pre style="max-width:80vw;white-space:pre-wrap;font:12px/1.7 Consolas,monospace;color:#ff9b8a;text-align:left">'
+      + window.__err.join('\n') + '</pre>';
+  }
+});
+</script>
+
+<script src="js/three.min.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/models/repulse.js"></script>
+<script src="js/models/rebridge.js"></script>
+<script src="js/core/studio.js"></script>
+<script src="js/core/labels.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
