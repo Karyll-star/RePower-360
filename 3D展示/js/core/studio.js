@@ -38,6 +38,8 @@
     /* sigma 过大会请求 >20 次采样而被 three 截断并告警，这里收敛到安全范围 */
     var tex = pmrem.fromScene(es, 0.02).texture;
     scene.environment = tex;
+    /* 全局压低环境反射强度，避免金属/玻璃像镜子一样炫光（r163+ 生效） */
+    scene.environmentIntensity = 0.34;
     pmrem.dispose();
     return tex;
   };
@@ -46,7 +48,7 @@
      影棚灯光（主光 + 补光 + 勾边光 + 天地光）
      ========================================================================== */
   RE.buildLights = function (scene) {
-    var key = new T.DirectionalLight(0xffffff, 3.05);
+    var key = new T.DirectionalLight(0xffffff, 1.8);
     key.position.set(2.6, 3.8, 2.4);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);

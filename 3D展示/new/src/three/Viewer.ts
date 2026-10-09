@@ -80,7 +80,7 @@ export class Viewer {
     r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     r.setSize(w, h);
     r.toneMapping = THREE.ACESFilmicToneMapping;
-    r.toneMappingExposure = 1.05;
+    r.toneMappingExposure = 0.9;
     r.outputColorSpace = THREE.SRGBColorSpace;
     r.shadowMap.enabled = true;
     r.shadowMap.type = THREE.PCFShadowMap;
@@ -94,7 +94,7 @@ export class Viewer {
     // environment reflections
     const pmrem = new THREE.PMREMGenerator(r);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    this.scene.environmentIntensity = 0.38;
+    this.scene.environmentIntensity = 0.18;
     this.scene.environmentRotation.set(0, 0.6, 0);
     pmrem.dispose();
 
@@ -159,7 +159,7 @@ export class Viewer {
     this.composer.setPixelRatio(pr);
     this.composer.setSize(w, h);
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.bloom = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.55, 0.55, 0.92);
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.25, 0.5, 0.98);
     this.composer.addPass(this.bloom);
     this.composer.addPass(new OutputPass());
 
@@ -178,23 +178,23 @@ export class Viewer {
     const s = this.scene;
     const stoneMap = noiseTexture(512, 0.55, 0.55, 3);
     stoneMap.colorSpace = THREE.SRGBColorSpace;
-    stoneMap.repeat.set(3, 2);
+    stoneMap.repeat.set(16, 12);
     const stoneRough = noiseTexture(512, 0.5, 0.4, 5);
-    stoneRough.repeat.set(3, 2);
+    stoneRough.repeat.set(16, 12);
 
     const sideMat = new THREE.MeshStandardMaterial({ color: 0x3a424c, map: stoneMap, roughness: 0.7, roughnessMap: stoneRough, metalness: 0.15 });
-    const block = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.8, 2.6), sideMat);
+    const block = new THREE.Mesh(new THREE.BoxGeometry(24, 0.8, 16), sideMat);
     block.position.set(0, -0.401, -0.5);
     block.receiveShadow = true;
     s.add(block);
 
     // real-time mirror reflection, background suppressed so only products reflect
     const pr = Math.min(window.devicePixelRatio, 2);
-    const mirror = new Reflector(new THREE.PlaneGeometry(4.4, 2.6), {
+    const mirror = new Reflector(new THREE.PlaneGeometry(24, 16), {
       clipBias: 0.003,
       textureWidth: Math.floor(window.innerWidth * pr * 0.6),
       textureHeight: Math.floor(window.innerHeight * pr * 0.6),
-      color: 0x8c9198,
+      color: 0x2f343a,
     });
     mirror.rotation.x = -Math.PI / 2;
     mirror.position.set(0, 0.0, -0.5);
@@ -215,13 +215,13 @@ export class Viewer {
     const topMat = new THREE.MeshStandardMaterial({
       color: 0x323940,
       map: stoneMap,
-      roughness: 0.38,
+      roughness: 0.72,
       roughnessMap: stoneRough,
-      metalness: 0.2,
+      metalness: 0.03,
       transparent: true,
-      opacity: 0.84,
+      opacity: 0.95,
     });
-    const top = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 2.6), topMat);
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(24, 16), topMat);
     top.rotation.x = -Math.PI / 2;
     top.position.set(0, 0.0008, -0.5);
     top.receiveShadow = true;
@@ -229,10 +229,10 @@ export class Viewer {
 
     // bright machined front edge
     const edge = new THREE.Mesh(
-      new THREE.BoxGeometry(4.4, 0.008, 0.008),
+      new THREE.BoxGeometry(24, 0.008, 0.008),
       new THREE.MeshStandardMaterial({ color: 0xaab3bd, metalness: 0.9, roughness: 0.25 })
     );
-    edge.position.set(0, -0.004, 0.8);
+    edge.position.set(0, -0.004, 7.5);
     s.add(edge);
 
     // soft contact shadows
@@ -257,10 +257,10 @@ export class Viewer {
 
   private buildLights() {
     const s = this.scene;
-    const hemi = new THREE.HemisphereLight(0xa9bdd4, 0x15191f, 0.55);
+    const hemi = new THREE.HemisphereLight(0xa9bdd4, 0x15191f, 0.5);
     s.add(hemi);
 
-    const key = new THREE.DirectionalLight(0xeef3ff, 2.4);
+    const key = new THREE.DirectionalLight(0xeef3ff, 2.0);
     key.position.set(-2.2, 3.6, 2.6);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
@@ -276,15 +276,15 @@ export class Viewer {
     key.shadow.radius = 5;
     s.add(key);
 
-    const rim = new THREE.DirectionalLight(0xd2e6ff, 3.2);
+    const rim = new THREE.DirectionalLight(0xd2e6ff, 1.2);
     rim.position.set(-2.6, 2.8, -3.2);
     s.add(rim);
 
-    const fill = new THREE.DirectionalLight(0x8fa9c6, 0.7);
+    const fill = new THREE.DirectionalLight(0x8fa9c6, 0.6);
     fill.position.set(3, 1.4, 2.2);
     s.add(fill);
 
-    const spot = new THREE.SpotLight(0xffffff, 18, 6, 0.55, 1, 1.6);
+    const spot = new THREE.SpotLight(0xffffff, 9, 6, 0.55, 1, 1.6);
     spot.position.set(-0.4, 2.6, 0.9);
     spot.target.position.set(-0.1, 0.3, 0.05);
     s.add(spot, spot.target);
@@ -312,10 +312,10 @@ export class Viewer {
   setLighting(p: LightPreset) {
     const L = this.lights;
     const cfg: Record<LightPreset, { env: number; exp: number; hemi: [number, number]; key: [number, number]; rim: [number, number]; fill: [number, number]; spot: number; bg: number; bloom: number }> = {
-      studio: { env: 0.38, exp: 1.05, hemi: [0xa9bdd4, 0.55], key: [0xeef3ff, 2.4], rim: [0xd2e6ff, 3.2], fill: [0x8fa9c6, 0.7], spot: 18, bg: 0.95, bloom: 0.55 },
-      night: { env: 0.14, exp: 0.95, hemi: [0x4a6a96, 0.25], key: [0x7aa7ff, 1.0], rim: [0x56d8ff, 4.2], fill: [0x2a4a7a, 0.4], spot: 8, bg: 0.45, bloom: 0.95 },
-      lab: { env: 0.8, exp: 1.12, hemi: [0xffffff, 0.9], key: [0xffffff, 2.8], rim: [0xffffff, 2.0], fill: [0xe8eef5, 1.4], spot: 10, bg: 1.15, bloom: 0.35 },
-      dawn: { env: 0.35, exp: 1.05, hemi: [0xd8c3a8, 0.5], key: [0xffd2a1, 2.6], rim: [0xff9d5c, 3.0], fill: [0x7f9cc4, 0.8], spot: 12, bg: 0.85, bloom: 0.6 },
+      studio: { env: 0.18, exp: 0.9, hemi: [0xa9bdd4, 0.5], key: [0xeef3ff, 2.0], rim: [0xd2e6ff, 1.2], fill: [0x8fa9c6, 0.6], spot: 9, bg: 0.95, bloom: 0.25 },
+      night: { env: 0.12, exp: 0.92, hemi: [0x4a6a96, 0.25], key: [0x7aa7ff, 1.0], rim: [0x56d8ff, 2.6], fill: [0x2a4a7a, 0.4], spot: 8, bg: 0.45, bloom: 0.5 },
+      lab: { env: 0.4, exp: 1.0, hemi: [0xffffff, 0.7], key: [0xffffff, 2.2], rim: [0xffffff, 1.4], fill: [0xe8eef5, 1.0], spot: 10, bg: 1.0, bloom: 0.2 },
+      dawn: { env: 0.22, exp: 0.95, hemi: [0xd8c3a8, 0.5], key: [0xffd2a1, 2.2], rim: [0xff9d5c, 1.8], fill: [0x7f9cc4, 0.8], spot: 12, bg: 0.85, bloom: 0.3 },
     };
     const c = cfg[p];
     this.scene.environmentIntensity = c.env;

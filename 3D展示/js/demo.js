@@ -45,7 +45,7 @@
   renderer.shadowMap.type = T.PCFSoftShadowMap;
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 0.85;
 
   var scene = new T.Scene();
   scene.background = new T.Color(0x090d11);
@@ -189,8 +189,59 @@
   });
 
   /* ---------------------------------------------------------------- 产品 */
+  /* 模型换成 new/src/three/{rePulse,reBridge}.ts：米制、原点在地面。
+     demo 的场景是 mm，这里统一包一层换算容器，把米 → 毫米并对齐旋转中心。 */
+  var RM = window.REMODEL;
+  var NM = RM.createMaterials();
+  var pulseUI = new RM.ScreenUI();
+
   var preset = RE.PRESETS[0];
-  var pulse = RE.buildRepulse(preset.repulse);
+  var M_TO_MM = 1000;
+
+  /* mode: 'floor' 落地并水平居中（整机）/ 'center' 整体居中（网关，需绕自身翻滚） */
+  function wrapModel(api, mode) {
+    var inner = new T.Group();
+    api.group.scale.setScalar(M_TO_MM);
+    api.group.updateMatrixWorld(true);
+    var b = new T.Box3().setFromObject(api.group);
+    var c = b.getCenter(new T.Vector3());
+    if (mode === 'floor') api.group.position.set(-c.x, -b.min.y, -c.z);
+    else api.group.position.set(-c.x, -c.y, -c.z);
+    inner.add(api.group);
+    return { inner: inner, size: b.getSize(new T.Vector3()) };
+  }
+
+  /* 部件锚点 → 换算容器内的 mm 坐标 */
+  function anchorMM(inner, api, id) {
+    var a = null;
+    for (var i = 0; i < api.anchors.length; i++) if (api.anchors[i].id === id) a = api.anchors[i];
+    if (!a) return new T.Vector3();
+    var v = new T.Vector3();
+    a.obj.getWorldPosition(v);
+    inner.updateMatrixWorld(true);
+    return inner.worldToLocal(v);
+  }
+
+  var pulseApi = RM.buildRePulse(NM, pulseUI);
+  /* 新模型建机时停在“拉杆收起”姿态（其 update 未被调用），这里先驱动一次让它展开，
+     再据展开后的包围盒做落地 / 居中，避免拉杆顶被裁掉 */
+  pulseApi.setTrolley(true);
+  pulseApi.update(0.016);
+  /* 拉杆节点（供调试读数） */
+  var trolleyNode = (function () {
+    var found = null;
+    (function w(o) {
+      if (o.userData && o.userData.action === 'trolley' &&
+        !(o.parent && o.parent.userData && o.parent.userData.action === 'trolley')) found = o;
+      for (var i = 0; i < o.children.length; i++) w(o.children[i]);
+    })(pulseApi.group);
+    return found;
+  })();
+  var pulseWrap = wrapModel(pulseApi, 'floor');
+  var pulse = {
+    group: pulseWrap.inner,
+    size: { floorY: 0, W: pulseWrap.size.x, H: pulseWrap.size.y, D: pulseWrap.size.z, total: pulseWrap.size.y }
+  };
   var pulseHolder = new T.Group();
   pulse.group.position.y = -pulse.size.floorY;
   pulse.group.rotation.y = -0.42;
@@ -199,21 +250,43 @@
   pulseHolder.position.set(2600, 0, 1500);
   world.add(pulseHolder);
 
+  /* 轮组：新模型里轮胎名为 'tire'，取其父组整体旋转（连轮辋/轮辐/胎块一起转） */
+  var wheelGroups = [];
+  pulseApi.group.traverse(function (o) {
+    if (o.name === 'tire' && o.parent && wheelGroups.indexOf(o.parent) < 0) wheelGroups.push(o.parent);
+  });
+
+  /* 机身顶面（不含拉杆）—— 决定 Re-Bridge 的停机高度 */
+  var BODY_TOP = (function () {
+    var b = new T.Box3(), tb = new T.Box3();
+    (function walk(o) {
+      if (o.userData && o.userData.action === 'trolley') return;
+      if (o.isMesh && o.geometry) { tb.setFromObject(o); b.union(tb); }
+      for (var i = 0; i < o.children.length; i++) walk(o.children[i]);
+    })(pulseApi.group);
+    return b.isEmpty() ? pulseWrap.size.y * 0.55 : b.max.y;
+  })();
+
   var UP = new T.Vector3(0, 1, 0);
 
-  var bridge = RE.buildRebridge(preset.bridge);
-  bridge.group.scale.setScalar(1.0);
+  var bridgeApi = RM.buildReBridge(NM);
+  var bridgeWrap = wrapModel(bridgeApi, 'center');
+  var bridge = { group: bridgeWrap.inner };
   /* 初始姿态：平躺吸附在 Re-Pulse 顶部工作台（随机身移动），说明它的来源 */
   bridge.group.rotation.set(-Math.PI / 2, -0.30, 0);
-  var bridgeLed = new T.Mesh(new T.BoxGeometry(120, 3.4, 2.4),
-    new T.MeshBasicMaterial({ color: 0x2a3035, toneMapped: false }));
-  bridgeLed.position.set(0, 26, 18.4);
+  /* 指示光带贴着新模型的正面（锚点 bridge 就在状态光带处） */
+  var brLed = anchorMM(bridgeWrap.inner, bridgeApi, 'bridge');
+  var bridgeLed = new T.Mesh(
+    new T.BoxGeometry(bridgeWrap.size.x * 0.60, 4, 3),
+    new T.MeshBasicMaterial({ color: 0x2a3035, toneMapped: false })
+  );
+  bridgeLed.position.set(0, brLed.y, brLed.z + 5);
   bridge.group.add(bridgeLed);
   world.add(bridge.group);
 
   /* 机身停机位（世界 mm，随整机位置/朝向实时计算） */
   function bridgeDock() {
-    var v = new T.Vector3(-150, 250, 30);
+    var v = new T.Vector3(-90, BODY_TOP + 96, 20);
     v.applyAxisAngle(UP, pulse.group.rotation.y);
     v.add(pulseHolder.position);
     v.y += pulse.group.position.y;
@@ -223,7 +296,7 @@
   var BR_MOUNT = new T.Vector3(-440, 1030, 60);
   /* 用于构建静态导引弧线的停机位（MOVE 结束态） */
   var BR_DOCK0 = (function () {
-    var v = new T.Vector3(-150, 250, 30);
+    var v = new T.Vector3(-90, BODY_TOP + 96, 20);
     v.applyAxisAngle(UP, -0.30);
     v.add(new T.Vector3(860, 0, 620));
     v.y += pulse.group.position.y;
@@ -260,8 +333,9 @@
   scrTex.colorSpace = T.SRGBColorSpace;
   var scrMat = new T.MeshBasicMaterial({ map: scrTex, toneMapped: false });
   (function () {
+    /* 新模型的屏幕走 ScreenUI 画布纹理，这里换成 demo 自己的实时绘制纹理 */
     pulse.group.traverse(function (o) {
-      if (o.isMesh && o.material === RE.M.screen) o.material = scrMat;
+      if (o.isMesh && o.material && o.material.map === pulseUI.texture) o.material = scrMat;
     });
   })();
 
@@ -272,7 +346,8 @@
     var ry = pulse.group.rotation.y;
     pulse.group.rotation.y = -0.30;
     pulse.group.updateMatrix();
-    var dock = new T.Vector3(-preset.repulse.W * 0.5 + 8, -preset.repulse.H * 0.02, preset.repulse.D * 0.10);
+    /* 探针线起点：直接取新模型的「线缆仓 / Probe Dock」锚点，换模型也不会脱节 */
+    var dock = anchorMM(pulse.group, pulseApi, 'cables');
     dock.applyMatrix4(pulse.group.matrix);
     dock.add(new T.Vector3(860, 0, 620));
     pulse.group.rotation.y = ry;
@@ -458,21 +533,16 @@
     { t0: 12.4, code: 'MOVE', h: '单人即可推走整套活化能力', d: '520 × 320 × 400 mm 主体，含拉杆总高 990 mm，整机随人走' },
     { t0: 16.8, code: 'GATEWAY', h: 'Re-Bridge 磁吸上云', d: '磁吸固定 + 接入柜内 CAN/RS485 总线，200+ 私有协议自动解析，断网储能柜重新接入云端' },
     { t0: 21.6, code: 'PROBE', h: 'Re-Probe 快插探针接入', d: '不拆电池包，4 路快插接头依次插入 PACK 采样端子并锁止到位' },
-    { t0: 26.6, code: 'ACTIVATE', h: '5–10A 双向大电流主动均衡', d: '240 颗电芯逐颗拉平，掉队电芯现场 2 小时回到基准线' },
-    { t0: 32.0, code: 'RESULT', h: '作业完成 · 整柜可用容量 +8.3%', d: '压差 ΔV 18mV → 4mV · 单次挽回年电费损失 ¥10,560 · ROI > 150%' },
+    { t0: 26.6, code: 'ACTIVATE', h: '5–10A 双向大电流主动均衡', d: '240 颗电芯逐颗拉平，掉队电芯现场 2 小时回到基准线（演示为时间压缩）' },
+    { t0: 32.0, code: 'RESULT', h: '作业完成 · 整柜可用容量 +8.3%', d: '压差 ΔV 18mV → 4mV · 年化挽回电费 ¥10,560 · 客户 ROI > 150%' },
     { t0: 36.0, code: 'SAFETY', h: '7×24h 热失控 AI 预警', d: '季度订阅 · 保安全：单体温度越限即时告警，自动转待机并推送运维工单' },
     { t0: 42.0, code: 'RESALE', h: '电池身份证 · 梯次残值变现', d: '全周期数据沉淀为 SOH 评级 Grade A/B/C，溢价转卖下游，平台抽取 8% 佣金' },
     { t0: 48.0, code: 'OUTRO', h: 'Re-Energy · 储能后市场全生命周期', d: '重新上云 · 季度订阅 · 主动维护 · 回收转卖' }
   ];
 
   /* ---------------------------------------------------------------- 更新 */
-  var wheels = null;
-  (function () {
-    pulse.group.children.forEach(function (c) {
-      var e = c.userData && c.userData.explode;
-      if (e && e.dist === 200 && e.dir.y === -1 && e.dir.x === 0 && e.dir.z === 0) wheels = c;
-    });
-  })();
+  /* 轮组：新模型内部没有 userData.explode，改由构建时按轮胎名 'tire' 收集 */
+  var wheels = wheelGroups.length ? wheelGroups : null;
 
   /* 右侧卷线仓门：视频中默认关闭（静态展示的"半开"状态会显得像块翘起的板） */
   var reelDoor = null;
@@ -505,10 +575,9 @@
     pulse.group.rotation.y = lerp(-0.42, -0.30, mk);
     pulse.group.rotation.x = -0.028 * Math.sin(mk * Math.PI);
     if (wheels) {
-      /* 行程 1950mm / 轮半径 42mm ≈ 46.4 rad */
-      var spin = mk * 46.4;
-      if (wheels.children[0]) wheels.children[0].rotation.x = -spin;
-      if (wheels.children[1]) wheels.children[1].rotation.x = -spin;
+      /* 行程 1950mm / 新模型轮半径 82mm ≈ 23.8 rad */
+      var spin = mk * 23.8;
+      for (var wi = 0; wi < wheels.length; wi++) wheels[wi].rotation.x = -spin;
     }
 
     /* 卷线仓门：ORBIT 章滑开露出卷线轮（体现线缆管理），检视结束前合上 */
@@ -731,7 +800,7 @@
     var cols = 24, rows2 = 10, cw = 20, chh = 24, x0 = 214, y0 = 96;
     /* 左侧 SOH 环 */
     var cx = 108, cy = 200, R = 64;
-    var soh = t < 22.8 ? 82 : lerp(82, 90.4, prog);
+    var soh = t < 26.8 ? 82.4 : lerp(82.4, 84.1, prog);   /* 活化改善一致性与可用容量，SOH 仅小幅回升 */
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'rgba(90,150,180,.16)'; ctx.lineWidth = 16;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
@@ -798,7 +867,7 @@
     var items = [
       ['压差 ΔV', '18 mV → 4 mV'],
       ['整柜可用容量', '+ 8.3 %'],
-      ['SOH 健康度', '82.4 % → 90.4 %']
+      ['SOH 一致性改善', '82.4 % → 84.1 %']
     ];
     items.forEach(function (it, i) {
       var y = h * 0.62 + i * 44;
@@ -1058,7 +1127,7 @@
       var rows = [
         ['整柜可用容量', '+' + (8.3 * pr).toFixed(1) + ' %', '#3ee8a8'],
         ['压差 ΔV', (18 - 14 * pr).toFixed(0) + ' mV', '#ffd98a'],
-        ['年挽回电费', '¥ ' + Math.round(10560 * pr).toLocaleString(), '#7fe9c8'],
+        ['年化挽回电费', '¥ ' + Math.round(10560 * pr).toLocaleString(), '#7fe9c8'],
         ['客户 ROI', '> ' + Math.round(60 + 90 * pr) + ' %', '#7fdcff']
       ];
       rows.forEach(function (r, i) {
@@ -1257,14 +1326,16 @@
   }
 
   /* ---------------------------------------------------------------- 主循环 */
-  var t0 = 0, running = false, frames = 0, scrFrame = 0;
+  var t0 = 0, running = false, frames = 0, scrFrame = 0, lastT = 0;
 
   function frame() {
     if (!running) return;
     var t = (performance.now() - t0) / 1000;
     if (t >= DUR) return finish();
 
+    var dt = Math.min(0.05, Math.max(0, t - lastT)); lastT = t;
     updateScene(t);
+    pulseApi.update(dt);                 /* 驱动拉杆保持展开 + LED 呼吸 */
 
     if (frames % 2 === 0) {
       renderScreen(t);
@@ -1334,7 +1405,8 @@
       linkPlug: linkCable.plug.position.toArray().map(function (v) { return Math.round(v); }),
       conZ: cables.map(function (c) { return Math.round(c.con.position.z); }),
       walker: { v: walker.group.visible, o: +walker.mat.opacity.toFixed(2), p: walker.group.position.toArray().map(function (v) { return Math.round(v); }) },
-      cellsBad: cellBlocks.filter(function (c) { return c.bad && c.mat.emissive.r > c.mat.emissive.g; }).length
+      cellsBad: cellBlocks.filter(function (c) { return c.bad && c.mat.emissive.r > c.mat.emissive.g; }).length,
+      trolleyY: trolleyNode ? +trolleyNode.position.y.toFixed(4) : null
     };
   };
 
@@ -1359,6 +1431,12 @@
     chk('PASS.gradeB', 'Grade B → 离网光伏微网 · 农业灌溉储能', 14, '400', font, 360);
     chk('PASS.foot1', '残值评估 ¥42,000 · 多挽回 30–50% 退役残值', 15, '400', font, 388);
     chk('PASS.foot2', '平台撮合佣金 8%  →  ¥3,360 / 柜', 13, '500', mono, 388);
+    /* 左下角字幕：可用宽度约 714px */
+    CHAPTERS.forEach(function (c, i) {
+      chk('SUB' + i, c.h, 30, '700', font, 714);
+      chk('DESC' + i, c.d, 16, '400', font, 714);
+    });
+
     /* 纵向：确认内容收在面板内 */
     var v = [
       { item: 'SAFE.panel', content: 258 + 20, box: 278 },

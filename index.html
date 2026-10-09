@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1014">
+  <meta name="description" content="RE-ENERGY RePower-360 项目门户，进入产品展示、方案汇报、数字孪生和产品视频演示。">
+  <title>RE-ENERGY — RePower-360 项目门户</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --night: #0a1014;
+      --panel: #10191e;
+      --panel-soft: #142126;
+      --line: rgba(190, 218, 225, .15);
+      --line-strong: rgba(190, 218, 225, .28);
+      --white: #edf3f2;
+      --muted: #9baeb2;
+      --quiet: #70858b;
+      --ice: #9bd9e6;
+      --gold: #d8b783;
+      --green: #97c9b3;
+      --sans: Inter, "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-family: var(--sans);
+      background: var(--night);
+      color: var(--white);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 67% 37%, rgba(38, 70, 78, .18), transparent 42rem),
+        linear-gradient(135deg, #0b1115 0%, #0b1216 55%, #0a0f13 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    .site-shell { width: min(1440px, 100%); min-height: 100vh; margin: 0 auto; padding: 0 clamp(22px, 5.4vw, 78px); display: flex; flex-direction: column; }
+
+    .topbar { min-height: 86px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 13px; text-decoration: none; }
+    .brand-symbol { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(155, 217, 230, .72); border-radius: 9px; color: var(--ice); font: 700 19px/1 var(--sans); box-shadow: inset 0 0 14px rgba(94, 177, 193, .1); }
+    .brand-wordmark { display: block; font-size: 13px; font-weight: 650; letter-spacing: .19em; }
+    .brand-subtitle { display: block; margin-top: 4px; color: var(--quiet); font: 9px/1.2 var(--mono); letter-spacing: .12em; }
+    .top-meta { display: flex; align-items: center; gap: 10px; color: var(--muted); font: 10px/1 var(--mono); letter-spacing: .04em; }
+    .top-meta::before { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(151, 201, 179, .48); content: ""; }
+
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .55fr); gap: 40px; align-items: end; padding: clamp(48px, 8vh, 92px) 0 36px; }
+    .intro-kicker { margin: 0 0 19px; color: var(--ice); font: 10px/1.4 var(--mono); letter-spacing: .14em; }
+    h1 { max-width: 700px; margin: 0; color: var(--white); font-size: clamp(38px, 5.5vw, 70px); font-weight: 480; line-height: 1.12; letter-spacing: -.055em; }
+    .intro-copy { max-width: 340px; justify-self: end; margin: 0 0 5px; color: #a8b8bb; font-size: 13px; line-height: 1.85; }
+
+    .portal-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: 13px; flex: 1; min-height: 430px; padding-bottom: 26px; }
+    .portal-links { min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 13px; }
+    .portal-card { position: relative; isolation: isolate; min-width: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(18px, 2.25vw, 29px); border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--white); text-decoration: none; transition: border-color .3s ease, transform .35s cubic-bezier(.2, .72, .2, 1); }
+    .portal-card:hover { transform: translateY(-2px); border-color: rgba(183, 222, 230, .42); }
+    .portal-card:focus-visible { outline: 2px solid rgba(155, 217, 230, .68); outline-offset: 3px; }
+    .portal-card--feature { min-height: 430px; padding: 0; }
+    .card-content { position: absolute; z-index: 2; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; padding: 20px clamp(19px, 2.3vw, 30px) 23px; background: linear-gradient(0deg, rgba(7, 12, 15, .96) 0%, rgba(7, 12, 15, .82) 22%, rgba(7, 12, 15, .35) 52%, rgba(7, 12, 15, .03) 82%); }
+    .portal-card--feature .card-content { padding-top: 74px; }
+    .card-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: #c4d1d2; font: 10px/1.4 var(--mono); letter-spacing: .035em; }
+    .card-title-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .card-title { margin: 0; font-size: clamp(18px, 2vw, 23px); font-weight: 570; line-height: 1.3; letter-spacing: -.025em; }
+    .card-description { max-width: 490px; margin: 7px 0 0; color: #a7b5b7; font-size: 11px; line-height: 1.65; }
+    .card-open { flex: 0 0 auto; display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(226, 241, 242, .3); border-radius: 50%; color: #dce9e9; font-size: 16px; transition: color .25s, background .25s, transform .3s; }
+    .portal-card:hover .card-open { transform: translate(2px, -2px); border-color: var(--ice); background: var(--ice); color: #102026; }
+
+    .feature-art { position: absolute; z-index: -1; inset: 0; background: #10191e url("产品效果图.png") 43% center / cover no-repeat; transform: scale(1.001); transition: transform .8s cubic-bezier(.2, .72, .2, 1), filter .5s ease; }
+    .feature-art::after { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 14, 18, .12) 12%, rgba(8, 14, 18, .02) 38%, rgba(8, 14, 18, .2) 57%, rgba(8, 14, 18, .78) 100%), linear-gradient(90deg, rgba(8, 14, 18, .22), transparent 62%); content: ""; }
+    .portal-card--feature:hover .feature-art { transform: scale(1.035); filter: brightness(1.08); }
+    .feature-caption { position: absolute; z-index: 1; top: 22px; left: 24px; display: flex; align-items: center; gap: 9px; padding: 8px 10px; border: 1px solid rgba(231, 241, 240, .19); border-radius: 5px; background: rgba(8, 14, 18, .5); color: rgba(239, 246, 245, .86); font: 9px/1 var(--mono); letter-spacing: .04em; backdrop-filter: blur(10px); }
+    .feature-caption::before { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(151, 201, 179, .55); content: ""; }
+    /* 各选项卡背景 = 对应页面的真实截图（portal-shots/） */
+    .shot-preview { position: absolute; inset: 0; transform: scale(1.001); filter: saturate(.94); transition: transform .65s cubic-bezier(.2, .72, .2, 1), filter .45s ease; }
+    .portal-card:hover .shot-preview { transform: scale(1.045); filter: saturate(1.05) brightness(1.08); }
+    .portal-card--deck .shot-preview { background: #171a19 url("portal-shots/shot-deck.png") center 42% / cover no-repeat; }
+    .portal-card--ui .shot-preview { background: #12191e url("portal-shots/shot-ui.png") center 30% / cover no-repeat; }
+    .portal-card--motion .shot-preview { background: #10171b url("portal-shots/shot-demo.png") center 55% / cover no-repeat; }
+    .portal-card--console .shot-preview { background: #111a1f url("portal-shots/shot-studio.png") center / cover no-repeat; }
+
+    .portal-card--deck .card-content { padding-right: 23px; background: linear-gradient(0deg, rgba(13, 15, 15, .97) 0%, rgba(13, 15, 15, .82) 22%, rgba(13, 15, 15, .34) 55%, rgba(13, 15, 15, .04) 84%); }
+    .portal-card--deck .card-topline { color: var(--gold); }
+
+    .portal-card--motion .shot-preview::after { position: absolute; top: 42%; left: 50%; width: 39px; height: 39px; border: 1px solid rgba(237, 246, 245, .72); border-radius: 50%; background: rgba(7, 14, 17, .42); box-shadow: 0 4px 18px rgba(0, 0, 0, .25); transform: translate(-50%, -50%); content: ""; transition: background .3s, transform .3s; }
+    .portal-card--motion .shot-preview::before { position: absolute; z-index: 1; top: 42%; left: 50%; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid #edf6f5; transform: translate(-35%, -50%); content: ""; }
+    .portal-card--motion:hover .shot-preview::after { transform: translate(-50%, -50%) scale(1.08); background: rgba(7, 14, 17, .65); }
+    .portal-card--motion .card-topline { color: #b6c9cb; }
+
+    .site-footer { min-height: 61px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); color: var(--quiet); font: 9px/1.5 var(--mono); letter-spacing: .035em; }
+    .site-footer a { color: #a5b6b9; text-decoration: none; transition: color .2s; }
+    .site-footer a:hover, .site-footer a:focus-visible { color: var(--ice); }
+
+    @media (min-width: 1000px) and (min-height: 800px) { .portal-grid { min-height: 480px; } }
+    @media (max-width: 760px) {
+      .site-shell { padding: 0 19px; }
+      .topbar { min-height: 72px; }
+      .top-meta { font-size: 9px; }
+      .intro { grid-template-columns: 1fr; gap: 16px; padding: 48px 0 27px; }
+      .intro-kicker { margin-bottom: 14px; }
+      h1 { font-size: clamp(36px, 10vw, 54px); }
+      .intro-copy { justify-self: start; max-width: 440px; font-size: 12px; }
+      .portal-grid { grid-template-columns: 1fr; gap: 10px; min-height: 0; padding-bottom: 20px; }
+      .portal-card--feature { min-height: 350px; }
+      .portal-links { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(190px, auto)); gap: 10px; }
+      .portal-card:not(.portal-card--feature) { padding: 0; }
+      .portal-card:not(.portal-card--feature) .card-content { padding: 15px; }
+      .portal-card:not(.portal-card--feature) .card-title { font-size: 16px; }
+      .portal-card:not(.portal-card--feature) .card-description { max-width: 230px; font-size: 10px; }
+      .portal-card:not(.portal-card--feature) .card-topline { font-size: 9px; }
+      .portal-card--deck .card-content { padding: 16px 19px; }
+      .feature-caption { top: 15px; left: 15px; }
+      .site-footer { min-height: 58px; font-size: 8px; }
+    }
+    @media (max-width: 420px) {
+      .top-meta { max-width: 86px; text-align: right; line-height: 1.35; }
+      .portal-card--feature { min-height: 315px; }
+      .portal-links { grid-template-rows: repeat(2, minmax(190px, auto)); }
+      .card-open { width: 26px; height: 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="RE-ENERGY 项目门户">
+        <span class="brand-symbol" aria-hidden="true">R</span>
+        <span><span class="brand-wordmark">RE-ENERGY</span><span class="brand-subtitle">PRODUCT SYSTEM DESIGN</span></span>
+      </a>
+      <span class="top-meta">RePower-360 / 项目入口</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="intro-kicker">储能设备 · 全生命周期服务</p>
+        <h1 id="page-title">让每一度电<br>持续创造价值</h1>
+      </div>
+      <p class="intro-copy">从产品形态到运维服务，进入 RePower-360 的设计与演示现场。</p>
+    </section>
+
+    <section class="portal-grid" aria-label="项目内容">
+      <a class="portal-card portal-card--feature" href="3D展示/index.html" target="_blank" rel="noopener">
+        <span class="feature-art" aria-hidden="true"></span>
+        <span class="feature-caption">产品族 · 3D 展示</span>
+        <span class="card-content">
+          <span class="card-topline">Re-Pulse / Re-Bridge</span>
+          <span class="card-title-row"><span class="card-title">走近产品</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-description">查看设备结构、细节与产品族的 3D 沉浸展示</span>
+        </span>
+      </a>
+
+      <div class="portal-links">
+      <a class="portal-card portal-card--deck" href="RePower360-Deck/index.html" target="_blank" rel="noopener">
+        <span class="shot-preview" aria-hidden="true"></span>
+        <span class="card-content">
+          <span class="card-topline">项目方案</span>
+          <span class="card-title-row"><span class="card-title">查看全景汇报</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-description">服务闭环、商业模式与项目测算</span>
+        </span>
+      </a>
+
+      <a class="portal-card portal-card--ui" href="RePower-UI-Demo/index.html" target="_blank" rel="noopener">
+        <span class="shot-preview" aria-hidden="true"></span>
+        <span class="card-content">
+          <span class="card-topline">数字服务</span>
+          <span class="card-title-row"><span class="card-title">体验管理平台</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-description">PC 中台与移动运维 Demo</span>
+        </span>
+      </a>
+
+      <a class="portal-card portal-card--motion" href="3D展示/demo.html" target="_blank" rel="noopener">
+        <span class="shot-preview" aria-hidden="true"></span>
+        <span class="card-content">
+          <span class="card-topline">产品影像</span>
+          <span class="card-title-row"><span class="card-title">播放产品演示</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-description">观看 Re-Pulse 与 Re-Bridge 动态演示</span>
+        </span>
+      </a>
+      <a class="portal-card portal-card--console" href="3D展示/new/dist/index.html" target="_blank" rel="noopener">
+        <span class="shot-preview" aria-hidden="true"></span>
+        <span class="card-content">
+          <span class="card-topline">3D 工程工具</span>
+          <span class="card-title-row"><span class="card-title">打开 3D 控制台</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-description">切换视角、尺寸预设与部件状态</span>
+        </span>
+      </a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>RE-ENERGY　© 2026</span>
+      <a href="RePower360-Deck/notes.html" target="_blank" rel="noopener">演讲者逐字稿 ↗</a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -410,13 +410,13 @@ export function buildRePulse(m: Mats, screen: ScreenUI): RePulse {
     group: root,
     anchors,
     pickables,
-    setTrolley: (e) => (trolleyTarget = e ? 1 : 0),
+    setTrolley: (e) => { trolleyTarget = e ? 1 : 0; },
     setEStop: (on) => {
       estopTarget = on ? 1 : 0;
       screen.estop = on;
       screen.refresh();
     },
-    setExploded: (on) => (exTarget = on ? 1 : 0),
+    setExploded: (on) => { exTarget = on ? 1 : 0; },
     spinKnob: () => (knobSpin += PI / 3),
     update: (dt) => {
       time += dt;
@@ -443,7 +443,7 @@ export function buildRePulse(m: Mats, screen: ScreenUI): RePulse {
       estopCap.rotation.z = estopT * 0.25;
 
       // emissive pulse on LED strips
-      m.ledCyan.emissiveIntensity = estopTarget ? 0.6 : 3.6 + Math.sin(time * 2.2) * 0.8;
+      m.ledCyan.emissiveIntensity = estopTarget ? 0.6 : 1.5 + Math.sin(time * 2.2) * 0.35;
       screen.update(dt);
     },
   };

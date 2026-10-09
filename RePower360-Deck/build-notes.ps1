@@ -1,4 +1,4 @@
-# 从 index.html 抽取每页 data-title 与演讲者备注（.notes），生成逐字稿 notes.html
+﻿# 从 index.html 抽取每页 data-title 与演讲者备注（.notes），生成逐字稿 notes.html
 # 用法：powershell -ExecutionPolicy Bypass -File build-notes.ps1
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Definition
