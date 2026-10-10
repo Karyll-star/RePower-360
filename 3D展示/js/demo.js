@@ -9,8 +9,8 @@
 
   /* ---------------------------------------------------------------- 参数 */
   var Q = new URLSearchParams(location.search);
-  var W = +(Q.get('w') || 1280);
-  var H = +(Q.get('h') || 720);
+  var W = +(Q.get('w') || 1920);                    // 默认输出/预览 1080p
+  var H = +(Q.get('h') || 1080);
   var FPS = +(Q.get('fps') || 30);
   var DUR = +(Q.get('dur') || 54);
   var IS_FILE = location.protocol === 'file:';      // 双击打开时改为下载而非上传
@@ -20,6 +20,15 @@
   var NAME = Q.get('name') || 'repower-usage-demo.webm';
   var AUTO = Q.get('auto') !== '0';                 // 默认打开即播放
   var SEQ = Q.get('seq') === '1';                   // 逐帧出图模式（推荐用于出片）
+
+  /* 网页预览按屏幕像素密度提高画布后备分辨率：
+     否则 1280×720 的后备缓冲被 CSS 拉伸到高分屏（DPR 2）上会明显发虚。
+     出片模式（seq / rec）不受影响，严格按 w/h 输出。
+     ?dpr=1 可强制关闭，?dpr=2 可强制开启。 */
+  var DPR = Q.has('dpr') ? (+Q.get('dpr') || 1) : ((SEQ || REC) ? 1 : Math.min(window.devicePixelRatio || 1, 2));
+  var dprScale = Math.min(DPR, 2560 / W);          // 预览后备分辨率上限 2560 宽，避免高分屏过度渲染
+  if (dprScale > 1) { W = Math.round(W * dprScale); H = Math.round(H * dprScale); }
+
   var PW = W, PH = H;                               // 物理输出尺寸（HUD 缩放前使用）
 
   /* ---------------------------------------------------------------- 工具 */
@@ -1379,7 +1388,8 @@
     var hud = document.getElementById('hud');
     if (hud) hud.textContent = REC
       ? '录制中 ' + W + 'x' + H + ' @' + FPS + 'fps · ' + DUR + 's · ' + mime
-      : '预览播放 ' + W + 'x' + H + ' · ' + DUR + 's · 循环（加 ?rec=1 开始录制）';
+      : '预览播放 ' + W + 'x' + H + (dprScale > 1 ? '（DPR ' + DPR.toFixed(2) + ' 超采样）' : '') +
+      ' · ' + DUR + 's · 循环（?rec=1 录制，?w/?h 改分辨率，?dpr=1 关超采样）';
     running = true; frames = 0;
     t0 = performance.now();
     requestAnimationFrame(frame);
