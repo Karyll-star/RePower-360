@@ -52,7 +52,10 @@
     charts.push(c);
     return c;
   }
-  function killCharts() { while (charts.length) { try { charts.pop().dispose(); } catch (e) {} } }
+  function killCharts() {
+    while (charts.length) { try { charts.pop().dispose(); } catch (e) {} }
+    mChart = {};
+  }
 
   /* ---------------- 菜单 / 顶栏 ---------------- */
   function renderMenu() {
@@ -317,20 +320,25 @@
     });
   }
 
-  /* ---------------- 视图：经济收益晴雨表 ---------------- */
+  /* ---------------- 视图：经济收益晴雨表 ----------------
+   * 全页统一为「单柜 / 年」口径：下方两个滑块是唯一的参数源，
+   * 拖动后 KPI、明细、两张图表同步重算（详见 paintMoney）。
+   */
   function viewMoney() {
-    const R = D.ROI;
-    const totalSub = D.PORTFOLIO.cabinets * R.subsYear;
+    const V = D.calcRoi(20, 0.8);
     return `
       <div class="grid g4">
-        <div class="kpi c"><div class="k-n">${money(D.FINANCE.recover.at(-1))}</div>
-          <div class="k-l">9 月单月挽回电费</div><div class="k-d up">▲ 环比 +4.4%</div></div>
-        <div class="kpi"><div class="k-n">${money(D.FINANCE.subs.at(-1))}</div>
-          <div class="k-l">当月订阅投入（10 柜）</div><div class="k-d">增效版 2,499 元/柜/季</div></div>
-        <div class="kpi b"><div class="k-n">${R.roiDirect}<small>%</small></div>
+        <div class="kpi d"><div class="k-n" id="kLoss">${money(V.lossYear)}</div>
+          <div class="k-l">单柜年损失电费（木桶效应）</div>
+          <div class="k-d" id="kLossNote">口径：单柜 / 年 · 20kWh × 2 充放 × 0.80 元</div></div>
+        <div class="kpi"><div class="k-n" id="kSub">${money(V.subsYear)}</div>
+          <div class="k-l">单柜年订阅投入（增效版）</div>
+          <div class="k-d">2,499 元 / 柜 / 季 × 4 = 9,996 元</div></div>
+        <div class="kpi b"><div class="k-n" id="kRoi">${V.roiDirect}<small>%</small></div>
           <div class="k-l">直接电费 ROI</div><div class="k-d">仅计峰谷套利挽回部分</div></div>
-        <div class="kpi"><div class="k-n">${R.roiTotal}<small>%</small></div>
-          <div class="k-l">综合 ROI（含残值与延寿）</div><div class="k-d up">▲ 客户 ${num(R.payback, 1)} 个月即可回本</div></div>
+        <div class="kpi c"><div class="k-n" id="kRoi2">${V.roiTotal}<small>%</small></div>
+          <div class="k-l">综合 ROI（含残值与延寿）</div>
+          <div class="k-d up" id="kPayback">▲ 客户 ${V.payback} 个月即可回本</div></div>
       </div>
 
       <div class="grid g12 mt">
@@ -347,73 +355,122 @@
             <div class="kv"><span class="k">年运行天数</span><span class="v">330 天</span></div>
             <div class="mt" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px">
               <div class="k-d">单柜年损失电费</div>
-              <div class="k-n" style="color:var(--bad)" id="cOut">${money(R.lossYear)}</div>
-              <div class="note mt">订阅增效版 ${money(R.subsYear)}/年，直接 ROI
-                <b id="cRoi" style="color:var(--accent)">${R.roiDirect}%</b>；叠加残值与延寿后综合 ROI
-                <b id="cRoi2" style="color:var(--good)">${R.roiTotal}%</b>。</div>
+              <div class="k-n" style="color:var(--bad)" id="cOut">${money(V.lossYear)}</div>
+              <div class="note mt">订阅增效版 ${money(V.subsYear)}/年，直接 ROI
+                <b id="cRoi" style="color:var(--accent)">${V.roiDirect}%</b>；叠加残值与延寿后综合 ROI
+                <b id="cRoi2" style="color:var(--good)">${V.roiTotal}%</b>。</div>
             </div>
           </div>
           <div class="mt">
-            <div class="kv"><span class="k">① 峰谷套利挽回</span><span class="v" style="color:var(--good)">+${money(R.direct)}</span></div>
-            <div class="kv"><span class="k">② 梯次残值溢价</span><span class="v" style="color:var(--good)">+${money(R.residual)}</span></div>
-            <div class="kv"><span class="k">③ 延寿 / 免提前换包</span><span class="v" style="color:var(--good)">+${money(R.lifeExt)}</span></div>
-            <div class="kv"><span class="k">年度订阅成本</span><span class="v" style="color:var(--bad)">-${money(R.subsYear)}</span></div>
-            <div class="kv"><span class="k"><b>净收益 / 柜 / 年</b></span><span class="v" style="color:var(--accent)">${money(R.total - R.subsYear)}</span></div>
+            <div class="kv"><span class="k">① 峰谷套利挽回</span><span class="v" style="color:var(--good)" id="b1">+${money(V.lossYear)}</span></div>
+            <div class="kv"><span class="k">② 梯次残值溢价</span><span class="v" style="color:var(--good)" id="b2">+${money(V.residual)}</span></div>
+            <div class="kv"><span class="k">③ 延寿 / 免提前换包</span><span class="v" style="color:var(--good)" id="b3">+${money(V.lifeExt)}</span></div>
+            <div class="kv"><span class="k">年度订阅成本</span><span class="v" style="color:var(--bad)" id="bSub">-${money(V.subsYear)}</span></div>
+            <div class="kv"><span class="k"><b>净收益 / 柜 / 年</b></span><span class="v" style="color:var(--accent)" id="bNet">${money(V.net)}</span></div>
           </div>
+          <div class="note mt">整页口径统一为 <b>单柜 / 年</b>：拖动上方滑块，KPI、明细与右侧两张图会同时重算。</div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="card">
-            <div class="card-hd"><div class="card-tt">挽回电费 vs 订阅投入 <span class="tag">Portfolio</span></div>
-              <div class="card-x">10 座柜 · 单位：元 / 月</div></div>
+            <div class="card-hd"><div class="card-tt">单柜月度挽回 vs 订阅投入 <span class="tag">Single Unit</span></div>
+              <div class="card-x">1 座柜 / 年化摊平 · 单位：元 / 月</div></div>
             <div class="chart" id="cMoney"></div>
           </div>
           <div class="card">
-            <div class="card-hd"><div class="card-tt">初创团队累计现金流与盈亏平衡点 <span class="tag">BEP</span></div>
-              <div class="card-x">单位：万元</div></div>
+            <div class="card-hd"><div class="card-tt">单柜累计净收益与回本点 <span class="tag">Payback</span></div>
+              <div class="card-x">1 座柜 · 单位：元</div></div>
             <div class="chart" id="cCash"></div>
-            <p class="note mt">前期投入模具研发、首批打样与 SaaS 平台约 80~120 万；以苏浙粤工业园区为核心签
-              约托管 150 柜后，预计第 <b style="color:var(--accent)">14~18 个月</b> 实现收支平衡。</p>
+            <p class="note mt">订阅兜底收益（峰谷套利挽回 + 梯次残值溢价 + 延寿摊销）按年摊平到月度，
+              与订阅费逐月轧差后累计；曲线穿越零轴处即为静态回收期。
+              <span style="color:var(--text-3)">组合口径补充：签约托管 150 柜后，初创团队预计第 14~18 个月整体收支平衡。</span></p>
           </div>
         </div>
       </div>`;
   }
-  function chartMoney() {
-    const F = D.FINANCE;
-    chart($('#cMoney'), {
-      grid: { ...GRID, left: 52 }, tooltip: { ...TIP, trigger: 'axis' },
-      legend: { right: 0, top: 0, textStyle: { color: '#727c8a', fontSize: 10 }, itemWidth: 14, itemHeight: 8 },
-      xAxis: { type: 'category', data: F.months, ...AXIS, splitLine: { show: false } },
+  const MONTHS = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+  const LEG = { right: 0, top: 0, textStyle: { color: '#727c8a', fontSize: 10 }, itemWidth: 14, itemHeight: 8 };
+
+  /* 单柜月度：挽回 vs 订阅（年化摊平）+ 累计净收益 */
+  function optMonthly(V) {
+    const rec = MONTHS.map(() => Math.round(V.monthRecover));
+    const sub = MONTHS.map(() => Math.round(V.monthSub));
+    const cum = MONTHS.map((_, i) => Math.round(V.monthNet * (i + 1)));
+    return {
+      grid: { ...GRID, left: 54 }, tooltip: { ...TIP, trigger: 'axis' },
+      legend: { ...LEG, data: ['挽回电费', '订阅投入', '累计净收益'] },
+      xAxis: { type: 'category', data: MONTHS, ...AXIS, splitLine: { show: false } },
       yAxis: { type: 'value', ...AXIS },
       series: [
-        { name: '挽回电费', type: 'bar', data: F.recover, barWidth: '42%',
+        { name: '挽回电费', type: 'bar', data: rec, barWidth: '34%',
           itemStyle: { color: '#5fc98a', borderRadius: [4, 4, 0, 0] } },
-        { name: '订阅投入', type: 'bar', data: F.subs.map(v => Math.round(v)), barWidth: '42%',
+        { name: '订阅投入', type: 'bar', data: sub, barWidth: '34%',
           itemStyle: { color: '#23282f', borderRadius: [4, 4, 0, 0] } },
-        { name: '累计净收益', type: 'line', smooth: true,
-          data: F.recover.reduce((a, v, i) => (a.push(+((a[i - 1] || 0) + v - F.subs[i]).toFixed(0)), a), []),
+        { name: '累计净收益', type: 'line', smooth: true, data: cum,
           lineStyle: { color: '#f2a93b', width: 2 }, itemStyle: { color: '#f2a93b' } }
       ]
-    });
-    const C = D.CASHFLOW;
-    chart($('#cCash'), {
-      grid: { ...GRID, left: 46 }, tooltip: { ...TIP, trigger: 'axis' },
-      xAxis: { type: 'category', data: C.labels, ...AXIS, splitLine: { show: false } },
-      yAxis: { type: 'value', ...AXIS },
-      series: [
-        { name: '累计现金流', type: 'line', smooth: true, data: C.cum,
-          lineStyle: { color: '#5aa9ff', width: 2.4 }, itemStyle: { color: '#5aa9ff' },
-          areaStyle: { color: 'rgba(90,169,255,.12)' },
-          markLine: { silent: true, symbol: 'none',
-            data: [{ xAxis: 9, lineStyle: { color: '#f2a93b', type: 'dashed' },
-              label: { formatter: 'BEP M14~18', color: '#f2a93b', fontSize: 10 } }] } },
-        { name: '月度投入', type: 'bar', data: C.cost, barWidth: '30%',
-          itemStyle: { color: 'rgba(232,69,58,.45)', borderRadius: [3, 3, 0, 0] } },
-        { name: '月度收入', type: 'bar', data: C.rev, barWidth: '30%',
-          itemStyle: { color: 'rgba(95,201,138,.55)', borderRadius: [3, 3, 0, 0] } }
-      ],
-      legend: { right: 0, top: 0, textStyle: { color: '#727c8a', fontSize: 10 }, itemWidth: 14, itemHeight: 8 }
-    });
+    };
+  }
+
+  /* 单柜累计净收益与回本点（穿越零轴处 = 静态回收期） */
+  function optPayback(V) {
+    const n = 24;
+    const labels = Array.from({ length: n }, (_, i) => 'M' + (i + 1));
+    const cum = labels.map((_, i) => Math.round(V.monthNet * (i + 1)));
+    const bep = Math.max(1, Math.round(V.payback));
+    const mon = months => (months >= 12 ? (months / 12).toFixed(1) + ' 年' : months + ' 个月');
+    return {
+      grid: { ...GRID, left: 52 }, tooltip: {
+        ...TIP, trigger: 'axis',
+        valueFormatter: v => money(v)
+      },
+      legend: { ...LEG, data: ['累计净收益'] },
+      xAxis: { type: 'category', data: labels, ...AXIS, splitLine: { show: false } },
+      yAxis: { type: 'value', ...AXIS, axisLabel: { color: '#727c8a', fontSize: 10, formatter: v => (v / 1000) + 'k' } },
+      series: [{
+        name: '累计净收益', type: 'line', smooth: true, data: cum,
+        lineStyle: { color: '#5aa9ff', width: 2.4 }, itemStyle: { color: '#5aa9ff' },
+        areaStyle: { color: 'rgba(90,169,255,.12)' },
+        markLine: {
+          silent: true, symbol: 'none',
+          data: [
+            { yAxis: 0, lineStyle: { color: 'rgba(255,255,255,.25)', width: 1 } },
+            { xAxis: bep - 1, lineStyle: { color: '#f2a93b', type: 'dashed' },
+              label: { formatter: '回本 ≈ ' + mon(V.payback), color: '#f2a93b', fontSize: 10 } }
+          ]
+        }
+      }]
+    };
+  }
+
+  let mChart = {};   // 收益晴雨表图表实例（供滑块实时重算）
+
+  function chartMoney() {
+    const kwh = +$('#c1').value, spread = +$('#c2').value / 100;
+    const V = D.calcRoi(kwh, spread);
+    mChart.a = chart($('#cMoney'), optMonthly(V));
+    mChart.b = chart($('#cCash'), optPayback(V));
+  }
+
+  /* 滑块 → 整页重算（KPI / 明细 / 两张图） */
+  function paintMoney() {
+    const kwh = +$('#c1').value, spread = +$('#c2').value / 100;
+    const V = D.calcRoi(kwh, spread);
+    const set = (id, html) => { const el = $('#' + id); if (el) el.innerHTML = html; };
+    set('c1v', kwh + ' kWh');
+    set('c2v', spread.toFixed(2) + ' 元/度');
+    set('cOut', money(V.lossYear));
+    set('cRoi', V.roiDirect + '%');
+    set('cRoi2', V.roiTotal + '%');
+    set('kLoss', money(V.lossYear));
+    set('kLossNote', `口径：单柜 / 年 · ${kwh}kWh × 2 充放 × ${spread.toFixed(2)} 元`);
+    set('kRoi', V.roiDirect + '<small>%</small>');
+    set('kRoi2', V.roiTotal + '<small>%</small>');
+    set('kPayback', '▲ 客户 ' + V.payback + ' 个月即可回本');
+    set('b1', '+' + money(V.lossYear));
+    set('bNet', money(V.net));
+    if (mChart.a) mChart.a.setOption(optMonthly(V));
+    if (mChart.b) mChart.b.setOption(optPayback(V));
   }
 
   /* ---------------- 视图：工单与订阅 ---------------- */
@@ -585,22 +642,9 @@
 
   /* ---------------- 交互 ---------------- */
   function bindBody() {
-    // 用户算一算滑块
+    // 用户算一算滑块 → 整页联动重算
     const r1 = $('#c1'), r2 = $('#c2');
-    if (r1) {
-      const upd = () => {
-        const kwh = +r1.value, spread = +r2.value / 100;
-        const loss = kwh * 2 * spread * 330;
-        $('#c1v').textContent = kwh + ' kWh';
-        $('#c2v').textContent = (spread).toFixed(2) + ' 元/度';
-        $('#cOut').textContent = money(loss);
-        const direct = Math.round(loss / D.ROI.subsYear * 100);
-        const total = Math.round((loss + D.ROI.residual + D.ROI.lifeExt) / D.ROI.subsYear * 100);
-        $('#cRoi').textContent = direct + '%';
-        $('#cRoi2').textContent = total + '%';
-      };
-      r1.oninput = upd; r2.oninput = upd;
-    }
+    if (r1) { r1.oninput = paintMoney; r2.oninput = paintMoney; }
     const sel = $('#twinSite');
     if (sel) sel.onchange = e => { siteCode = e.target.value; render('twin'); };
   }

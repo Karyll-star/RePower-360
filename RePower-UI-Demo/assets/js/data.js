@@ -188,10 +188,29 @@ window.RP = (function () {
     passport: { site: 'ESS-JS-008', soh: 76.8, grade: 'A', bid: 42300 }
   };
 
+  /* ---------- 单柜年化测算（收益晴雨表滑块 → 全页联动口径） ---------- */
+  function calcRoi(kwhPerDay, spread) {
+    const lossYear = kwhPerDay * 2 * spread * ROI.days;
+    const subsYear = ROI.subsYear;
+    const residual = ROI.residual, lifeExt = ROI.lifeExt;
+    const total = lossYear + residual + lifeExt;
+    return {
+      kwhPerDay, spread, lossYear,
+      subsYear, residual, lifeExt, total,
+      roiDirect: Math.round(lossYear / subsYear * 100),
+      roiTotal: Math.round(total / subsYear * 100),
+      net: total - subsYear,
+      payback: +(subsYear / (total / 12)).toFixed(1),
+      monthRecover: lossYear / 12,
+      monthSub: subsYear / 12,
+      monthNet: (total - subsYear) / 12
+    };
+  }
+
   const api = {
     SITES, STATUS_META, ORDERS, ORDER_META, ALERTS, ALERT_META,
     PORTFOLIO, FINANCE, ROI, CASHFLOW, PLANS, PASSPORT, GRADES, MOBILE,
-    money, num, buildCells, cellStats,
+    money, num, buildCells, cellStats, calcRoi,
     getSite: c => SITES.find(s => s.code === c),
     totalLoss: () => SITES.reduce((a, s) => a + s.loss, 0),
     recovered: () => 31420,

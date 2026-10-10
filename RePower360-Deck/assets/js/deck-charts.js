@@ -135,7 +135,7 @@
         tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
         xAxis: {
           type: 'category',
-          data: ['客户年损失电费', '增效订阅年费', '客户净挽回'],
+          data: ['客户年损失电费', '增效订阅年费', '综合净收益'],
           axisLine: { lineStyle: { color: C.axis } },
           axisTick: { show: false },
           axisLabel: { color: C.text1, fontSize: 14, fontFamily: FONT }
@@ -149,10 +149,12 @@
         },
         series: [{
           type: 'bar', barWidth: '44%',
+          /* 与 P21 收益晴雨表、P27–28 测算明细同一口径（珠三角情景，价差 0.80 元/kWh、两充两放）：
+             10,560 + 梯次残值 3,200 + 延寿 2,400 − 订阅 9,996 = 6,164 */
           data: [
             { value: 10560, itemStyle: { color: C.bad } },
-            { value: 9000, itemStyle: { color: C.accent2 } },
-            { value: 1560, itemStyle: { color: C.good } }
+            { value: 9996, itemStyle: { color: C.accent2 } },
+            { value: 6164, itemStyle: { color: C.good } }
           ],
           label: {
             show: true, position: 'top', formatter: '¥{c}',
