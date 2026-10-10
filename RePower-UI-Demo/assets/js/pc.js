@@ -67,7 +67,7 @@
   const TOPS = {
     dash: ['RESCUE DASHBOARD', '资产救援大盘', '实时呈现集团旗下 10 座工商业储能柜的上云状态、健康度与收益表现，支持一键「重新上云」与工单派发。'],
     twin: ['CELL DIGITAL TWIN', '电芯数字孪生矩阵', '全柜 240 颗单体电芯级的 SOH / 电压 / 温度孪生体，云端提前 15 天预警「正在掉队的那一颗」。'],
-    money: ['REVENUE BAROMETER', '经济收益晴雨表', '把「电芯木桶效应」翻译成财务语言：损失金额可视、订阅投入产出比可算、挽回曲线可追。'],
+    money: ['REVENUE BAROMETER', '经济收益晴雨表', '把「电芯木桶效应」翻译成财务语言：整页为「单柜 / 年」口径，拖动下方两个参数滑块，KPI、收益明细与两张图表同步重算。'],
     order: ['WORK ORDER & SLA', '工单与订阅', 'SLA 分级订阅驱动现场作业：异常自动建单 → 就近派工 → 作业回填 → 收益核账闭环。'],
     resell: ['BATTERY PASSPORT', '电池护照与梯次转卖', '全生命周期数据沉淀为第三方 SOH 体检报告，退役电芯按健康等级挂牌撮合，榨出最后一程残值。']
   };
@@ -328,9 +328,9 @@
     const V = D.calcRoi(20, 0.8);
     return `
       <div class="grid g4">
-        <div class="kpi d"><div class="k-n" id="kLoss">${money(V.lossYear)}</div>
-          <div class="k-l">单柜年损失电费（木桶效应）</div>
-          <div class="k-d" id="kLossNote">口径：单柜 / 年 · 20kWh × 2 充放 × 0.80 元</div></div>
+        <div class="kpi c"><div class="k-n" id="kNet">${money(V.net)}</div>
+          <div class="k-l">采用方案后 净收益 / 柜 / 年</div>
+          <div class="k-d" id="kNetNote">挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − 订阅 ${money(V.subsYear)}</div></div>
         <div class="kpi"><div class="k-n" id="kSub">${money(V.subsYear)}</div>
           <div class="k-l">单柜年订阅投入（增效版）</div>
           <div class="k-d">2,499 元 / 柜 / 季 × 4 = 9,996 元</div></div>
@@ -462,8 +462,8 @@
     set('cOut', money(V.lossYear));
     set('cRoi', V.roiDirect + '%');
     set('cRoi2', V.roiTotal + '%');
-    set('kLoss', money(V.lossYear));
-    set('kLossNote', `口径：单柜 / 年 · ${kwh}kWh × 2 充放 × ${spread.toFixed(2)} 元`);
+    set('kNet', money(V.net));
+    set('kNetNote', `挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − 订阅 ${money(V.subsYear)}`);
     set('kRoi', V.roiDirect + '<small>%</small>');
     set('kRoi2', V.roiTotal + '<small>%</small>');
     set('kPayback', '▲ 客户 ' + V.payback + ' 个月即可回本');

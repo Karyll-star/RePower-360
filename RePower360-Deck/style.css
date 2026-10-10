@@ -81,9 +81,16 @@
   letter-spacing:-.03em;color:var(--text-1)}
 .kpi .n small{font-size:24px;font-weight:600;color:var(--accent);margin-left:3px}
 .kpi .l{font-size:15px;color:var(--text-2);line-height:1.5;margin-top:10px}
+.kpi .l b{color:var(--text-1);font-weight:600}
+/* 卡片小标签（封面用：需求 / 供给 / 我们） */
+.kpi .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;
+  color:var(--accent);font-weight:600;margin-bottom:9px}
 .kpi.good{border-top-color:var(--good)} .kpi.good .n small{color:var(--good)}
 .kpi.bad{border-top-color:var(--bad)}  .kpi.bad .n small{color:var(--bad)}
 .kpi.blue{border-top-color:var(--accent-2)} .kpi.blue .n small{color:var(--accent-2)}
+.kpi.good .k{color:var(--good)}
+.kpi.bad .k{color:var(--bad)}
+.kpi.blue .k{color:var(--accent-2)}
 
 /* ===================== 对比 / 条 ===================== */
 .cmp{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;align-items:stretch}

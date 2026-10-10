@@ -111,7 +111,9 @@ window.RP = (function () {
   ];
   const ALERT_META = { high: { label: '紧急', cls: 'bad' }, mid: { label: '预警', cls: 'warn' }, low: { label: '提示', cls: 'act' } };
 
-  /* ---------- 财务模型 ---------- */
+  /* ---------- 财务模型 ----------
+   * FINANCE / CASHFLOW 为「多柜组合 / 初创团队」口径的备用数据集（答辩备查），
+   * 收益晴雨表已统一为单柜年化口径，由 calcRoi() 驱动。 */
   const PORTFOLIO = { cabinets: 10, managed: 10, offline: 2, alarm: 2, workers: 2 };
 
   const FINANCE = (function () {
