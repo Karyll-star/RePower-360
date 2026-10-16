@@ -54,7 +54,7 @@
             合计月损失 ¥7,380。建议本周一次上门集中铺设网关。</p>
           <div class="kv"><span class="k">网关数量</span><span class="v">2 台</span></div>
           <div class="kv"><span class="k">硬件收入</span><span class="v">¥3,000</span></div>
-          <div class="kv"><span class="k">订阅转化预期</span><span class="v">增效版 ×2 ≈ ¥19,992 / 年</span></div>`,
+          <div class="kv"><span class="k">订阅转化预期</span><span class="v">基础版 ×2 ≈ ¥19,992 / 年，或分成版 ×2 ≈ ¥17,272 / 年（含分成）</span></div>`,
           `<button class="btn" data-act="modal-close">稍后再说</button>
            <button class="btn btn-p" data-act="confirm-recloud-all">确认批量派单</button>`);
       }

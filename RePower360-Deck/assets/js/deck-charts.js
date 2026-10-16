@@ -120,7 +120,7 @@
           label: { show: false }, labelLine: { show: false },
           itemStyle: { borderColor: C.surface, borderWidth: 3 },
           data: [
-            { name: '季度订阅服务费', value: 9996, itemStyle: { color: C.accent } },
+            { name: '订阅服务费（基础版）', value: 9996, itemStyle: { color: C.accent } },
             { name: '梯次转卖佣金', value: 3200, itemStyle: { color: C.accent2 } },
             { name: '网关硬件销售', value: 1500, itemStyle: { color: C.good } }
           ]
@@ -135,10 +135,10 @@
         tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
         xAxis: {
           type: 'category',
-          data: ['客户年损失电费', '增效订阅年费', '综合净收益'],
+          data: ['客户年损失电费', '基础版年支出', '分成版年支出', '基础版净收益', '分成版净收益'],
           axisLine: { lineStyle: { color: C.axis } },
           axisTick: { show: false },
-          axisLabel: { color: C.text1, fontSize: 14, fontFamily: FONT }
+          axisLabel: { color: C.text1, fontSize: 13, fontFamily: FONT }
         },
         yAxis: {
           type: 'value', name: '元 / 年',
@@ -148,13 +148,17 @@
           splitLine: { lineStyle: { color: C.grid } }
         },
         series: [{
-          type: 'bar', barWidth: '44%',
-          /* 与 P21 收益晴雨表、P27–28 测算明细同一口径（珠三角情景，价差 0.80 元/kWh、两充两放）：
-             10,560 + 梯次残值 3,200 + 延寿 2,400 − 订阅 9,996 = 6,164 */
+          type: 'bar', barWidth: '46%',
+          /* 与 P26 收益晴雨表、P27–28 测算明细同一口径（珠三角情景，价差 0.80 元/kWh、两充两放）：
+             综合收益 = 10,560 + 梯次残值 3,200 + 延寿 2,400 = 16,160
+             基础版年支出 9,996 → 净收益 6,164（ROI 162%）
+             分成版年支出 = 1,499×4 + 10,560×25% = 8,636 → 净收益 7,524（ROI 187%） */
           data: [
             { value: 10560, itemStyle: { color: C.bad } },
             { value: 9996, itemStyle: { color: C.accent2 } },
-            { value: 6164, itemStyle: { color: C.good } }
+            { value: 8636, itemStyle: { color: C.accent } },
+            { value: 6164, itemStyle: { color: C.good } },
+            { value: 7524, itemStyle: { color: C.good } }
           ],
           label: {
             show: true, position: 'top', formatter: '¥{c}',

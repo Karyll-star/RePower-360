@@ -24,6 +24,7 @@
 
   let cur = 'dash';
   let siteCode = 'ESS-ZJ-003';
+  let moneyPlan = 'base';   // 收益晴雨表当前订阅方案：base 基础版 / split 分成版
   let twinMetric = 'soh';
   let selectedCellId = 'P03-014';
   const charts = [];
@@ -67,7 +68,7 @@
   const TOPS = {
     dash: ['RESCUE DASHBOARD', '资产救援大盘', '实时呈现集团旗下 10 座工商业储能柜的上云状态、健康度与收益表现，支持一键「重新上云」与工单派发。'],
     twin: ['CELL DIGITAL TWIN', '电芯数字孪生矩阵', '全柜 240 颗单体电芯级的 SOH / 电压 / 温度孪生体，云端提前 15 天预警「正在掉队的那一颗」。'],
-    money: ['REVENUE BAROMETER', '经济收益晴雨表', '把「电芯木桶效应」翻译成财务语言：整页为「单柜 / 年」口径，拖动下方两个参数滑块，KPI、收益明细与两张图表同步重算。'],
+    money: ['REVENUE BAROMETER', '经济收益晴雨表', '把「电芯木桶效应」翻译成财务语言：整页为「单柜 / 年」口径，切换基础版 / 分成版两档订阅或拖动参数滑块，KPI、收益明细与两张图表同步重算。'],
     order: ['WORK ORDER & SLA', '工单与订阅', 'SLA 分级订阅驱动现场作业：异常自动建单 → 就近派工 → 作业回填 → 收益核账闭环。'],
     resell: ['BATTERY PASSPORT', '电池护照与梯次转卖', '全生命周期数据沉淀为第三方 SOH 体检报告，退役电芯按健康等级挂牌撮合，榨出最后一程残值。']
   };
@@ -325,15 +326,16 @@
    * 拖动后 KPI、明细、两张图表同步重算（详见 paintMoney）。
    */
   function viewMoney() {
-    const V = D.calcRoi(20, 0.8);
+    const V = D.calcRoi(20, 0.8, moneyPlan);
+    const P = D.SUB_PLANS[moneyPlan];
     return `
       <div class="grid g4">
         <div class="kpi c"><div class="k-n" id="kNet">${money(V.net)}</div>
           <div class="k-l">采用方案后 净收益 / 柜 / 年</div>
-          <div class="k-d" id="kNetNote">挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − 订阅 ${money(V.subsYear)}</div></div>
-        <div class="kpi"><div class="k-n" id="kSub">${money(V.subsYear)}</div>
-          <div class="k-l">单柜年订阅投入（增效版）</div>
-          <div class="k-d">2,499 元 / 柜 / 季 × 4 = 9,996 元</div></div>
+          <div class="k-d" id="kNetNote">挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − ${V.planName} ${money(V.costYear)}</div></div>
+        <div class="kpi"><div class="k-n" id="kSub">${money(V.costYear)}</div>
+          <div class="k-l" id="kSubLabel">单柜年服务支出（${V.planName}）</div>
+          <div class="k-d" id="kSubNote">${planCostText(V)}</div></div>
         <div class="kpi b"><div class="k-n" id="kRoi">${V.roiDirect}<small>%</small></div>
           <div class="k-l">直接电费 ROI</div><div class="k-d">仅计峰谷套利挽回部分</div></div>
         <div class="kpi c"><div class="k-n" id="kRoi2">${V.roiTotal}<small>%</small></div>
@@ -344,7 +346,14 @@
       <div class="grid g12 mt">
         <div class="card">
           <div class="card-hd"><div class="card-tt">客户算一算 <span class="tag">Try It</span></div>
-            <div class="card-x">拖动滑块实时测算</div></div>
+            <div class="card-x">切换方案 + 拖动滑块实时测算</div></div>
+          <div class="plan-switch" id="planSwitch">
+            ${Object.keys(D.SUB_PLANS).map(k => {
+              const p = D.SUB_PLANS[k];
+              const label = k === 'base' ? `基础版 · ${p.fixedQuarter}/季（封顶）` : `分成版 · ${p.fixedQuarter}/季 + 分成`;
+              return `<button class="btn btn-sm${k === moneyPlan ? ' is-on' : ''}" data-act="money-plan" data-p="${k}">${label}</button>`;
+            }).join('')}
+          </div>
           <div id="calcBox">
             <div class="kv"><span class="k">每日因衰减少放电量</span><span class="v" id="c1v">20 kWh</span></div>
             <input type="range" id="c1" min="5" max="45" step="1" value="20"
@@ -356,7 +365,7 @@
             <div class="mt" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px">
               <div class="k-d">单柜年损失电费</div>
               <div class="k-n" style="color:var(--bad)" id="cOut">${money(V.lossYear)}</div>
-              <div class="note mt">订阅增效版 ${money(V.subsYear)}/年，直接 ROI
+              <div class="note mt" id="cNote">按 ${V.planName}（${planCostText(V)}）计，直接 ROI
                 <b id="cRoi" style="color:var(--accent)">${V.roiDirect}%</b>；叠加残值与延寿后综合 ROI
                 <b id="cRoi2" style="color:var(--good)">${V.roiTotal}%</b>。</div>
             </div>
@@ -365,15 +374,16 @@
             <div class="kv"><span class="k">① 峰谷套利挽回</span><span class="v" style="color:var(--good)" id="b1">+${money(V.lossYear)}</span></div>
             <div class="kv"><span class="k">② 梯次残值溢价</span><span class="v" style="color:var(--good)" id="b2">+${money(V.residual)}</span></div>
             <div class="kv"><span class="k">③ 延寿 / 免提前换包</span><span class="v" style="color:var(--good)" id="b3">+${money(V.lifeExt)}</span></div>
-            <div class="kv"><span class="k">年度订阅成本</span><span class="v" style="color:var(--bad)" id="bSub">-${money(V.subsYear)}</span></div>
+            <div class="kv"><span class="k" id="bSubLabel">年度服务支出（${V.planName}）</span><span class="v" style="color:var(--bad)" id="bSub">-${money(V.costYear)}</span></div>
             <div class="kv"><span class="k"><b>净收益 / 柜 / 年</b></span><span class="v" style="color:var(--accent)" id="bNet">${money(V.net)}</span></div>
           </div>
-          <div class="note mt">整页口径统一为 <b>单柜 / 年</b>：拖动上方滑块，KPI、明细与右侧两张图会同时重算。</div>
+          <div class="note mt">整页口径统一为 <b>单柜 / 年</b>，两档订阅的<b>服务内容完全相同</b>，
+            只有价格构成不同：${P.shareText}。切换方案或拖动滑块，KPI、明细与右侧两图会同时重算。</div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="card">
-            <div class="card-hd"><div class="card-tt">单柜月度挽回 vs 订阅投入 <span class="tag">Single Unit</span></div>
+            <div class="card-hd"><div class="card-tt">单柜月度挽回 vs 服务支出 <span class="tag">Single Unit</span></div>
               <div class="card-x">1 座柜 / 年化摊平 · 单位：元 / 月</div></div>
             <div class="chart" id="cMoney"></div>
           </div>
@@ -381,12 +391,19 @@
             <div class="card-hd"><div class="card-tt">单柜累计净收益与回本点 <span class="tag">Payback</span></div>
               <div class="card-x">1 座柜 · 单位：元</div></div>
             <div class="chart" id="cCash"></div>
-            <p class="note mt">订阅兜底收益（峰谷套利挽回 + 梯次残值溢价 + 延寿摊销）按年摊平到月度，
-              与订阅费逐月轧差后累计；曲线穿越零轴处即为静态回收期。
+            <p class="note mt">收益侧（峰谷套利挽回 + 梯次残值溢价 + 延寿摊销）按年摊平到月度，
+              与服务支出逐月轧差后累计；曲线穿越零轴处即为静态回收期。
               <span style="color:var(--text-3)">组合口径补充：签约托管 150 柜后，初创团队预计第 14~18 个月整体收支平衡。</span></p>
           </div>
         </div>
       </div>`;
+  }
+
+  /* 价格构成文案：基础版 = 固定年费；分成版 = 固定 + 分成 */
+  function planCostText(V) {
+    return V.shareRate === 0
+      ? `${V.fixedQuarter} 元/季 × 4 = ${money(V.fixedYear)}`
+      : `固定 ${V.fixedQuarter} 元/季 × 4 = ${money(V.fixedYear)} + 分成 ${money(V.shareYear)}（挽回 × ${Math.round(V.shareRate * 100)}%）`;
   }
   const MONTHS = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
   const LEG = { right: 0, top: 0, textStyle: { color: '#727c8a', fontSize: 10 }, itemWidth: 14, itemHeight: 8 };
@@ -404,7 +421,7 @@
       series: [
         { name: '挽回电费', type: 'bar', data: rec, barWidth: '34%',
           itemStyle: { color: '#5fc98a', borderRadius: [4, 4, 0, 0] } },
-        { name: '订阅投入', type: 'bar', data: sub, barWidth: '34%',
+        { name: '服务支出', type: 'bar', data: sub, barWidth: '34%',
           itemStyle: { color: '#23282f', borderRadius: [4, 4, 0, 0] } },
         { name: '累计净收益', type: 'line', smooth: true, data: cum,
           lineStyle: { color: '#f2a93b', width: 2 }, itemStyle: { color: '#f2a93b' } }
@@ -447,28 +464,38 @@
 
   function chartMoney() {
     const kwh = +$('#c1').value, spread = +$('#c2').value / 100;
-    const V = D.calcRoi(kwh, spread);
+    const V = D.calcRoi(kwh, spread, moneyPlan);
     mChart.a = chart($('#cMoney'), optMonthly(V));
     mChart.b = chart($('#cCash'), optPayback(V));
   }
 
-  /* 滑块 → 整页重算（KPI / 明细 / 两张图） */
+  /* 滑块 / 方案切换 → 整页重算（KPI / 明细 / 两张图） */
   function paintMoney() {
     const kwh = +$('#c1').value, spread = +$('#c2').value / 100;
-    const V = D.calcRoi(kwh, spread);
+    const V = D.calcRoi(kwh, spread, moneyPlan);
     const set = (id, html) => { const el = $('#' + id); if (el) el.innerHTML = html; };
     set('c1v', kwh + ' kWh');
     set('c2v', spread.toFixed(2) + ' 元/度');
     set('cOut', money(V.lossYear));
     set('cRoi', V.roiDirect + '%');
     set('cRoi2', V.roiTotal + '%');
+    set('cNote', `按 ${V.planName}（${planCostText(V)}）计，直接 ROI
+      <b id="cRoi" style="color:var(--accent)">${V.roiDirect}%</b>；叠加残值与延寿后综合 ROI
+      <b id="cRoi2" style="color:var(--good)">${V.roiTotal}%</b>。`);
     set('kNet', money(V.net));
-    set('kNetNote', `挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − 订阅 ${money(V.subsYear)}`);
+    set('kNetNote', `挽回 ${money(V.lossYear)} + 残值 ${money(V.residual)} + 延寿 ${money(V.lifeExt)} − ${V.planName} ${money(V.costYear)}`);
+    set('kSub', money(V.costYear));
+    set('kSubLabel', `单柜年服务支出（${V.planName}）`);
+    set('kSubNote', planCostText(V));
     set('kRoi', V.roiDirect + '<small>%</small>');
     set('kRoi2', V.roiTotal + '<small>%</small>');
     set('kPayback', '▲ 客户 ' + V.payback + ' 个月即可回本');
     set('b1', '+' + money(V.lossYear));
+    set('bSubLabel', `年度服务支出（${V.planName}）`);
+    set('bSub', '-' + money(V.costYear));
     set('bNet', money(V.net));
+    document.querySelectorAll('#planSwitch .btn').forEach(b =>
+      b.classList.toggle('is-on', b.dataset.p === moneyPlan));
     if (mChart.a) mChart.a.setOption(optMonthly(V));
     if (mChart.b) mChart.b.setOption(optPayback(V));
   }
@@ -512,27 +539,29 @@
           <div class="card">
             <div class="card-hd"><div class="card-tt">SLA 承诺看板</div></div>
             <div class="kv"><span class="k">云端告警响应</span><span class="v" style="color:var(--good)">≤ 60 秒</span></div>
-            <div class="kv"><span class="k">基础版上门</span><span class="v">≤ 4 小时</span></div>
-            <div class="kv"><span class="k">增效版上门</span><span class="v">≤ 2 小时</span></div>
+            <div class="kv"><span class="k">上门响应（两档一致）</span><span class="v">≤ 2 小时</span></div>
             <div class="kv"><span class="k">本季承诺未达标</span><span class="v" style="color:var(--good)">0 单</span></div>
           </div>
         </div>
       </div>
 
       <div class="card mt">
-        <div class="card-hd"><div class="card-tt">订阅方案 <span class="tag">Subscription</span></div>
-          <div class="card-x">重资产买断 → 确定性服务</div></div>
-        <div class="grid g3">
+        <div class="card-hd"><div class="card-tt">订阅方案 · 两档 <span class="tag">Subscription</span></div>
+          <div class="card-x">服务内容完全一致，差别只在价格构成</div></div>
+        <div class="grid g2">
           ${D.PLANS.map(p => `
             <div class="plan${p.hot ? ' hot' : ''}">
               <div class="pill ${p.hot ? 'warn' : 'dim'}" style="align-self:flex-start"><i></i>${p.tag}</div>
-              <div style="font-size:14px;font-weight:600;margin:8px 0 6px">${p.name}</div>
+              <div style="font-size:14px;font-weight:600;margin:9px 0 6px">${p.name}</div>
               <div class="pp">${p.price}<span style="font-size:12px;color:var(--text-2)"> ${p.unit}</span></div>
-              <div class="pu">${p.hot ? '折算年费约 1 万元 / 柜' : '现金流友好，业主零门槛'}</div>
+              <div class="pu">${p.sub}</div>
               <ul>${p.items.map(i => `<li>${i}</li>`).join('')}</ul>
+              <div class="note mt" style="color:var(--accent)">${p.foot}</div>
               <button class="btn ${p.hot ? 'btn-p' : ''} btn-block mt" data-act="subscribe" data-p="${p.name}">立即开通</button>
             </div>`).join('')}
         </div>
+        <div class="note mt">分成版与基础版的<b>服务包完全相同</b>（都含季度上门 5~10A 主动均衡活化、承诺放电可用容量恢复 ≥8%、
+          SOH 健康报告与电池护照优先出具），业主只需在「<b>费用封顶</b>」与「<b>低固定 + 增量分成</b>」之间按财务偏好二选一。</div>
       </div>`;
   }
 
@@ -672,6 +701,10 @@
       UI.modal('dispatch', t.dataset.id);
     } else if (a === 'make-order') {
       UI.modal('order');
+    } else if (a === 'money-plan') {
+      moneyPlan = t.dataset.p || 'base';
+      paintMoney();
+      UI.toast(`已切换为「${D.SUB_PLANS[moneyPlan].name}」，整页口径同步重算`, 'ok');
     } else if (a === 'subscribe') {
       UI.toast(`已为 10 柜开通「${t.dataset.p}」，合同次日生效`, 'ok');
     } else if (a === 'list-cabinet') {
