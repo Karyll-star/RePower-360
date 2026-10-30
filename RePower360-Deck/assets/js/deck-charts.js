@@ -110,7 +110,7 @@
           textStyle: { color: C.text2, fontSize: 13, fontFamily: FONT }
         },
         title: {
-          text: '≈ 14,700', left: '36%', top: '40%', textAlign: 'center',
+          text: '≈ 13,200', left: '36%', top: '40%', textAlign: 'center',
           textStyle: { color: C.text1, fontSize: 28, fontWeight: 700, fontFamily: MONO },
           subtext: '元 / 柜 / 年',
           subtextStyle: { color: C.text3, fontSize: 13, fontFamily: FONT }
@@ -119,23 +119,39 @@
           type: 'pie', center: ['36%', '52%'], radius: ['48%', '72%'],
           label: { show: false }, labelLine: { show: false },
           itemStyle: { borderColor: C.surface, borderWidth: 3 },
+          /* 网关（Re-Bridge）随套餐交付、不单独收费，只计成本不计收入，故不作为收入分片 */
           data: [
             { name: '订阅服务费（基础版）', value: 9996, itemStyle: { color: C.accent } },
-            { name: '梯次转卖佣金', value: 3200, itemStyle: { color: C.accent2 } },
-            { name: '网关硬件销售', value: 1500, itemStyle: { color: C.good } }
+            { name: '梯次转卖佣金', value: 3200, itemStyle: { color: C.accent2 } }
           ]
         }]
       };
     },
 
-    /* ================= 25 · 客户投资回报（对比柱状图） ================= */
+    /* ================= 30 · 客户投资回报（对比柱状图） =================
+     * 口径统一为「综合口径」，五根柱可逐条对账（珠三角情景：100 kW/215 kWh 单柜、
+     * 价差 0.80 元/kWh、两充两放、330 天）：
+     *   ① 综合年收益 = 挽回电费 10,560（20 kWh/次 × 2 次/日 × 0.80 × 330）
+     *                + 梯次残值分摊 3,200（退役多卖 32,500 ÷ 10 年）+ 延寿 2,400 = 16,160
+     *   ② 基础版年支出 = 2,499 × 4 = 9,996   → 净收益 16,160 − 9,996 = 6,164
+     *   ③ 分成版年支出 = 1,499 × 4 + 10,560 × 25%（≈2,640）= 8,636
+     *                  → 净收益 16,160 − 8,636 = 7,524
+     *   ROI 定义 = 综合年收益 ÷ 年支出（162% / 187%），折净收益率 62% / 87%。
+     * 原版首柱为「仅电费口径」的 10,560，与净收益柱（综合口径）不同基数，无法对账，故改为收益总额起柱。 */
     'roi': function () {
+      var yuan = function (p) { return '¥' + p.value.toLocaleString('en-US'); };
       return {
-        grid: { left: 8, right: 20, top: 28, bottom: 8, containLabel: true },
-        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        grid: { left: 8, right: 24, top: 28, bottom: 8, containLabel: true },
+        tooltip: {
+          trigger: 'axis', axisPointer: { type: 'shadow' },
+          formatter: function (ps) {
+            var p = ps[0];
+            return p.axisValue + '<br/>¥' + p.value.toLocaleString('en-US') + ' / 年';
+          }
+        },
         xAxis: {
           type: 'category',
-          data: ['客户年损失电费', '基础版年支出', '分成版年支出', '基础版净收益', '分成版净收益'],
+          data: ['综合年收益', '基础版·年支出', '分成版·年支出', '基础版·净收益', '分成版·净收益'],
           axisLine: { lineStyle: { color: C.axis } },
           axisTick: { show: false },
           axisLabel: { color: C.text1, fontSize: 13, fontFamily: FONT }
@@ -149,40 +165,44 @@
         },
         series: [{
           type: 'bar', barWidth: '46%',
-          /* 与 P26 收益晴雨表、P27–28 测算明细同一口径（珠三角情景，价差 0.80 元/kWh、两充两放）：
-             综合收益 = 10,560 + 梯次残值 3,200 + 延寿 2,400 = 16,160
-             基础版年支出 9,996 → 净收益 6,164（ROI 162%）
-             分成版年支出 = 1,499×4 + 10,560×25% = 8,636 → 净收益 7,524（ROI 187%） */
           data: [
-            { value: 10560, itemStyle: { color: C.bad } },
-            { value: 9996, itemStyle: { color: C.accent2 } },
+            { value: 16160, itemStyle: { color: C.accent2 } },
+            { value: 9996, itemStyle: { color: C.accent } },
             { value: 8636, itemStyle: { color: C.accent } },
             { value: 6164, itemStyle: { color: C.good } },
             { value: 7524, itemStyle: { color: C.good } }
           ],
           label: {
-            show: true, position: 'top', formatter: '¥{c}',
+            show: true, position: 'top', formatter: yuan,
             color: C.text1, fontSize: 15, fontFamily: MONO, fontWeight: 700
           }
         }]
       };
     },
 
-    /* ================= 26 · 盈亏平衡曲线（累计净现金流） =================
-     * 假设（均取自方案文档）：
-     *   ① 第 1~6 月投入 100 万元（文档区间 80~120 万的中值），按月均摊；
-     *   ② 第 7~15 月爬坡签约，每月新增约 16.7 台，第 15 月达 150 台；
-     *   ③ 订阅年费 1 万元/柜 → 稳态 12.5 万元/月；
-     *   ④ 网关硬件 1,500 元/台、毛利 50% → 每台毛利 750 元，随签约一次性计入。
-     * 推演结果：累计净现金流于第 17 个月前后归零，落在文档的 14~18 月区间内。
+    /* ================= 30 · 盈亏平衡曲线（累计净现金流） =================
+     * 口径（与 P30 收入结构、P20 订阅两档同源，2026 最新定价）：
+     *   ① 第 1~6 月投入 100 万元（文档区间 80~120 万中值），6 个月均摊 16.7 万/月；
+     *   ② 第 7~15 月爬坡，每月新增 16.7 台，第 15 月累计 150 台；
+     *   ③ 订阅按基础版 2,499×4 = 9,996 元/柜/年 ≈ 833 元/柜/月，
+     *      稳态 150 台 → 12.5 万元/月；
+     *   ④ 网关（Re-Bridge）随套餐免费交付、不单独收费：按原 1,500 元售价、
+     *      50% 毛利反推 BOM 750 元/台，作为一次性现金流出，于签约当月计入
+     *      （旧版把 750 元/台毛利记为流入，方向相反，每台相差 1,500 元）。
+     * 推演结果：
+     *   基础版口径  累计现金流在第 18 → 19 月之间归零 ≈ 第 18.9 个月；
+     *   全分成版口径（年费 8,636 元/柜）≈ 第 20.3 个月；
+     *   故对外口径 BEP 区间取 第 19~21 个月（旧版 17 个月，因网关由收入转成本后移 ≈1.8 个月）。
+     * 未计入项（保守/乐观边界）：季度上门交付成本（约 2,000~4,000 元/柜/年，
+     *   会把平衡点推后）、第 24 月后梯次撮合佣金（会把平衡点提前）。
      */
     'bep': function () {
       var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
                     '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
-      /* 累计净现金流（万元），负值=尚未回本 */
-      var cum = [-16.7, -33.3, -50.0, -66.7, -83.3, -100.0, -97.3, -93.3, -87.8,
-                 -81.0, -72.8, -63.2, -52.2, -39.8, -26.0, -13.5, -1.0, 11.5,
-                 24.0, 36.5, 49.0, 61.5, 74.0, 86.5];
+      /* 累计净现金流（万元），负值=尚未回本；基础版口径 */
+      var cum = [-16.7, -33.3, -50.0, -66.7, -83.3, -100.0, -99.9, -98.3, -95.4,
+                 -91.1, -85.4, -78.3, -69.9, -60.0, -48.8, -36.3, -23.8, -11.3,
+                 1.2, 13.7, 26.2, 38.7, 51.2, 63.7];
 
       return {
         grid: { left: 8, right: 24, top: 26, bottom: 8, containLabel: true },
@@ -227,9 +247,9 @@
             itemStyle: { color: 'rgba(95,201,138,.10)' },
             label: {
               show: true, position: 'insideTop', color: C.good,
-              fontSize: 12, fontFamily: FONT, formatter: 'BEP 区间 第 14~18 月'
+              fontSize: 12, fontFamily: FONT, formatter: 'BEP 区间 第 19~21 月'
             },
-            data: [[{ xAxis: '14' }, { xAxis: '18' }]]
+            data: [[{ xAxis: '18' }, { xAxis: '21' }]]
           },
           markLine: {
             silent: true, symbol: 'none',
@@ -248,9 +268,9 @@
             label: {
               show: true, position: 'top', distance: 12,
               color: C.good, fontSize: 14, fontWeight: 600, fontFamily: FONT,
-              formatter: 'BEP ≈ 第 17 个月'
+              formatter: 'BEP ≈ 第 19 个月'
             },
-            data: [{ coord: ['17', -1.0] }]
+            data: [{ coord: ['19', 1.2] }]
           }
         }]
       };
@@ -495,6 +515,50 @@
             }
           }
         ]
+      };
+    },
+
+    /* ================= 31 · 三种计价口径（残值 · 元 / kWh） =================
+     * 同一块 215 kWh 电池，三种报价方式折合的单 kWh 价值：
+     *   按吨（黑粉 / 拆解） 0.98 万元 ÷ 215 ≈ 46 元/kWh
+     *   健康电池（SOH≥80%）100~450 元/kWh（2026 公开报价区间）
+     *   本方案整柜撮合     42,300 ÷ 215 ≈ 197 元/kWh
+     */
+    'resid': function () {
+      var rows = [
+        { name: '按吨卖 · 黑粉 / 拆解', value: 46, color: 'rgba(232,69,58,.62)' },
+        { name: '按 kWh · 健康电池下限', value: 100, color: 'rgba(255,255,255,.20)' },
+        { name: '本方案 · 整柜撮合', value: 197, color: C.accent },
+        { name: '按 kWh · 健康电池上限', value: 450, color: 'rgba(95,201,138,.45)' }
+      ];
+      return {
+        grid: { left: 8, right: 78, top: 8, bottom: 4, containLabel: true },
+        tooltip: {
+          trigger: 'axis', axisPointer: { type: 'shadow' },
+          valueFormatter: function (v) { return '¥' + v + ' / kWh'; }
+        },
+        xAxis: {
+          type: 'value', name: '元 / kWh',
+          nameTextStyle: { color: C.text3, fontSize: 12, fontFamily: FONT },
+          axisLine: { show: false }, axisTick: { show: false },
+          axisLabel: { color: C.text3, fontSize: 12, fontFamily: MONO },
+          splitLine: { lineStyle: { color: C.grid } }
+        },
+        yAxis: {
+          type: 'category', data: rows.map(function (r) { return r.name; }),
+          axisLine: { lineStyle: { color: C.axis } }, axisTick: { show: false },
+          axisLabel: { color: C.text1, fontSize: 13, fontFamily: FONT }
+        },
+        series: [{
+          type: 'bar', barWidth: '52%',
+          data: rows.map(function (r) {
+            return { value: r.value, itemStyle: { color: r.color, borderRadius: [0, 4, 4, 0] } };
+          }),
+          label: {
+            show: true, position: 'right', formatter: '¥{c}',
+            color: C.text1, fontSize: 14, fontWeight: 700, fontFamily: MONO
+          }
+        }]
       };
     }
 

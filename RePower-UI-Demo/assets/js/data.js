@@ -99,6 +99,8 @@ window.RP = (function () {
     { id: 'WO-20261008-05', site: 'ESS-GD-021', type: '电芯主动均衡活化', engineer: '陈工 / 广深组', status: 'doing', sla: 'SLA 2h 响应 · 进行中 76min', plan: '基础版' },
     { id: 'WO-20261008-03', site: 'ESS-ZJ-027', type: '网关铺设 + 协议破解', engineer: '李工 / 浙北组', status: 'review', sla: '待业主确认方案', plan: '分成版' },
     { id: 'WO-20261007-04', site: 'ESS-ZJ-041', type: '季度 SOH 诊断报告', engineer: '云端 AI', status: 'done', sla: '已完成 · 报告已推送', plan: '分成版' },
+    { id: 'WO-20260912-01', site: 'ESS-JS-008', type: '季度主动均衡活化', engineer: '周工 / 苏南组', status: 'done', sla: '已完成 · 可用容量 +9.6%', plan: '分成版' },
+    { id: 'WO-20260618-02', site: 'ESS-JS-008', type: '季度 SOH 诊断报告', engineer: '云端 AI', status: 'done', sla: '已完成 · 报告已推送', plan: '分成版' },
     { id: 'WO-20261006-02', site: 'ESS-JS-008', type: '退役电池护照出具', engineer: '周工 / 苏南组', status: 'done', sla: '已完成 · 已挂牌 Grade A', plan: '分成版' }
   ];
   const ORDER_META = { todo: '待派单', doing: '作业中', review: '待确认', done: '已完成' };
@@ -198,7 +200,7 @@ window.RP = (function () {
       { t: '2024-09', e: '首次主动均衡活化，挽回可用容量 11.4%' },
       { t: '2025-06', e: '季度 SOH 报告连续 4 期 ≥ 82%' },
       { t: '2026-03', e: 'SOH 跌破 80%，触发退役评估流程' },
-      { t: '2026-09', e: '出具电池护照 Grade A，挂牌撮合完成' }
+      { t: '2026-09', e: '出具电池护照 Grade A，挂牌撮合中（5 家在询）' }
     ]
   };
   const GRADES = [
@@ -206,6 +208,23 @@ window.RP = (function () {
     { g: 'B', range: '容量 70%~75%', to: '离网光伏微网蓄电 / 农业灌溉储能', price: '26,000 ~ 34,000', rate: '约 44% 退役柜入库', cls: 'warn' },
     { g: 'C', range: '容量 < 70%', to: '拆解回收 / 黑粉再生', price: '8,000 ~ 12,000', rate: '其余进入再生渠道', cls: 'dim' }
   ];
+
+  /* ---------- 转卖建议模型 ----------
+   * 决策问题：现在按 Grade A 挂牌，还是继续运营 12 个月再按 Grade B 挂牌？
+   *   · 立即转卖净得 = 撮合价 × (1 − 8% 佣金)
+   *   · 持有 12 个月等效 = 12 个月后净残值 + 期间经营净收益
+   *   · 经营净收益 = 挽回电费 + 延寿 − 年服务支出（**不含**残值摊销 3,200 元，
+   *     否则与转卖价格里的残值溢价重复计算；晴雨表的 6,164 元含该摊销）
+   *   · 转卖临界净价 = 持有 12 个月等效；挂牌价高于临界值 → 转卖更优
+   * SOH 衰减按 4.0 个百分点/年（由 2024-09 的 82% → 2026-09 的 76.8% 反推 ≈4.2，取下限保守取值）。
+   */
+  const RESELL = {
+    window: 12,        // 决策窗口（月）
+    sohDecay: 4.0,     // SOH 年衰减（百分点）
+    floorSoh: 75,      // Grade A 下限 → 跌破即掉档
+    nextGrade: 'B',
+    nextMid: 30000     // Grade B 撮合中值（26,000~34,000）
+  };
 
   /* ---------- 移动端：今日作业 ---------- */
   const MOBILE = {
@@ -245,10 +264,53 @@ window.RP = (function () {
     };
   }
 
+  /* ---------- 转卖建议测算（护照页 + 收益晴雨表同源） ---------- */
+  function calcResell(planKey) {
+    const P = PASSPORT, W = RESELL;
+    const V = calcRoi(20, 0.8, planKey || 'base');
+    const opYear = Math.round(V.lossYear + V.lifeExt - V.costYear);   // 经营净收益（不含残值摊销）
+    const netNow = Math.round(P.bid * (1 - P.fee));                   // 立即转卖净得
+    const sohThen = +(P.soh - W.sohDecay).toFixed(1);                 // 12 个月后 SOH
+    const netThen = Math.round(W.nextMid * (1 - P.fee));              // 12 个月后净残值
+    const hold12 = netThen + opYear;                                  // 持有 12 个月等效
+    const gap = netNow - hold12;                                      // >0 → 现在卖更优
+    const critNet = hold12;                                           // 转卖临界净价
+    const critGross = Math.round(critNet / (1 - P.fee));              // 对应挂牌价
+    const monthsToFloor = +((P.soh - W.floorSoh) / (W.sohDecay / 12)).toFixed(1);
+    return {
+      planKey: V.planKey, planName: V.planName,
+      lossYear: V.lossYear, lifeExt: V.lifeExt, costYear: V.costYear,
+      opYear, netNow, sohThen, nextGrade: W.nextGrade, nextPrice: W.nextMid,
+      netThen, hold12, gap, critNet, critGross, monthsToFloor,
+      months: W.window, fee: P.fee, netWithResidual: V.net
+    };
+  }
+
+  /* ---------- 订阅企业（客户视角账号） ----------
+   * 客户侧只看到自己名下的 1 座柜（ESS-JS-008，已出具电池护照、正在撮合转卖）；
+   * 救援大盘、工单派发与其他客户数据不对客户开放。 */
+  const CLIENT = {
+    code: 'ESS-JS-008',
+    company: '苏州吴江纺织厂',
+    contact: '沈岚',
+    title: '设备能源负责人',
+    planLabel: '分成版',
+    planKey: 'split',
+    contract: {
+      no: 'RE-SUB-2026-0418',
+      start: '2026-05-01',
+      end: '2027-04-30',
+      cycle: '按季度结算',
+      sla: '2h 响应 / 4h 到场 / 恢复 ≥8%'
+    },
+    nextVisit: '2026-11-12',
+    visitsLeft: 2
+  };
+
   const api = {
     SITES, STATUS_META, ORDERS, ORDER_META, ALERTS, ALERT_META,
-    PORTFOLIO, FINANCE, ROI, CASHFLOW, PLANS, SUB_PLANS, PASSPORT, GRADES, MOBILE,
-    money, num, buildCells, cellStats, calcRoi,
+    PORTFOLIO, FINANCE, ROI, CASHFLOW, PLANS, SUB_PLANS, PASSPORT, GRADES, RESELL, MOBILE, CLIENT,
+    money, num, buildCells, cellStats, calcRoi, calcResell,
     getSite: c => SITES.find(s => s.code === c),
     totalLoss: () => SITES.reduce((a, s) => a + s.loss, 0),
     recovered: () => 31420,

@@ -185,7 +185,11 @@
     const shot = /shot=1/.test(qs || '');
     const [view, key] = path.split('-');
     if (shot) document.body.classList.add('shot');
-    if (view === 'pc') window.RP_PC.render(key || 'dash');
+    if (view === 'pc') {
+      const rm = /role=(ops|client)/.exec(qs || '');
+      if (rm) window.RP_PC.setRole(rm[1], key || undefined);
+      else window.RP_PC.render(key || 'dash');
+    }
     else if (view === 'app') {
       document.querySelector('.sb-btn[data-view="app"]').click();
       window.RP_APP.go(key || 'home');
@@ -197,7 +201,7 @@
   window.addEventListener('resize', () => window.dispatchEvent(new CustomEvent('rp:resize')));
   window.addEventListener('rp:resize', () => {
     try {
-      document.querySelectorAll('.chart, #cGauge').forEach(d => {
+      document.querySelectorAll('.chart').forEach(d => {
         const inst = echarts.getInstanceByDom(d);
         if (inst) inst.resize();
       });
