@@ -528,8 +528,7 @@
       var rows = [
         { name: '按吨卖 · 黑粉 / 拆解', value: 46, color: 'rgba(232,69,58,.62)' },
         { name: '按 kWh · 健康电池下限', value: 100, color: 'rgba(255,255,255,.20)' },
-        { name: '本方案 · 整柜撮合', value: 197, color: C.accent },
-        { name: '按 kWh · 健康电池上限', value: 450, color: 'rgba(95,201,138,.45)' }
+        { name: '本方案 · 整柜撮合', value: 197, color: C.accent }
       ];
       return {
         grid: { left: 8, right: 78, top: 8, bottom: 4, containLabel: true },
